@@ -35,7 +35,7 @@ Views.companies = {
     return `
       <div class="card co-card pressable" data-co="${c.id}">
         <div class="flex gap-12">
-          <div class="co-logo" style="background:${c.color}22;color:${c.color}">${c.emoji}</div>
+          ${companyLogo(c)}
           <div class="flex-1">
             <div class="flex items-center gap-8">
               <div class="card-title">${esc(c.name)}</div>
@@ -72,15 +72,14 @@ Views.companies = {
 
       <div class="card" style="background:linear-gradient(135deg, ${c.color}26, ${c.color}0d)">
         <div class="flex gap-12">
-          <div class="co-logo" style="background:${c.color}33;color:${c.color};width:56px;height:56px;font-size:26px">
-            ${c.emoji}
-          </div>
+          <button data-co-logo aria-label="로고 변경">${companyLogo(c, 56)}</button>
           <div class="flex-1">
             <div class="card-title" style="font-size:17px">${esc(c.name)}</div>
             <p class="small muted">${esc(c.ko)}</p>
             <div class="co-tags">${c.tags.map((t) => `<span class="badge p-low">${esc(t)}</span>`).join('')}</div>
           </div>
         </div>
+        <p class="small muted-3 mt-8">${icon('camera')} 로고를 탭하면 실제 로고 이미지로 바꿀 수 있습니다</p>
         <div class="mt-12">
           <div class="kv"><b>방문</b><span>${esc(c.visit)}</span></div>
           <div class="kv"><b>위치</b><span>${esc(c.location)}</span></div>
@@ -146,6 +145,41 @@ Views.companies = {
       </div>`;
   },
 
+  /** 로고 교체 시트 */
+  openLogoSheet(id) {
+    const c = COMPANIES.find((x) => x.id === id);
+    const e = companyEntry(id);
+    openSheet(`
+      <h3>${esc(c.name)} 로고</h3>
+      <div style="display:flex;justify-content:center;padding:8px 0 16px">
+        ${companyLogo(c, 84)}
+      </div>
+      <p class="small muted mb-12" style="line-height:1.65">
+        기업 홈페이지나 검색에서 로고 이미지를 저장한 뒤 올리면 교체됩니다.
+        배경이 투명한 PNG가 가장 깔끔합니다. 이미지는 이 기기에만 저장됩니다.
+      </p>
+      <label class="btn block">
+        ${icon('upload')} 로고 이미지 올리기
+        <input type="file" accept="image/*" id="coLogoFile" hidden>
+      </label>
+      ${e.logo ? `<button class="btn danger block mt-8" data-co-logo-reset>
+        ${icon('rotate-ccw')} 기본 로고로 되돌리기</button>` : ''}
+      <button class="btn ghost block mt-8" data-close-sheet>닫기</button>`);
+
+    $('#coLogoFile').onchange = (ev) => {
+      readPhoto(ev.target.files[0], (data) => {
+        e.logo = data; save(); closeSheet(); render();
+        toast('로고를 변경했습니다', 'check');
+      });
+    };
+    const reset = $('[data-co-logo-reset]');
+    if (reset) reset.onclick = () => {
+      delete e.logo; save(); closeSheet(); render();
+      toast('기본 로고로 되돌렸습니다', 'rotate-ccw');
+    };
+    $('[data-close-sheet]').onclick = closeSheet;
+  },
+
   mount() {
     $$('[data-co]').forEach((el) => {
       el.onclick = () => { vs.companyId = el.dataset.co; render(); window.scrollTo(0, 0); };
@@ -162,6 +196,10 @@ Views.companies = {
 
     if (!vs.companyId) return;
     const e = companyEntry(vs.companyId);
+
+    // 로고 교체 (기기에만 저장)
+    const logoBtn = $('[data-co-logo]');
+    if (logoBtn) logoBtn.onclick = () => this.openLogoSheet(vs.companyId);
 
     $$('[data-rate]').forEach((b) => {
       b.onclick = () => {
@@ -232,7 +270,7 @@ Views.questions = {
 
       <div class="card mb-12" style="background:linear-gradient(135deg, ${co.color}22, ${co.color}0a)">
         <div class="flex items-center gap-12">
-          <div class="co-logo" style="background:${co.color}33;color:${co.color}">${co.emoji}</div>
+          ${companyLogo(co)}
           <div class="flex-1">
             <div class="card-title">${esc(co.name)}</div>
             <p class="small muted">${esc(co.visit)}</p>
@@ -1338,6 +1376,17 @@ Views.settings = {
         </div>
       </div>
 
+      <div class="section-label">${icon('info')} 앱 사용법</div>
+      <div class="card">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <div class="row-title">기능 소개 다시 보기</div>
+            <div class="row-sub">15개 메뉴와 숨은 기능 안내</div>
+          </div>
+          <button class="btn small ghost" data-show-intro>${icon('sparkles')} 보기</button>
+        </div>
+      </div>
+
       <div class="section-label">${icon('download')} 데이터 백업</div>
       <div class="card">
         <p class="small muted mb-12" style="line-height:1.65">
@@ -1390,6 +1439,9 @@ Views.settings = {
 
     const ig = $('[data-install-guide]');
     if (ig) ig.onclick = () => showInstallGuide();
+
+    const si = $('[data-show-intro]');
+    if (si) si.onclick = () => showIntro();
 
     const ex = $('[data-export]');
     if (ex) ex.onclick = () => { exportJSON(); toast('백업 파일을 저장했습니다', 'download'); };

@@ -40,6 +40,8 @@ function openSheet(html) {
   $('#sheetBackdrop').classList.add('show');
   sheet.classList.add('show');
   sheet.scrollTop = 0;
+  // 시트 안의 가로 스크롤 칩에도 "더 있음" 표시를 붙인다
+  if (typeof enhanceChipRows === 'function') enhanceChipRows(sheet);
 }
 function closeSheet() {
   $('#sheet').classList.remove('show');
@@ -110,6 +112,78 @@ function ratingStars(value, dataAttr) {
   return `<div class="rating">${[1, 2, 3, 4, 5].map((n) =>
     `<button ${dataAttr}="${n}" class="${n <= value ? 'on' : ''}" aria-label="${n}점">${icon('star')}</button>`
   ).join('')}</div>`;
+}
+
+/* ============================================================
+   기업 로고 타일
+   우선순위: 사용자가 올린 이미지 → 공식 브랜드 마크(SVG) → 워드마크 → 이모지
+   ============================================================ */
+function companyLogo(c, size = 46) {
+  const custom = state.companies?.[c.id]?.logo;
+  const box = `width:${size}px;height:${size}px;font-size:${Math.round(size * 0.47)}px`;
+
+  if (custom) {
+    return `<div class="co-logo co-logo-img" style="${box}">
+      <img src="${custom}" alt="${esc(c.name)} 로고" loading="lazy">
+    </div>`;
+  }
+
+  const L = c.logo;
+
+  // 공식 브랜드 마크 (Simple Icons · CC0)
+  if (L?.path) {
+    return `<div class="co-logo" style="${box};background:${L.bg || 'var(--chip-bg)'}">
+      <svg viewBox="0 0 24 24" fill="${L.color}" stroke="none"
+           style="width:${Math.round(size * 0.54)}px;height:${Math.round(size * 0.54)}px" aria-hidden="true">
+        <path d="${L.path}"/>
+      </svg>
+    </div>`;
+  }
+
+  // 워드마크 타일 — 글자 수에 따라 크기를 맞춘다
+  if (L?.mark) {
+    const n = L.mark.length;
+    const fs = n <= 1 ? size * 0.5 : n <= 4 ? size * 0.29 : n <= 6 ? size * 0.21 : size * 0.166;
+    return `<div class="co-logo co-mark"
+      style="${box};background:${L.color}1f;color:${L.color};font-size:${fs.toFixed(1)}px">
+      ${esc(L.mark)}
+    </div>`;
+  }
+
+  // 기업이 아닌 프로그램(특강·네트워킹)은 이모지 유지
+  return `<div class="co-logo" style="${box};background:${c.color}22;color:${c.color}">${c.emoji}</div>`;
+}
+
+/* ============================================================
+   가로 스크롤 칩 행 — "옆에 더 있음" 표시
+   render() 이후 호출하면 넘치는 .chip-row를 감싸고
+   오른쪽 페이드 + 화살표 버튼을 붙인다.
+   ============================================================ */
+function enhanceChipRows(root = document) {
+  $$('.chip-row', root).forEach((row) => {
+    if (row.parentElement?.classList.contains('chip-scroll')) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'chip-scroll';
+    row.parentNode.insertBefore(wrap, row);
+    wrap.appendChild(row);
+    wrap.insertAdjacentHTML('beforeend',
+      `<button class="chip-next" aria-label="오른쪽으로 더 보기" tabindex="-1">${icon('chevron-right')}</button>`);
+
+    const update = () => {
+      // 소수점 오차를 감안해 2px 여유를 둔다
+      const more = row.scrollLeft + row.clientWidth < row.scrollWidth - 2;
+      wrap.classList.toggle('more', more);
+    };
+    update();
+    row.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+
+    wrap.querySelector('.chip-next').onclick = () => {
+      row.scrollBy({ left: Math.round(row.clientWidth * 0.7), behavior: 'smooth' });
+      haptic();
+    };
+  });
 }
 
 /* ---------- 빈 상태 ---------- */

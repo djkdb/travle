@@ -128,9 +128,7 @@ Views.dashboard = {
       <div class="section-label">${icon('building')} 오늘의 기업</div>
       <div class="card pressable" data-company="${todayCompany.id}">
         <div class="flex gap-12">
-          <div class="co-logo" style="background:${todayCompany.color}22;color:${todayCompany.color}">
-            ${todayCompany.emoji}
-          </div>
+          ${companyLogo(todayCompany)}
           <div class="flex-1">
             <div class="card-title">${esc(todayCompany.name)}</div>
             <p class="small muted">${esc(todayCompany.field)}</p>

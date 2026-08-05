@@ -40,6 +40,7 @@ function render() {
   $('#headerSub').textContent = view.sub;
 
   view.mount?.();
+  enhanceChipRows(app);
   renderTabbar();
 }
 
@@ -419,23 +420,96 @@ function init() {
   render();
   renderInstallBanner();
 
-  // 첫 방문 안내
+  // 첫 방문 기능 소개
   if (!localStorage.getItem('sv-master-welcomed')) {
     localStorage.setItem('sv-master-welcomed', '1');
-    setTimeout(() => {
-      openModal('환영합니다 ✈️', `
-        <p class="small muted" style="line-height:1.8">
-          <b>${esc(TRIP.program)}</b>을 위한 올인원 앱입니다.<br><br>
-          · 모든 데이터는 <b>이 기기에만</b> 저장되며 오프라인에서도 동작합니다.<br>
-          · 하단 <b>더보기</b>에서 15개 메뉴 전체를 볼 수 있습니다.<br>
-          · 오른쪽 아래 <b>+ 버튼</b>으로 빠르게 기록하세요.<br>
-          · 상단 <b>돋보기</b>로 모든 내용을 한 번에 검색합니다.<br><br>
-          출국 준비부터 귀국 보고서까지, 여기서 끝내세요!
-        </p>
-        <button class="btn block mt-16" data-welcome-ok>${icon('check')} 시작하기</button>`, 'plane');
-      $('[data-welcome-ok]').onclick = closeModal;
-    }, 700);
+    setTimeout(showIntro, 650);
   }
+}
+
+/* ============================================================
+   기능 소개 — 2페이지
+   "더보기"에 숨어 있는 메뉴가 많아 첫 진입 시 한 번만 보여준다.
+   ============================================================ */
+function showIntro() {
+  const pages = [
+    {
+      icon: 'plane', title: '준비부터 보고서까지, 여기서',
+      body: `<p class="small muted" style="line-height:1.75">
+          <b>${esc(TRIP.program)}</b>을 위한 올인원 앱입니다.
+          모든 기록은 <b>이 기기에만</b> 저장되고, 비행기 안에서도 오프라인으로 동작합니다.
+        </p>
+        <div class="intro-grid mt-16">
+          ${[
+            ['calendar', '일정', '10일 타임라인 · 메모 · 사진'],
+            ['shopping-bag', '준비물', '49개 체크리스트'],
+            ['building', '기업', '11개 방문지 상세 정보'],
+            ['help-circle', '질문', '방문지별 227개 질문'],
+          ].map(([ic, t, s]) => `
+            <div class="intro-cell">
+              <span class="ic">${icon(ic)}</span>
+              <b>${t}</b><span>${s}</span>
+            </div>`).join('')}
+        </div>`,
+    },
+    {
+      icon: 'grid', title: '숨어 있는 메뉴가 더 있어요',
+      body: `<p class="small muted" style="line-height:1.75">
+          하단 <b>더보기</b>를 누르면 아래 메뉴가 모두 나옵니다.
+        </p>
+        <div class="intro-grid mt-12">
+          ${[
+            ['cpu', '프로젝트', '추천 주제 6개 + 초안'],
+            ['languages', '영어', '회화 · 발음 · 퀴즈'],
+            ['map', '가이드', '팁 · 치안 · 비상연락'],
+            ['wallet', '경비', '지출 · 환율 계산기'],
+            ['book-open', '일기', '하루 기록 · 사진'],
+            ['users', '회의', '회의록 · 할 일'],
+          ].map(([ic, t, s]) => `
+            <div class="intro-cell">
+              <span class="ic">${icon(ic)}</span>
+              <b>${t}</b><span>${s}</span>
+            </div>`).join('')}
+        </div>
+        <div class="card mt-12" style="padding:12px">
+          <div class="flex items-center gap-10" style="padding:4px 0">
+            <span class="intro-hint">${icon('search')}</span>
+            <span class="small">상단 <b>돋보기</b> — 모든 탭을 한 번에 검색</span>
+          </div>
+          <div class="flex items-center gap-10" style="padding:4px 0">
+            <span class="intro-hint">${icon('plus')}</span>
+            <span class="small">오른쪽 아래 <b>+ 버튼</b> — 지출·일기 빠른 기록</span>
+          </div>
+        </div>`,
+    },
+  ];
+
+  let i = 0;
+  const show = () => {
+    const p = pages[i];
+    const last = i === pages.length - 1;
+    openModal(p.title, `
+      ${p.body}
+      <div class="intro-actions">
+        <div class="intro-dots">
+          ${pages.map((_, n) => `<span class="${n === i ? 'on' : ''}"></span>`).join('')}
+        </div>
+        <div class="flex gap-8">
+          ${i > 0 ? '<button class="btn ghost flex-1" data-intro-prev>이전</button>' : ''}
+          <button class="btn flex-1" data-intro-next>
+            ${last ? `${icon('check')} 시작하기` : '다음'}
+          </button>
+        </div>
+      </div>`, p.icon);
+
+    $('[data-intro-next]').onclick = () => {
+      if (last) { closeModal(); return; }
+      i++; show();
+    };
+    const prev = $('[data-intro-prev]');
+    if (prev) prev.onclick = () => { i--; show(); };
+  };
+  show();
 }
 
 /* ---------- Service Worker (오프라인) ---------- */
