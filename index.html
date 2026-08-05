@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>실리콘밸리 마스터 · 2026 충북 글로벌 기업탐방</title>
+  <meta name="description" content="2026 충북 대학생 글로벌 기업탐방(미국 서부 실리콘밸리) 올인원 컴패니언 앱" />
+
+  <!-- PWA / iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="SV Master" />
+  <meta name="theme-color" content="#0a0a12" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%230a84ff'/%3E%3Ctext x='90' y='118' font-size='84' text-anchor='middle'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+
+  <!-- Inter (온라인일 때만 로드, 오프라인에서는 시스템 폰트로 자연스럽게 대체) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- 배경 장식 (glassmorphism blobs) -->
+  <div class="bg-decor" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- 상단 헤더 -->
+  <header class="app-header glass">
+    <div class="header-inner">
+      <button class="icon-btn header-back hidden" id="headerBack" aria-label="뒤로"></button>
+      <div class="header-title-wrap">
+        <h1 id="headerTitle">실리콘밸리 마스터</h1>
+        <p id="headerSub">2026 충북 글로벌 기업탐방</p>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btnSearch" aria-label="전역 검색"></button>
+        <button class="icon-btn" id="btnTheme" aria-label="테마 전환"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 뷰 -->
+  <main id="app" class="app-main" role="main"></main>
+
+  <!-- FAB -->
+  <button class="fab" id="fab" aria-label="빠른 작업"></button>
+
+  <!-- 하단 탭바 -->
+  <nav class="tabbar glass" id="tabbar" role="tablist"></nav>
+
+  <!-- 바텀시트 / 모달 / 토스트 -->
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <div class="sheet glass-strong" id="sheet" role="dialog" aria-modal="true"></div>
+
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal glass-strong" id="modal" role="dialog" aria-modal="true"></div>
+
+  <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+  <!-- 스크립트 (컴포넌트 구조) -->
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/views2.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
