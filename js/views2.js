@@ -1325,6 +1325,19 @@ Views.settings = {
         </div>
       </div>
 
+      <div class="section-label">${icon('plane')} 앱으로 설치</div>
+      <div class="card">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <div class="row-title">홈 화면에 추가</div>
+            <div class="row-sub">${isStandalone() ? '이미 앱으로 실행 중입니다 ✓' : '전체화면 · 오프라인 실행'}</div>
+          </div>
+          <button class="btn small ${isStandalone() ? 'ghost' : ''}" data-install-guide>
+            ${icon('download')} 방법 보기
+          </button>
+        </div>
+      </div>
+
       <div class="section-label">${icon('download')} 데이터 백업</div>
       <div class="card">
         <p class="small muted mb-12" style="line-height:1.65">
@@ -1375,6 +1388,9 @@ Views.settings = {
     const tt = $('[data-toggle-theme]');
     if (tt) tt.onclick = () => toggleTheme();
 
+    const ig = $('[data-install-guide]');
+    if (ig) ig.onclick = () => showInstallGuide();
+
     const ex = $('[data-export]');
     if (ex) ex.onclick = () => { exportJSON(); toast('백업 파일을 저장했습니다', 'download'); };
 
@@ -1386,7 +1402,7 @@ Views.settings = {
         importJSON(file, (ok, err) => {
           if (ok) {
             applyTheme();
-            render(); renderTabbar();
+            render(); renderTabbar(); renderInstallBanner();
             toast('데이터를 가져왔습니다', 'upload');
           } else {
             toast(`가져오기 실패: ${err}`, 'alert-triangle');
@@ -1398,7 +1414,7 @@ Views.settings = {
     const rs = $('[data-reset]');
     if (rs) rs.onclick = () => {
       confirmModal('전체 초기화', '모든 기록이 삭제됩니다. 정말 초기화할까요?', () => {
-        resetAll(); applyTheme(); render(); renderTabbar();
+        resetAll(); applyTheme(); render(); renderTabbar(); renderInstallBanner();
         toast('초기화했습니다', 'rotate-ccw');
       });
     };

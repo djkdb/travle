@@ -674,26 +674,78 @@ Views.checklist = {
    5. 반도체 프로젝트
    ============================================================ */
 Views.project = {
-  title: '반도체 프로젝트',
-  sub: '미국 vs 한국 반도체 산업 비교',
+  title: '팀 프로젝트',
+  get sub() {
+    const t = PROJECT_TOPICS.find((x) => x.id === state.projectTopic);
+    return t ? t.title : '주제 미정 · 추천 주제 6개 준비됨';
+  },
 
   render() {
-    const sec = PROJECT_SECTIONS.find((s) => s.id === vs.projectSection);
-    const val = state.project[sec.id] || '';
     const s = stats.project();
+    const topic = PROJECT_TOPICS.find((x) => x.id === state.projectTopic);
 
     return `
       <div class="card mb-12" style="background:linear-gradient(135deg, rgba(94,92,230,.18), rgba(10,132,255,.12))">
-        <div class="card-title">${icon('cpu')} 미국 vs 한국 반도체 산업 비교</div>
-        <p class="small muted mt-8">${esc(TRIP.team)} · 팀 프로젝트</p>
-        <div class="flex gap-8 mt-12">
+        <div class="card-title">${icon('cpu')} ${esc(topic ? topic.title : '팀 프로젝트')}</div>
+        <p class="small muted mt-8">${esc(TRIP.team)}</p>
+        <div class="flex gap-8 mt-12" style="flex-wrap:wrap">
           <span class="badge t-company">${icon('users')}팀원 ${TRIP.memberCount}명</span>
           <span class="badge t-activity">${icon('file-text')}${s.done}/${s.total} 섹션 작성</span>
+          ${topic ? `<span class="badge t-tour">${icon('check')}주제 확정</span>`
+            : `<span class="badge p-mid">${icon('help-circle')}주제 미정</span>`}
         </div>
         ${progressBar(s.done, s.total, 'purple')}
       </div>
 
-      <div class="chip-row">
+      ${!topic ? `
+        <div class="card pressable" data-open-topics
+             style="border-color:rgba(191,90,242,.45);background:linear-gradient(135deg, rgba(191,90,242,.16), rgba(10,132,255,.08))">
+          <div class="flex items-center gap-12">
+            <div class="stat-icon" style="margin:0;background:rgba(191,90,242,.22);color:var(--purple)">
+              ${icon('sparkles')}
+            </div>
+            <div class="flex-1">
+              <div class="card-title">아직 주제를 안 정했나요?</div>
+              <p class="small muted mt-8" style="line-height:1.6">
+                이번 일정에 맞춰 짠 <b>추천 주제 ${PROJECT_TOPICS.length}개</b>가 준비되어 있습니다.
+                고르면 개요·자료조사·발표구성·역할분담 초안이 자동으로 채워집니다.
+              </p>
+            </div>
+            ${icon('chevron-right')}
+          </div>
+        </div>` : `
+        <div class="card pressable" data-open-topics>
+          <div class="flex items-center gap-10">
+            ${icon('sparkles')}
+            <div class="flex-1">
+              <div class="row-title">${esc(topic.emoji)} ${esc(topic.title)}</div>
+              <div class="row-sub">주제 변경 · 다른 후보 보기</div>
+            </div>
+            ${icon('chevron-right')}
+          </div>
+        </div>`}
+
+      ${this.renderEditor()}
+
+      <div class="section-label">${icon('lightbulb')} 프로젝트 팁</div>
+      <div class="card">
+        <p class="small muted" style="line-height:1.7">
+          · 주제를 고르면 <b>개요 · 자료조사 · 발표자료 · 역할분담</b> 4개 섹션이 초안으로 채워집니다.<br>
+          · 탐방 중에는 <b>회의록</b>과 <b>기업별 조사</b>를 그날그날 채우는 게 가장 효율적입니다.<br>
+          · 현장에서 들은 말은 <b>[질문] 탭의 답변 메모</b>에 바로 적어두면 보고서로 옮기기 쉽습니다.<br>
+          · 귀국 후 <b>보고서 초안</b>은 각 섹션을 이어 붙이면 바로 완성됩니다.
+        </p>
+      </div>
+    `;
+  },
+
+  /** 섹션 편집기 */
+  renderEditor() {
+    const sec = PROJECT_SECTIONS.find((s) => s.id === vs.projectSection) || PROJECT_SECTIONS[0];
+    const val = state.project[sec.id] || '';
+
+    return `
+      <div class="chip-row mt-12">
         ${PROJECT_SECTIONS.map((x) => {
           const filled = (state.project[x.id] || '').trim().length > 20;
           return `<button class="chip ${x.id === vs.projectSection ? 'active' : ''}" data-psec="${x.id}">
@@ -720,21 +772,144 @@ Views.project = {
             ? `<button class="btn ghost small" data-fill-template>${icon('sparkles')} 템플릿 채우기</button>` : ''}
           <button class="btn ghost small" data-copy-sec>${icon('copy')} 복사</button>
         </div>
+      </div>`;
+  },
+
+  /** 추천 주제 목록 시트 */
+  openTopics() {
+    openSheet(`
+      <h3>${icon('sparkles')} 추천 주제 ${PROJECT_TOPICS.length}개</h3>
+      <p class="small muted mb-12" style="line-height:1.6">
+        이번 연수 방문지를 기준으로 짠 가안입니다. 회의 때 팀원 ${TRIP.memberCount}명이 함께 보고 고르세요.
+        고른 뒤에도 언제든 바꿀 수 있습니다.
+      </p>
+      ${PROJECT_TOPICS.map((t) => `
+        <div class="card pressable" data-topic="${t.id}" style="border-color:${t.color}44">
+          <div class="flex gap-10">
+            <div class="co-logo" style="background:${t.color}22;color:${t.color};width:40px;height:40px;font-size:19px">
+              ${t.emoji}
+            </div>
+            <div class="flex-1">
+              <div class="card-title" style="font-size:14.5px;line-height:1.4">${esc(t.title)}</div>
+              <p class="small muted-3" style="margin-top:3px">${esc(t.tagline)}</p>
+              <div class="flex gap-6 mt-8" style="flex-wrap:wrap">
+                <span class="badge ${t.fit === '높음' ? 't-tour' : 'p-mid'}">일정 적합도 ${esc(t.fit)}</span>
+                <span class="badge p-low">${icon('building')}방문지 ${t.visits.length}곳</span>
+                ${state.projectTopic === t.id ? `<span class="badge t-company">${icon('check')}선택됨</span>` : ''}
+              </div>
+            </div>
+            ${icon('chevron-right')}
+          </div>
+        </div>`).join('')}
+      <button class="btn ghost block mt-12" data-close-sheet>닫기</button>
+    `);
+
+    $$('[data-topic]').forEach((el) => {
+      el.onclick = () => this.openTopicDetail(el.dataset.topic);
+    });
+    $('[data-close-sheet]').onclick = closeSheet;
+  },
+
+  /** 주제 상세 + 적용 */
+  openTopicDetail(id) {
+    const t = PROJECT_TOPICS.find((x) => x.id === id);
+    const visits = t.visits.map((v) => COMPANIES.find((c) => c.id === v)).filter(Boolean);
+    const bullet = (items, color) => items.map((x) =>
+      `<div class="flex gap-8" style="padding:5px 0">
+        <span style="color:${color};flex:none">•</span>
+        <span class="small" style="line-height:1.6">${esc(x)}</span></div>`).join('');
+
+    openSheet(`
+      <button class="btn ghost small mb-12" data-topic-back>${icon('arrow-left')} 목록으로</button>
+
+      <div class="flex gap-10 mb-12">
+        <div class="co-logo" style="background:${t.color}22;color:${t.color};width:44px;height:44px;font-size:21px">
+          ${t.emoji}
+        </div>
+        <div class="flex-1">
+          <h3 style="margin-bottom:2px">${esc(t.title)}</h3>
+          <p class="small muted-3">${esc(t.tagline)}</p>
+        </div>
       </div>
 
-      <div class="section-label">${icon('lightbulb')} 프로젝트 팁</div>
-      <div class="card">
-        <p class="small muted" style="line-height:1.7">
-          · 탐방 중에는 <b>회의록</b>과 <b>기업별 조사</b>를 그날그날 채우는 게 가장 효율적입니다.<br>
-          · <b>LAM Research</b>(장비)와 <b>Newracom</b>(팹리스)이 이번 일정의 핵심 비교 축입니다.<br>
-          · <b>Intel Museum</b>은 미국 반도체 역사 자료를 얻기 가장 좋은 곳입니다.<br>
-          · 귀국 후 <b>보고서 초안</b>은 각 섹션을 이어 붙이면 바로 완성됩니다.
-        </p>
+      <div class="card" style="border-color:${t.color}55;background:${t.color}10">
+        <label class="field-label">핵심 질문</label>
+        <p class="small" style="line-height:1.7;font-weight:600">${esc(t.core)}</p>
       </div>
-    `;
+
+      <div class="section-label">${icon('lightbulb')} 왜 이 주제인가</div>
+      <div class="card"><p class="small" style="line-height:1.75">${esc(t.why)}</p></div>
+
+      <div class="section-label">${icon('building')} 활용 방문지</div>
+      <div class="card">
+        <div class="flex gap-6" style="flex-wrap:wrap">
+          ${visits.map((c) => `<span class="badge p-low">${c.emoji} ${esc(c.name)}</span>`).join('')}
+        </div>
+      </div>
+
+      <div class="section-label">${icon('search')} 조사 방법</div>
+      <div class="card">${bullet(t.method, t.color)}</div>
+
+      <div class="section-label">${icon('file-text')} 예상 결과물</div>
+      <div class="card">${bullet(t.outcome, t.color)}</div>
+
+      <div class="section-label">${icon('mic')} 발표 목차 (가안)</div>
+      <div class="card">
+        ${t.outline.map((x, i) => `<div class="flex gap-8" style="padding:5px 0">
+          <span class="tabular" style="color:${t.color};flex:none;font-weight:700;width:18px">${i + 1}</span>
+          <span class="small" style="line-height:1.6">${esc(x)}</span></div>`).join('')}
+      </div>
+
+      <div class="section-label">${icon('users')} 역할분담 (3인)</div>
+      <div class="card">${bullet(t.roles, t.color)}</div>
+
+      <div class="section-label">${icon('alert-triangle')} 주의할 점</div>
+      <div class="card" style="border-color:rgba(255,159,10,.3)">
+        <p class="small" style="line-height:1.75">${esc(t.risk)}</p>
+      </div>
+
+      <button class="btn block mt-16" data-apply-topic="${t.id}">
+        ${icon('sparkles')} 이 주제로 시작하기
+      </button>
+      <p class="small muted-3 mt-8" style="text-align:center">
+        개요 · 자료조사 · 발표자료 · 역할분담 4개 섹션이 초안으로 채워집니다
+      </p>
+    `);
+
+    $('[data-topic-back]').onclick = () => this.openTopics();
+    $('[data-apply-topic]').onclick = () => this.applyTopic(t);
+  },
+
+  /** 주제 초안을 프로젝트 섹션에 채워 넣는다 */
+  applyTopic(t) {
+    const targets = ['overview', 'research', 'slides', 'roles'];
+    const hasContent = targets.some((k) => (state.project[k] || '').trim().length > 20);
+
+    const write = () => {
+      targets.forEach((k) => { if (t.seed[k]) state.project[k] = t.seed[k]; });
+      state.projectTopic = t.id;
+      vs.projectSection = 'overview';
+      vs.projectPreview = true;
+      save();
+      closeSheet();
+      render();
+      window.scrollTo(0, 0);
+      toast('주제와 초안을 적용했습니다', 'sparkles');
+    };
+
+    if (hasContent) {
+      confirmModal('초안 덮어쓰기',
+        '개요 · 자료조사 · 발표자료 · 역할분담에 이미 작성한 내용이 있습니다. 초안으로 덮어쓸까요?',
+        write);
+    } else {
+      write();
+    }
   },
 
   mount() {
+    const openT = $('[data-open-topics]');
+    if (openT) openT.onclick = () => this.openTopics();
+
     $$('[data-psec]').forEach((el) => {
       el.onclick = () => { vs.projectSection = el.dataset.psec; render(); };
     });

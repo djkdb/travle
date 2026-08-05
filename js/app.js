@@ -101,6 +101,88 @@ function openMoreSheet() {
   });
 }
 
+/* ============================================================
+   홈 화면 추가 안내 배너
+   - 이미 홈 화면에서 실행 중(standalone)이면 표시하지 않는다
+   - 사용자가 닫으면 다시 표시하지 않는다
+   ============================================================ */
+
+/** 홈 화면에서 실행 중인지 (iOS Safari / 표준 PWA 모두 대응) */
+function isStandalone() {
+  return window.navigator.standalone === true ||
+         window.matchMedia('(display-mode: standalone)').matches;
+}
+
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+function renderInstallBanner() {
+  const old = $('#installBanner');
+  if (old) old.remove();
+  document.body.classList.remove('has-install-banner');
+  if (state.installDismissed || isStandalone()) return;
+  document.body.classList.add('has-install-banner');
+
+  const el = document.createElement('div');
+  el.id = 'installBanner';
+  el.className = 'install-banner glass-strong';
+  el.innerHTML = `
+    <div class="ib-icon">${icon('plane')}</div>
+    <div class="ib-text">
+      <b>앱처럼 쓰세요</b>
+      <span>${isIOS
+        ? `공유 ${icon('share')} → 홈 화면에 추가`
+        : '브라우저 메뉴 → 홈 화면에 추가'}</span>
+    </div>
+    <button class="btn small" id="ibHow">방법</button>
+    <button class="icon-btn" id="ibClose" aria-label="닫기">${icon('x')}</button>`;
+  document.body.appendChild(el);
+
+  requestAnimationFrame(() => el.classList.add('show'));
+
+  $('#ibClose').onclick = () => {
+    el.classList.remove('show');
+    document.body.classList.remove('has-install-banner');
+    setTimeout(() => el.remove(), 300);
+    state.installDismissed = true;
+    save();
+  };
+  $('#ibHow').onclick = showInstallGuide;
+}
+
+/** 설치 방법 상세 안내 */
+function showInstallGuide() {
+  const steps = isIOS
+    ? [
+        ['Safari로 이 페이지를 엽니다', '크롬·인앱 브라우저에서는 홈 화면 추가가 되지 않습니다'],
+        [`화면 아래 공유 버튼 ${icon('share')} 을 누릅니다`, '네모에서 화살표가 위로 나오는 아이콘'],
+        ['목록을 내려 <b>홈 화면에 추가</b>를 선택', '"Add to Home Screen"'],
+        ['오른쪽 위 <b>추가</b>를 누릅니다', '홈 화면에 아이콘이 생깁니다'],
+      ]
+    : [
+        ['브라우저 메뉴(⋮)를 엽니다', ''],
+        ['<b>앱 설치</b> 또는 <b>홈 화면에 추가</b>를 선택', ''],
+        ['설치를 확인합니다', ''],
+      ];
+
+  openModal('홈 화면에 추가하기', `
+    <p class="small muted mb-12" style="line-height:1.7">
+      홈 화면에 추가하면 <b>주소창 없는 전체화면</b>으로 실행되고,
+      비행기 안처럼 인터넷이 없어도 그대로 동작합니다.
+    </p>
+    ${steps.map(([t, sub], i) => `
+      <div class="flex gap-10" style="padding:10px 0;border-bottom:1px solid var(--stroke)">
+        <span class="ib-step">${i + 1}</span>
+        <div class="flex-1">
+          <div class="small" style="font-weight:600;line-height:1.5">${t}</div>
+          ${sub ? `<div class="small muted-3" style="margin-top:2px">${sub}</div>` : ''}
+        </div>
+      </div>`).join('')}
+    <button class="btn block mt-16" data-ig-ok>${icon('check')} 알겠습니다</button>`, 'plane');
+
+  $('[data-ig-ok]').onclick = closeModal;
+}
+
 /* ---------- 테마 ---------- */
 function applyTheme() {
   document.documentElement.dataset.theme = state.theme;
@@ -191,6 +273,13 @@ function buildSearchIndex() {
       action: () => { vs.projectSection = s.id; switchTab('project'); },
     });
   });
+
+  PROJECT_TOPICS.forEach((t) => idx.push({
+    type: '추천 주제', icon: 'sparkles', tab: 'project',
+    title: t.title, sub: t.tagline,
+    text: `${t.title} ${t.tagline} ${t.core} ${t.why} ${t.outline.join(' ')}`,
+    action: () => { switchTab('project'); setTimeout(() => Views.project.openTopicDetail(t.id), 280); },
+  }));
 
   state.meetings.forEach((m) => idx.push({
     type: '회의', icon: 'users', tab: 'meetings',
@@ -328,6 +417,7 @@ function init() {
   document.addEventListener('visibilitychange', () => { if (document.hidden) save(true); });
 
   render();
+  renderInstallBanner();
 
   // 첫 방문 안내
   if (!localStorage.getItem('sv-master-welcomed')) {
