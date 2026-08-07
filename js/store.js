@@ -4,7 +4,7 @@
    ============================================================ */
 
 const STORAGE_KEY = 'sv-master-v1';
-const SCHEMA_VERSION = 2;
+const SCHEMA_VERSION = 3;
 
 /** 고유 ID 생성 */
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -69,6 +69,14 @@ function createInitialState() {
    시드 데이터가 바뀌어도 사용자가 체크해둔 기록은 유지한다.
    버전별 변환 함수를 순서대로 적용한다. */
 const MIGRATIONS = {
+  // v3: 입국심사 답변을 인솔자 안내대로 "Tour." 한 단어로 통일
+  3: (s) => {
+    if (!Array.isArray(s.travelCheck)) return;
+    s.travelCheck = s.travelCheck.map((c) =>
+      (c.name === '입국심사: 방문목적 "University business tour" 답변 준비'
+        ? { ...c, name: '입국심사: 방문목적은 "Tour." 한 단어로 (인솔자 안내)' }
+        : c));
+  },
   // v2: 대행사 제공 품목(어댑터)·개인 지참 제외 품목(노트북) 정리, 현금/팁 항목 축소
   2: (s) => {
     const removed = [
