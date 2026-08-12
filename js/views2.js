@@ -1039,11 +1039,10 @@ Views.resources = {
       <div class="card">
         ${[
           ['LAM Research 공식', 'https://www.lamresearch.com'],
-          ['Enovix', 'https://www.enovix.com'],
           ['Apple Park Visitor Center', 'https://www.apple.com/retail/appleparkvisitorcenter/'],
           ['Intel Museum', 'https://www.intel.com/content/www/us/en/company-overview/intel-museum.html'],
           ['Genentech', 'https://www.gene.com'],
-          ['Newracom', 'https://newracom.com'],
+          ['HP', 'https://www.hp.com'],
           ['Stanford University', 'https://www.stanford.edu'],
           ['UCLA', 'https://www.ucla.edu'],
           ['요세미티 국립공원 (NPS)', 'https://www.nps.gov/yose/'],

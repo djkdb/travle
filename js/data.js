@@ -18,7 +18,7 @@ const TRIP = {
   memberCount: 3,
   groupSize: '대학생 20명 + 인솔자',
   agency: '㈜블루여행클럽 · 충북인재평생교육진흥원',
-  missionDue: '2026-08-13T12:00:00+09:00',   // 팀별 미션수행 계획서 제출 마감
+  missionDue: '2026-08-14T12:00:00+09:00',   // 팀별 미션수행 계획서 제출 마감 (8/13 → 8/14 연장)
   missionEmail: '2307soul@naver.com',
 };
 
@@ -57,14 +57,14 @@ const SCHEDULE = [
     date: '2026-08-17', day: 'DAY 1', city: '인천 → 샌프란시스코',
     hotel: 'sv',
     items: [
-      { id: 'd1-1', time: '15:30', type: 'flight', title: '인천국제공항 집결 · 탑승수속', place: 'ICN 제1여객터미널 3층 C카운터', desc: '에어프레미아 카운터 앞 집결. 여권·ESTA 확인 후 단체 수속. 보조배터리는 반드시 기내 가방에!' },
-      { id: 'd1-2', time: '17:00', type: 'meal', title: '석식 (자유식)', place: '인천국제공항', desc: '자유식 — 현금이 지급됩니다. 출국 전 마지막 한식.' },
-      { id: 'd1-3', time: '19:15', type: 'flight', title: 'YP111 출발 (인천 → 샌프란시스코)', place: '에어프레미아', desc: '비행 약 10시간. 기내식 2회 제공(생수·커피 무료, 주류·스낵은 유상). 기내에서 입국심사 모범답안 복습 ([영어] 탭).' },
+      { id: 'd1-1', time: '15:30', type: 'flight', title: '인천국제공항 집결 · 탑승수속', place: 'ICN 제1터미널 3층 C카운터', desc: '에어프레미아 카운터 앞 집결. 여권·ESTA 확인 후 단체 수속. 보조배터리는 반드시 기내 가방에!' },
+      { id: 'd1-2', time: '18:00', type: 'meal', title: '석식 (자유식)', place: '인천국제공항', desc: '자유식 — 현금이 지급됩니다. 출국 전 마지막 한식.' },
+      { id: 'd1-3', time: '19:15', type: 'flight', title: 'YP111 출발 (인천 → 샌프란시스코)', place: '에어프레미아', desc: '비행 약 10시간, 기내식 제공. 기내에서 입국심사 모범답안 복습 ([영어] 탭).' },
       { id: 'd1-4', time: '14:15', type: 'flight', title: '샌프란시스코 국제공항 도착', place: 'SFO', desc: '같은 날 오후 도착(시차 -16시간). 좌석 앞주머니·머리 위 짐칸에 두고 내리는 물건 없는지 확인.' },
       { id: 'd1-5', time: '15:00', type: 'move', title: '입국 수속 및 가이드 미팅', place: 'SFO 입국장', desc: '비거주자 줄에 도착순 정렬 → 모자 벗고 사진·지문 촬영. 방문 목적은 "Tour." 한 단어로. 가이드 피켓명 "2026 충북 대학생 글로벌 기업탐방 해외연수".' },
       { id: 'd1-6', time: '16:00', type: 'tour', title: '샌프란시스코 시내투어', place: '케이블카 · 피어39 · 팰리스오브파인아트 · 금문교', desc: '금문교는 여름에도 강풍·안개. 바람막이 필수. 차 안에 소지품 두지 말 것!' },
-      { id: 'd1-7', time: '19:00', type: 'meal', title: "석식 — Nick's Light House", place: '샌프란시스코', desc: '깔라마리튀김(에피타이저) + 클램차우더 수프 + 새우크림파스타 + 샐러드 + 소다' },
-      { id: 'd1-8', time: '21:00', type: 'hotel', title: '호텔 투숙', place: 'Crowne Plaza Silicon Valley N — Union City', desc: '2인 1실. 와이파이 비밀번호·조식당 위치 공지 확인. 치약·칫솔은 미제공이니 개인 준비물 사용.' },
+      { id: 'd1-7', time: '18:00', type: 'meal', title: "석식 — Nick's Light House", place: '샌프란시스코', desc: '깔라마리튀김 + 클램차우더 수프 + 새우크림파스타 + 샐러드 + 소다' },
+      { id: 'd1-8', time: '19:00', type: 'hotel', title: '호텔 투숙', place: 'Crowne Plaza Silicon Valley N — Union City', desc: '2인 1실. 와이파이 비밀번호·조식당 위치 공지 확인. 치약·칫솔은 미제공.' },
     ],
   },
   {
@@ -72,59 +72,59 @@ const SCHEDULE = [
     hotel: 'sv',
     items: [
       { id: 'd2-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
-      { id: 'd2-2', time: '10:30', type: 'company', title: '기업방문 1 · [반도체] LAM Research', place: 'Fremont, CA', companyId: 'lam', desc: '식각·증착·웨이퍼 세정 장비의 글로벌 강자. 현직자 간담회 포함. 단정한 복장 + 앞이 막힌 신발 필수!' },
-      { id: 'd2-3', time: '12:30', type: 'meal', title: '중식 — Chick-fil-A', place: '실리콘밸리', desc: '치킨샌드위치 + 웻지 감자 + 소다. 미국 국민 치킨 체인.' },
-      { id: 'd2-4', time: '14:30', type: 'company', title: '기업방문 2 · [AI] Google 또는 PhantomAI', place: '실리콘밸리 (협의 중)', companyId: 'phantomai', desc: '※ 방문 기업 협의 중 — 확정 시 공지. PhantomAI는 자율주행·ADAS 소프트웨어를 개발하는 한인 기업.' },
-      { id: 'd2-5', time: '16:00', type: 'company', title: 'Apple Park Visitor Center', place: 'Cupertino, CA', companyId: 'apple', desc: 'AR로 보는 애플파크, 애플실리콘 전시. 한정판 굿즈는 여기서만 판매 ([쇼핑] 탭).' },
+      { id: 'd2-2', time: '10:00', type: 'company', title: '애플 비지터센터', place: 'Cupertino, CA', companyId: 'apple', desc: 'AR로 보는 애플파크, 애플실리콘 전시. 한정판 굿즈는 여기서만 판매 ([쇼핑] 탭).' },
+      { id: 'd2-3', time: '12:30', type: 'meal', title: '중식 — Chick-fil-A', place: '실리콘밸리', desc: '치킨샌드위치 + 웻지 감자 + 소다' },
+      { id: 'd2-4', time: '14:30', type: 'company', title: '기업방문 1 · [AI] Google', place: 'Mountain View, CA', companyId: 'google', desc: 'AI 퍼스트 빅테크. 자체 설계 칩 TPU까지 아우르는 AI 인프라 스택을 확인할 기회.' },
+      { id: 'd2-5', time: '16:00', type: 'company', title: 'Google Experience', place: 'Googleplex, Mountain View', companyId: 'google', desc: '구글 방문자 체험관 & 캠퍼스. 안드로이드 조형물 정원에서 단체사진.' },
       { id: 'd2-6', time: '18:00', type: 'meal', title: '석식 — Newark Buffet', place: 'Newark, CA', desc: 'Seafood Buffet. 해산물 뷔페.' },
-      { id: 'd2-7', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'Crowne Plaza Silicon Valley N', desc: '오늘 탐방 메모 정리 — [기업탐방] 탭에 인상 깊었던 점 기록.' },
+      { id: 'd2-7', time: '19:00', type: 'hotel', title: '호텔 투숙', place: 'Crowne Plaza Silicon Valley N', desc: '오늘 탐방 메모 정리 — [기업탐방] 탭에 인상 깊었던 점 기록.' },
     ],
   },
   {
     date: '2026-08-19', day: 'DAY 3', city: '실리콘밸리 (스탠퍼드)',
     hotel: 'sv',
     items: [
-      { id: 'd3-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
-      { id: 'd3-2', time: '09:30', type: 'activity', title: '프로그램 미정', place: '국립연구소 투어 · 특강 · 팔로알토 대학가 탐방 중', desc: '※ 세부 내용 협의 중 — 확정 시 오픈채팅방 공지.' },
+      { id: 'd3-1', time: '08:30', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '오늘은 8시 30분 출발 — 다른 날보다 30분 빠릅니다!' },
+      { id: 'd3-2', time: '09:00', type: 'company', title: '인텔 뮤지엄', place: 'Santa Clara, CA', companyId: 'intel', desc: '무어의 법칙의 고향. 반도체 역사 전시 — 팀프로젝트 자료조사의 보고.' },
       { id: 'd3-3', time: '11:00', type: 'company', title: '프로그램 1 · 스탠퍼드 캠퍼스 투어', place: 'Stanford University', companyId: 'stanford', desc: '재학생이 직접 안내하는 캠퍼스 투어. 서점에서 굿즈 구매 가능.' },
-      { id: 'd3-4', time: '12:30', type: 'meal', title: '중식 (자유식)', place: 'Stanford University', desc: '자유식 — 현금이 지급됩니다. 캠퍼스 식당에서 학생들과 같은 공간에서 식사.' },
+      { id: 'd3-4', time: '12:00', type: 'meal', title: '중식 (자유식)', place: 'Stanford University', desc: '자유식 — 현금이 지급됩니다. 캠퍼스 식당에서 학생들과 같은 공간에서 식사.' },
       { id: 'd3-5', time: '14:00', type: 'company', title: '프로그램 2 · 스탠퍼드 연구원 네트워킹', place: 'Stanford University', companyId: 'stanford', desc: '4개 분야 박사 연구원과의 네트워킹. 이번 연수에서 가장 깊은 대화가 가능한 자리 — 질문 리스트 필수 점검!' },
-      { id: 'd3-6', time: '16:00', type: 'company', title: 'Intel Museum', place: 'Santa Clara, CA', companyId: 'intel', desc: '무어의 법칙의 고향. 반도체 역사 전시 — 팀프로젝트 자료조사의 보고.' },
+      { id: 'd3-6', time: '16:00', type: 'company', title: '기업방문 2 · [반도체/AI] HP', place: 'Palo Alto, CA', companyId: 'hp', desc: '실리콘밸리의 살아있는 역사. AI PC·워크스테이션과 AI 생태계 — 충북의 반도체·전지·AI 전략과 접점이 큰 기업.' },
       { id: 'd3-7', time: '18:00', type: 'meal', title: '석식 — 시골집 (한식)', place: '실리콘밸리', desc: '김치찌개 + 된장찌개 + 제육볶음 + 고등어구이 + 계절반찬' },
+      { id: 'd3-8', time: '19:00', type: 'hotel', title: '호텔 투숙', place: 'Crowne Plaza Silicon Valley N', desc: '' },
     ],
   },
   {
-    date: '2026-08-20', day: 'DAY 4', city: '사우스SF · 마운틴뷰',
+    date: '2026-08-20', day: 'DAY 4', city: '실리콘밸리',
     hotel: 'sv',
     items: [
       { id: 'd4-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
-      { id: 'd4-2', time: '10:00', type: 'company', title: '기업방문 3 · [바이오] Genentech', place: 'South San Francisco, CA', companyId: 'genentech', desc: '세계 최초의 생명공학 기업. 현직자 간담회 포함. AI 신약개발과 SW 인력의 역할에 주목.' },
+      { id: 'd4-2', time: '10:00', type: 'company', title: '기업방문 3 · [바이오] Genentech', place: 'South San Francisco, CA', companyId: 'genentech', desc: '세계 최초의 생명공학 기업. AI 신약개발과 SW 인력의 역할에 주목.' },
       { id: 'd4-3', time: '12:00', type: 'meal', title: '중식 — Dope Pho', place: 'South SF', desc: '쌀국수 + 스프링롤' },
-      { id: 'd4-4', time: '14:30', type: 'company', title: '프로그램 3 · [스마트팜] MISTA 전문가 특강 + PNP 투어', place: 'MISTA · Plug and Play', companyId: 'mista', desc: 'PhD. Kasturi Dasgupta (MISTA Resident Scientist) 특강 + Plug and Play 오픈이노베이션 플랫폼 투어.' },
-      { id: 'd4-5', time: '16:30', type: 'company', title: 'Google Experience', place: 'Mountain View, CA', companyId: 'google', desc: '구글 방문자 체험관 & 캠퍼스. 안드로이드 조형물 정원에서 단체사진.' },
+      { id: 'd4-4', time: '14:30', type: 'company', title: '프로그램 3 · [스마트팜] MISTA 특강 + Plug and Play 투어', place: 'MISTA · Plug and Play Tech Center', companyId: 'mista', desc: 'PhD. Kasturi Dasgupta의 MISTA 소개와 푸드·애그테크·스마트팜 특강, 이어서 글로벌 창업지원기관 Plug and Play Tech Center 투어.' },
+      { id: 'd4-5', time: '16:30', type: 'company', title: '기업방문 4 · [반도체] LAM Research + 네트워킹', place: 'Fremont, CA', companyId: 'lam', desc: '★ 일정 변경으로 8/18에서 옮겨왔습니다. 간단한 음식·음료와 함께 mini Happy Hour Networking이 진행됩니다 — 질문 리스트 꼭 챙기세요!' },
       { id: 'd4-6', time: '18:00', type: 'meal', title: '석식 — Wagon Wheel BBQ', place: '실리콘밸리', desc: '4 Ribs + 2 Sides + 빵 + 소다. 정통 아메리칸 바비큐.' },
-      { id: 'd4-7', time: '20:00', type: 'hotel', title: '호텔 투숙 (실리콘밸리 마지막 밤)', place: 'Crowne Plaza Silicon Valley N', desc: '내일 요세미티로 이동 — 짐 정리하고 운동화·물·모자 미리 챙겨두기.' },
+      { id: 'd4-7', time: '19:00', type: 'hotel', title: '호텔 투숙 (실리콘밸리 마지막 밤)', place: 'Crowne Plaza Silicon Valley N', desc: '내일 요세미티로 이동 — 체크아웃 준비. 운동화·물·모자 미리 챙겨두기.' },
     ],
   },
   {
     date: '2026-08-21', day: 'DAY 5', city: '요세미티 → 비살리아',
     hotel: 'visalia',
     items: [
-      { id: 'd5-1', time: '07:30', type: 'move', title: '조식 후 요세미티 이동', place: '약 3~4시간', desc: '이동 중 버스에서 팀프로젝트 자료 정리 추천. 멀미약은 개별 지참 (인솔자 미제공).' },
-      { id: 'd5-2', time: '10:00', type: 'tour', title: '요세미티 국립공원', place: 'Yosemite National Park', desc: '2026년부터 외국인 PASS 확인제도 시행 — 입장 시 순차 확인으로 시간이 걸립니다. 트래킹 구간은 돌·흙길이라 운동화 필수 (구두·샌들·조리 금지).' },
-      { id: 'd5-3', time: '12:30', type: 'meal', title: '중식 — 요세미티 내 랏지', place: 'Yosemite Lodge', desc: '수제햄버거 + 감자튀김 + 소다' },
-      { id: 'd5-4', time: '18:00', type: 'meal', title: '석식 — International Buffet', place: '비살리아(Visalia)', desc: '' },
-      { id: 'd5-5', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'Wyndham Visalia', desc: '중부 농업도시 경유 1박. 하루만 묵으니 캐리어를 다 풀지 말 것.' },
+      { id: 'd5-1', time: '07:30', type: 'move', title: '조식 후 요세미티 이동 (체크아웃)', place: '약 3~4시간', desc: '체크아웃 후 출발. 이동 중 버스에서 팀프로젝트 자료 정리 추천. 멀미약은 개별 지참 (인솔자 미제공).' },
+      { id: 'd5-2', time: '10:00', type: 'tour', title: '요세미티 국립공원 (중식 포함)', place: 'Yosemite National Park', desc: '2026년부터 외국인 PASS 확인제도 시행 — 입장 시 순차 확인으로 시간이 걸립니다. 트래킹 구간은 돌·흙길이라 운동화 필수 (구두·샌들·조리 금지).' },
+      { id: 'd5-3', time: '18:00', type: 'meal', title: '석식 — International Buffet', place: '비살리아(Visalia)', desc: '' },
+      { id: 'd5-4', time: '19:00', type: 'hotel', title: '호텔 투숙 (체크인)', place: 'Wyndham Visalia', desc: '중부 농업도시 경유 1박. 하루만 묵으니 캐리어를 다 풀지 말 것.' },
     ],
   },
   {
     date: '2026-08-22', day: 'DAY 6', city: '비살리아 → LA',
     hotel: 'la',
     items: [
-      { id: 'd6-1', time: '09:00', type: 'move', title: '조식 후 LA로 이동', place: '약 3시간', desc: '' },
-      { id: 'd6-2', time: '12:00', type: 'tour', title: '유니버설 스튜디오 할리우드', place: 'Universal City', desc: '중식은 자유식(현금 지급). 물에 젖는 어트랙션이 많으니 우비·여벌 옷 준비. 앞이 막힌 신발 규정. 공식 앱으로 대기시간 확인!' },
+      { id: 'd6-1', time: '09:00', type: 'move', title: '조식 후 LA로 이동 (체크아웃)', place: '약 3시간', desc: '' },
+      { id: 'd6-2', time: '12:00', type: 'tour', title: '유니버설 스튜디오 (중식 포함)', place: 'Universal City', desc: '중식은 자유식(현금 지급). 물에 젖는 어트랙션이 많으니 우비·여벌 옷 준비. 앞이 막힌 신발 규정. 공식 앱으로 대기시간 확인!' },
       { id: 'd6-3', time: '18:00', type: 'meal', title: '석식 — 버드나무', place: 'LA', desc: '무제한 코리안 고기 BBQ' },
-      { id: 'd6-4', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'Holiday Inn La Mirada — Buena Park', desc: '' },
+      { id: 'd6-4', time: '19:00', type: 'hotel', title: '호텔 투숙 (체크인)', place: 'Holiday Inn La Mirada — Buena Park', desc: '' },
     ],
   },
   {
@@ -132,29 +132,30 @@ const SCHEDULE = [
     hotel: 'la',
     items: [
       { id: 'd7-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
-      { id: 'd7-2', time: '10:00', type: 'tour', title: 'The Getty (게티 센터)', place: 'Brentwood, LA', desc: '입장 무료. 건축과 정원, LA 전망 명소. 반 고흐 <아이리스> 소장.' },
-      { id: 'd7-3', time: '12:00', type: 'meal', title: '중식 — In-N-Out', place: 'LA', desc: '수제햄버거 + 감자튀김 + 소다. 캘리포니아 명물! 굿즈도 판매 ([쇼핑] 탭).' },
-      { id: 'd7-4', time: '13:00', type: 'tour', title: '산타모니카 비치', place: 'Santa Monica', desc: '루트66 종점 표지판에서 인증샷. 피어·3rd Street 산책.' },
-      { id: 'd7-5', time: '16:00', type: 'company', title: '프로그램 4 · UCLA 캠퍼스 투어', place: 'Westwood, LA', companyId: 'ucla', desc: '재학생 캠퍼스 투어. 인터넷이 태어난 곳. UCLA Store에서 굿즈 구매 가능.' },
+      { id: 'd7-2', time: '10:00', type: 'company', title: '프로그램 4 · UCLA 캠퍼스투어 및 재학생 미팅', place: 'Westwood, LA', companyId: 'ucla', desc: '★ 오전으로 변경되었습니다. 재학생과 직접 이야기할 수 있는 자리 — 유학·전공 질문 준비!' },
+      { id: 'd7-3', time: '12:00', type: 'meal', title: '산타모니카 비치 (중식)', place: 'Santa Monica', desc: '루트66 종점 표지판에서 인증샷. 피어·3rd Street 산책.' },
+      { id: 'd7-4', time: '15:00', type: 'tour', title: 'The Getty (게티 센터)', place: 'Brentwood, LA', desc: '입장 무료. 건축과 정원, LA 전망 명소. 반 고흐 <아이리스> 소장.' },
+      { id: 'd7-5', time: '17:00', type: 'tour', title: '그리피스 천문대', place: 'Griffith Observatory', desc: '★ 새로 추가된 일정. 할리우드 사인 전망 포인트이자 라라랜드 촬영지. 해질녘 LA 야경이 압권입니다.' },
       { id: 'd7-6', time: '18:00', type: 'meal', title: '석식 — 소나무', place: 'LA', desc: '보쌈정식' },
+      { id: 'd7-7', time: '19:00', type: 'hotel', title: '호텔 투숙', place: 'Holiday Inn La Mirada', desc: '' },
     ],
   },
   {
-    date: '2026-08-24', day: 'DAY 8', city: 'LA · 어바인',
+    date: '2026-08-24', day: 'DAY 8', city: 'LA',
     hotel: 'la',
     items: [
       { id: 'd8-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
-      { id: 'd8-2', time: '10:00', type: 'company', title: '기업방문 4 · [반도체] Newracom', place: 'Irvine, CA', companyId: 'newracom', desc: 'IoT용 저전력 장거리 Wi-Fi 칩셋 팹리스. 현직자 간담회 — 한국인 창업 스토리를 들을 수 있는 자리!' },
+      { id: 'd8-2', time: '10:00', type: 'tour', title: '캘리포니아 사이언스 센터', place: 'Exposition Park, LA', desc: '★ 새로 추가된 일정. 우주왕복선 엔데버 실물 전시가 대표 소장품. 입장 무료.' },
       { id: 'd8-3', time: '12:00', type: 'meal', title: '중식 — 북창동순두부', place: 'LA', desc: '해산물 순두부정식' },
-      { id: 'd8-4', time: '13:30', type: 'tour', title: '파머스마켓 · 더 그로브 · 할리우드 거리', place: 'LA', desc: '기념품 쇼핑 마지막 기회. 캐리어 무게 감안해서 구매!' },
-      { id: 'd8-5', time: '17:30', type: 'company', title: '프로그램 5 · So-Cal 멘토링 네트워킹 만찬', place: 'LA', companyId: 'socal', desc: '캘리포니아 지역 글로벌 테크 재직자·과학자·스타트업 전문가와의 네트워킹 석식. 자기소개 30초와 질문 3개는 꼭 준비!' },
+      { id: 'd8-4', time: '13:00', type: 'tour', title: '파머스마켓 · 더 그로브 등', place: 'LA', desc: '기념품 쇼핑 마지막 기회. 캐리어 무게 감안해서 구매!' },
+      { id: 'd8-5', time: '17:30', type: 'company', title: '프로그램 5 · SoCal 멘토링 네트워킹 만찬', place: 'LA', companyId: 'socal', desc: '캘리포니아 지역 글로벌 테크 재직자·과학자·스타트업 전문가와의 네트워킹 만찬(석식). 자기소개 30초와 질문 3개는 꼭 준비!' },
       { id: 'd8-6', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'Holiday Inn La Mirada', desc: '캐리어 정리 — 액체류는 위탁으로, 보조배터리는 기내로. 위탁 23kg 초과 주의!' },
     ],
   },
   {
     date: '2026-08-25', day: 'DAY 9', city: 'LA → 인천',
     items: [
-      { id: 'd9-1', time: '07:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '객실 잊은 물건 최종 확인 (충전기·보조배터리!).' },
+      { id: 'd9-1', time: '07:00', type: 'meal', title: '조식 후 출발 (체크아웃)', place: '호텔 뷔페', desc: '객실 잊은 물건 최종 확인 (충전기·보조배터리!).' },
       { id: 'd9-2', time: '08:00', type: 'flight', title: '공항 도착 · 탑승 수속', place: 'LAX', desc: '위탁 1개 23kg / 삼면합 158cm. 면세 한도 1인 $800.' },
       { id: 'd9-3', time: '10:50', type: 'flight', title: 'YP102 출발 (LA → 인천)', place: '에어프레미아', desc: '비행 약 13시간. 날짜변경선을 넘어 다음날 도착.' },
     ],
@@ -209,17 +210,17 @@ const COMPANIES = [
     purpose: '반도체 전공정 장비 산업의 실체를 보고, 한국 소자기업과 미국 장비기업의 공생 구조를 이해한다. SW 전공자로서 장비 제어·데이터 분석 소프트웨어 커리어 가능성을 탐색한다.',
   },
   {
-    id: 'phantomai', name: 'PhantomAI', ko: '팬텀AI', emoji: '🚗', color: '#5e5ce6',
-    logo: { mark: 'PhantomAI', color: '#5e5ce6' },
-    location: 'Burlingame, CA (본사)', founded: '2016', field: '자율주행 · ADAS 소프트웨어',
-    visit: 'DAY 2 · 8/18 14:30 — 기업방문 2 (협의 중)',
-    tags: ['자율주행', 'ADAS', '한인 창업', '컴퓨터 비전'],
-    intro: '테슬라 오토파일럿 팀 출신 한국인 엔지니어들이 실리콘밸리에서 창업한 자율주행 소프트웨어 회사. 완전 자율주행보다 지금 당장 양산차에 들어갈 수 있는 ADAS(첨단운전자보조시스템)에 집중해, 자동차 부품사·완성차에 소프트웨어를 공급하는 전략을 택했다. ※ 8/18 오후 방문 기업은 Google 또는 PhantomAI로 협의 중이다.',
-    tech: ['카메라 기반 인식 (Vision-first ADAS)', '차선 유지 · 어댑티브 크루즈 컨트롤', '딥러닝 객체 인식 모델', '양산차용 임베디드 최적화', '데이터 수집·라벨링 파이프라인'],
-    products: ['PhantomVision (인식 소프트웨어)', 'ADAS 풀스택 솔루션', '완성차·부품사 대상 양산 프로젝트'],
-    issues: ['ADAS 의무 장착 규제 확대로 시장 성장', '카메라 기반 vs 라이다 방식의 노선 경쟁', '완성차의 자체 개발과 외부 조달 사이 줄다리기', '한국 완성차·부품사와의 협력 확대'],
-    korea: '창업진과 엔지니어 다수가 한국 출신이며, 한국 완성차·부품사가 주요 고객이자 파트너다. 한국 자동차 산업과 실리콘밸리 소프트웨어 역량을 잇는 통로 역할을 한다.',
-    purpose: '한국인이 실리콘밸리에서 창업해 양산 소프트웨어를 만들어내는 과정을 직접 듣는다. 소프트웨어 전공자가 자동차 산업에서 어떤 일을 하는지, 딥러닝 모델이 실제 도로 위 제품이 되기까지 무엇이 필요한지 확인한다.',
+    id: 'hp', name: 'HP', ko: '에이치피', emoji: '🖥️', color: '#0096d6',
+    logo: { mark: 'hp', color: '#0096d6' },
+    location: 'Palo Alto, CA (본사)', founded: '1939', field: 'AI PC · 워크스테이션 · 프린팅',
+    visit: 'DAY 3 · 8/19 16:00 — 기업방문 2',
+    tags: ['AI PC', '워크스테이션', '실리콘밸리 원조', '반도체 수요기업'],
+    intro: '실리콘밸리의 살아있는 역사. 1939년 빌 휴렛과 데이브 팩커드가 팔로알토의 차고에서 창업했고, 그 차고는 "실리콘밸리의 발상지"로 지정되어 있다. 스탠퍼드 터먼 교수가 제자들의 창업을 독려한 첫 결실이 바로 HP였다. 지금은 AI PC와 고성능 워크스테이션을 앞세워 AI 시대의 하드웨어 수요를 이끄는 기업이다.',
+    tech: ['AI PC — NPU 탑재 온디바이스 AI', 'Z 시리즈 워크스테이션 (AI 개발·렌더링)', '엔터프라이즈 디바이스 관리·보안', '3D 프린팅 · 산업용 프린팅', '지속가능 제조 · 순환 공급망'],
+    products: ['HP OmniBook · EliteBook (AI PC)', 'HP Z 워크스테이션', '프린터 · 대형 산업용 프린팅', '엔터프라이즈 솔루션'],
+    issues: ['AI PC 교체 수요가 PC 시장 반등을 이끄는 중', 'NPU 성능 경쟁 — 인텔·AMD·퀄컴 칩 선택 전략', '온디바이스 AI로 클라우드 의존도 축소', '공급망 다변화와 지속가능 제조'],
+    korea: '삼성전자·SK하이닉스의 메모리와 디스플레이가 HP 제품의 핵심 부품이다. AI PC 확산은 곧 고성능 메모리(DRAM·SSD) 수요 증가로 이어지므로, 충북의 반도체·전지·AI 전략과 직접 맞닿아 있는 수요 기업이다.',
+    purpose: '반도체를 "만드는 쪽"이 아니라 "쓰는 쪽"을 보는 유일한 기회다. AI PC라는 완제품 수요가 칩·메모리·배터리 수요로 어떻게 거슬러 올라가는지 확인하면, 밸류체인의 마지막 칸이 채워진다. 실리콘밸리 창업 1호 기업의 역사도 함께 볼 수 있다.',
   },
   {
     id: 'apple', name: 'Apple Park', ko: '애플', emoji: '🍎', color: '#8e8e93',
@@ -314,19 +315,6 @@ const COMPANIES = [
     purpose: '사립(스탠퍼드)과 공립(UCLA) 명문의 차이를 비교 체험한다. 캠퍼스 투어에서 유학 비용·장학금·현지 취업의 현실적 정보를 수집한다.',
   },
   {
-    id: 'newracom', name: 'Newracom', ko: '뉴라컴', emoji: '📡', color: '#66d4cf',
-    logo: { mark: 'Newracom', color: '#00a19a' },
-    location: 'Irvine, CA (본사)', founded: '2014', field: 'Wi-Fi HaLow 팹리스 반도체',
-    visit: 'DAY 8 · 8/24 10:00 — 프로그램 5',
-    tags: ['팹리스', 'Wi-Fi HaLow', 'IoT', '한국계'],
-    intro: '한국 ETRI(전자통신연구원) 출신 연구진이 미국에서 창업한 팹리스 반도체 회사. 저전력·장거리 IoT 통신 표준인 Wi-Fi HaLow(802.11ah) 칩 분야의 선구자다. 한국인이 실리콘밸리 생태계에서 창업해 성장한 대표 사례.',
-    tech: ['Wi-Fi HaLow (IEEE 802.11ah) SoC', '저전력 RF 트랜시버 설계', '1km급 장거리 IoT 통신', '수천 개 디바이스 동시 연결', '칩 펌웨어·SDK 개발'],
-    products: ['NRC7292 (HaLow SoC)', 'NRC7394 (저전력 2세대 SoC)', '개발보드·모듈 및 SDK'],
-    issues: ['스마트홈·스마트시티·농업 IoT 시장 확대', 'Wi-Fi HaLow 생태계 표준 경쟁 (LoRa·NB-IoT 대비)', '글로벌 모듈 파트너 확대', '한국 팹리스 생태계와의 가교 역할'],
-    korea: '창업진과 엔지니어 다수가 한국 출신이다. 한국 지사·협력사와 긴밀히 협업하며, 한국 팹리스 산업과 실리콘밸리를 잇는 다리 역할을 한다. 우리 팀에게 가장 현실적인 롤모델.',
-    purpose: '한국인 엔지니어의 미국 창업 여정을 직접 듣는다. 대기업이 아닌 팹리스 스타트업에서 SW 엔지니어(펌웨어·SDK·툴체인)가 하는 일을 구체적으로 파악한다.',
-  },
-  {
     id: 'socal', name: 'SoCal 멘토링 네트워킹', ko: '남캘리포니아 멘토링 만찬', emoji: '🤝', color: '#ff375f',
     location: 'Los Angeles, CA', founded: '—', field: '네트워킹 · 멘토링',
     visit: 'DAY 8 · 8/24 17:30 — 프로그램 6',
@@ -366,28 +354,28 @@ const QUESTIONS = {
     '외국인(한국인) 엔지니어 채용 시 비자 스폰서십은 어떻게 지원되나요?',
     '램리서치가 그리는 2030년 반도체 제조의 모습이 궁금합니다.',
   ],
-  phantomai: [
-    '테슬라 오토파일럿 팀에서 나와 창업하게 된 계기는 무엇이었나요?',
-    '완전 자율주행이 아니라 ADAS에 집중하기로 한 이유가 궁금합니다.',
-    '카메라 기반 인식과 라이다 방식, 어느 쪽이 결국 이길까요?',
-    '양산차에 들어가는 소프트웨어는 연구용 코드와 무엇이 다른가요?',
-    '제한된 임베디드 하드웨어에서 딥러닝 모델을 어떻게 최적화하나요?',
-    '자율주행 데이터는 어떻게 수집하고 라벨링하나요?',
-    '엣지 케이스(폭우·역광·공사구간)는 어떻게 처리하나요?',
-    '모델 성능이 몇 %면 실제 도로에 내보낼 수 있다고 판단하나요?',
-    '사고가 났을 때 소프트웨어 회사의 책임은 어디까지인가요?',
-    '완성차·부품사와의 협업은 실제로 어떻게 진행되나요?',
-    '한국 자동차 기업과는 어떤 관계인가요?',
-    '한국이 아니라 실리콘밸리에서 창업한 이유는 무엇인가요?',
-    '초기 자금 조달과 첫 고객 확보는 어떻게 하셨나요?',
-    '소프트웨어 엔지니어는 이 회사에서 구체적으로 어떤 일을 하나요?',
-    '자율주행 분야로 가려면 학부에서 무엇을 공부해야 하나요?',
-    '컴퓨터 비전 포트폴리오는 어떻게 준비하는 게 좋을까요?',
-    '한국인 엔지니어로서 미국에서 일하며 겪은 어려움이 있나요?',
-    '스타트업과 빅테크, 신입에게는 어디가 더 좋을까요?',
-    '자율주행 상용화는 앞으로 몇 년쯤 걸릴 것 같나요?',
-    'AI 코딩 도구가 늘어나면 주니어 개발자의 역할은 어떻게 바뀔까요?',
-    '창업을 꿈꾸는 한국 학생에게 조언 한마디 부탁드립니다.',
+  hp: [
+    '팔로알토 차고에서 시작된 창업 스토리를 직접 듣고 싶습니다.',
+    '실리콘밸리 1호 기업으로서 지금도 이어지는 문화가 있나요?',
+    'AI PC는 기존 노트북과 실제로 무엇이 다른가요?',
+    'NPU가 들어가면서 사용자 경험은 어떻게 달라졌나요?',
+    '온디바이스 AI와 클라우드 AI의 역할 분담은 어떻게 되나요?',
+    'CPU·NPU 공급사(인텔·AMD·퀄컴)는 어떤 기준으로 선택하나요?',
+    'AI PC 수요 증가가 메모리·배터리 수요에 어떤 영향을 주나요?',
+    'Z 워크스테이션은 어떤 작업에 쓰이나요?',
+    '완제품 기업 입장에서 반도체 공급망을 어떻게 관리하나요?',
+    '한국 부품사(삼성·SK하이닉스)와의 협력은 어느 정도인가요?',
+    '충북의 반도체·전지·AI 산업과 협력할 지점이 있을까요?',
+    '제조 현장과 사내 업무에 AI를 어떻게 도입하고 계신가요?',
+    '하드웨어 회사에서 소프트웨어 엔지니어는 어떤 일을 하나요?',
+    '펌웨어·드라이버 개발은 어떤 기술 스택을 쓰나요?',
+    '기기 보안(엔드포인트 시큐리티)은 어떻게 설계하나요?',
+    '3D 프린팅 사업은 지금 어느 단계까지 왔나요?',
+    '지속가능 제조·순환 공급망은 실제로 어떻게 운영되나요?',
+    '신입 엔지니어에게 요구하는 역량은 무엇인가요?',
+    '학부생이 준비하면 좋은 과목이나 프로젝트를 추천해주세요.',
+    '5년 뒤 PC와 워크스테이션은 어떤 모습일까요?',
+    'AI 시대에 하드웨어 기업의 역할은 어떻게 바뀔 것 같나요?',
   ],
   apple: [
     '인텔 칩에서 Apple Silicon으로 전환을 결정한 배경은 무엇이었나요?',
@@ -547,29 +535,6 @@ const QUESTIONS = {
     'UCLA 재학생이 느끼는 가장 큰 장점과 단점은 무엇인가요?',
     '한국 학생이 미국 대학 생활에 적응할 때 가장 어려운 점은 무엇인가요?',
   ],
-  newracom: [
-    'ETRI 연구원에서 미국 창업까지, 창업 스토리를 들려주세요.',
-    '왜 한국이 아닌 미국(어바인)에서 창업하셨나요?',
-    'Wi-Fi HaLow는 기존 Wi-Fi·LoRa·NB-IoT와 무엇이 다른가요?',
-    'HaLow가 1km 이상 통신하면서도 저전력인 원리는 무엇인가요?',
-    '팹리스 회사의 하루 — 칩 설계부터 양산까지의 과정이 궁금합니다.',
-    '파운드리는 어디를 이용하고, 어떻게 선정하나요?',
-    '칩 하나를 설계해서 양산하기까지 비용과 기간은 어느 정도인가요?',
-    '펌웨어·SDK 등 소프트웨어 팀은 어떤 기술 스택을 쓰나요?',
-    'SW 전공자가 팹리스 회사에서 할 수 있는 역할은 무엇인가요?',
-    'IoT 시장에서 HaLow의 킬러 유스케이스는 무엇인가요?',
-    '표준화(IEEE 802.11ah) 활동에는 어떻게 참여해왔나요?',
-    '경쟁 통신 기술 대비 생태계 확장 전략이 궁금합니다.',
-    '미국에서 스타트업 투자 유치는 어떤 과정으로 진행되나요?',
-    '한국 지사·협력사와의 협업 구조는 어떻게 되나요?',
-    '한국 엔지니어가 미국 취업 비자를 받는 현실적인 경로를 알려주세요.',
-    '어바인·실리콘밸리 지역의 한인 엔지니어 네트워크는 어떤가요?',
-    '창업 과정에서 가장 힘들었던 순간과 극복 방법이 궁금합니다.',
-    '한국 팹리스 생태계가 성장하려면 무엇이 필요하다고 보시나요?',
-    '학부생이 칩 설계·임베디드 분야로 가려면 무엇을 공부해야 하나요?',
-    '10년 뒤 IoT 반도체 시장은 어떻게 변해 있을까요?',
-    '미국 창업을 꿈꾸는 한국 학생에게 조언 한마디 부탁드립니다.',
-  ],
   socal: [
     '어떤 경로로 미국에서 커리어를 시작하게 되셨나요?',
     '한국에서의 경험 중 지금 가장 도움이 된 것은 무엇인가요?',
@@ -662,7 +627,7 @@ const PACKING_SEED = [
 /* ---------- 여행 체크리스트 시드 (단계별 자동 분류) ---------- */
 const TRAVEL_CHECK_SEED = [
   // 출국 전
-  { phase: '출국 전', name: '★ 8/13(목) 12:00까지 팀별 미션수행 계획서 제출 (2307soul@naver.com)' },
+  { phase: '출국 전', name: '★ 8/14(금) 12:00까지 팀별 미션수행 계획서 제출 (2307soul@naver.com)' },
   { phase: '출국 전', name: '팀 미팅 최소 1회 진행 (전원 인증샷 → 오픈채팅방, 커피쿠폰 지원)' },
   { phase: '출국 전', name: '오픈채팅방 참여 확인 (실시간 공지 채널)' },
   { phase: '출국 전', name: '여권 유효기간 6개월 이상 확인' },
@@ -1130,8 +1095,8 @@ const PROJECT_TOPICS = [
     tagline: '이번 일정과 가장 잘 맞는 구성 · 추천 1순위',
     fit: '높음',
     core: 'AI 수요라는 하나의 충격이 반도체 밸류체인의 각 단계(장비 → 제조 → 설계 → 수요)로 어떻게 전달되며, 그 사슬에서 한국은 어느 칸을 쥐고 있고 어느 칸이 비어 있는가?',
-    why: '이번 연수의 방문지가 우연히도 밸류체인의 각 단계를 하나씩 담당한다. LAM(장비) → Intel(제조·파운드리) → Apple·Google(설계·수요) → Newracom(중소 팹리스)을 순서대로 방문하므로, 별도 섭외 없이 사슬 전체를 직접 취재할 수 있다. 방문 순서 자체가 목차가 되는 것이 이 주제의 가장 큰 강점.',
-    visits: ['lam', 'intel', 'apple', 'google', 'newracom'],
+    why: '이번 연수의 방문지가 밸류체인의 각 단계를 하나씩 담당한다. LAM(장비) → Intel(제조·파운드리) → Apple·Google(설계) → HP(완제품 수요)까지, 칩이 만들어져 소비되기까지의 사슬 전체를 별도 섭외 없이 직접 취재할 수 있다. 특히 HP는 반도체를 쓰는 쪽이라 사슬의 마지막 칸을 채워준다.',
+    visits: ['lam', 'intel', 'apple', 'google', 'hp'],
     method: [
       '각 방문지에서 "당신 단계의 병목은 무엇인가"를 공통 질문으로 던져 답변을 비교',
       '단계별로 한국 기업의 위치를 매핑 (삼성·SK하이닉스·국내 팹리스)',
@@ -1144,7 +1109,7 @@ const PROJECT_TOPICS = [
       '단계 1 · 장비 — LAM Research에서 본 것',
       '단계 2 · 제조와 파운드리 — Intel의 재건 전략',
       '단계 3 · 설계 — Apple·Google의 자체 칩',
-      '단계 4 · 중소 팹리스 — Newracom의 생존법',
+      '단계 4 · 완제품 수요 — HP의 AI PC',
       '사슬 위에 한국을 얹어보기',
       '비어 있는 칸과 우리의 제언',
     ],
@@ -1159,7 +1124,7 @@ const PROJECT_TOPICS = [
 
 ## 주제 선정 이유
 이번 연수의 방문지는 우연히도 반도체 밸류체인의 각 단계를 하나씩 담당한다.
-LAM Research(장비) → Intel(제조·파운드리) → Apple·Google(설계·수요) → Newracom(중소 팹리스).
+LAM Research(장비) → Intel(제조·파운드리) → Apple·Google(설계) → HP(완제품 수요).
 사슬의 각 칸을 직접 방문해 취재할 수 있는 기회는 흔치 않다.
 
 ## 핵심 질문
@@ -1196,7 +1161,7 @@ LAM Research(장비) → Intel(제조·파운드리) → Apple·Google(설계·�
 - AI 영향:
 - 한국과의 관계:
 
-### 4) 중소 팹리스 — Newracom
+### 4) 완제품 수요 — HP
 - 병목:
 - AI 영향:
 - 한국과의 관계:
@@ -1212,7 +1177,7 @@ LAM Research(장비) → Intel(제조·파운드리) → Apple·Google(설계·�
 3. 단계 1 · 장비: LAM에서 들은 답변 (2분)
 4. 단계 2 · 제조: Intel의 재건 전략 (2분)
 5. 단계 3 · 설계: Apple·Google의 자체 칩 (2분)
-6. 단계 4 · 중소 팹리스: Newracom의 생존법 (1분)
+6. 단계 4 · 완제품 수요: HP의 AI PC (1분)
 7. 사슬 위에 한국을 얹어보기 — 비교표 (2분)
 8. 비어 있는 칸과 우리의 제언 (1분)
 
@@ -1223,7 +1188,7 @@ LAM Research(장비) → Intel(제조·파운드리) → Apple·Google(설계·�
 |---|---|---|
 | 팀원 A (리더) | 프레임 설계 · 발표 | LAM Research, Intel |
 | 팀원 B | 다이어그램 · 시각자료 | Apple, Google |
-| 팀원 C | 한국 측 조사 · 비교표 | Newracom, 국내 자료 |
+| 팀원 C | 한국 측 조사 · 비교표 | HP, 국내 자료 |
 
 **공통**: 모든 방문지에서 공통 질문 3개를 각자 하나씩 나눠 질문한다.`,
     },
@@ -1236,7 +1201,7 @@ LAM Research(장비) → Intel(제조·파운드리) → Apple·Google(설계·�
     fit: '높음',
     core: '설계·장비 중심의 미국과 메모리·제조 중심의 한국은 경쟁 관계인가 분업 관계인가? 그 관계는 AI 시대에 어떻게 재편되고 있는가?',
     why: '주제가 명확하고 공개 자료가 많아 사전조사만으로도 뼈대를 세울 수 있다. 발표를 듣는 사람도 배경 설명 없이 바로 이해한다. 다만 흔한 주제이므로, 현장에서 직접 들은 이야기를 얼마나 넣느냐가 승부처.',
-    visits: ['lam', 'intel', 'apple', 'newracom'],
+    visits: ['lam', 'intel', 'apple', 'hp'],
     method: [
       '산업 구조를 설계·제조·장비·소재 4축으로 나눠 양국을 대조',
       'CHIPS Act 등 미국의 정책과 한국의 대응 정책 비교',
@@ -1292,7 +1257,7 @@ LAM Research(장비) → Intel(제조·파운드리) → Apple·Google(설계·�
 - LAM Research: 한국 매출 비중, 용인 R&D 센터의 역할
 - Intel: 삼성 파운드리와의 경쟁 구도, 한국 메모리와의 협력
 - Apple: 한국 부품사 의존도와 삼성과의 이중 관계
-- Newracom: 한국 팹리스 생태계에 대한 현직자의 진단
+- HP: 완제품 기업이 보는 반도체 공급망과 한국 부품사의 위치
 
 ## 출처
 - `,
@@ -1311,7 +1276,7 @@ LAM Research(장비) → Intel(제조·파운드리) → Apple·Google(설계·�
 |---|---|---|
 | 팀원 A (리더) | 미국 산업구조 · 발표 | LAM, Intel |
 | 팀원 B | 한국 산업구조 · 정책 | 국내 자료, CHIPS Act |
-| 팀원 C | 현장 기록 · 시각자료 | Apple, Newracom |`,
+| 팀원 C | 현장 기록 · 시각자료 | Apple, HP |`,
     },
   },
 
@@ -1413,8 +1378,8 @@ Apple은 인텔 칩을 버리고 M시리즈로 갈아탔고, Google은 TPU를 10
     tagline: '인터뷰 기반 · 소프트웨어학부생에게 가장 현실적',
     fit: '높음',
     core: '한국에서 출발한 엔지니어가 미국 기술 생태계에 자리 잡기까지 어떤 경로가 있으며, 지금 학부생은 무엇을 준비해야 하는가?',
-    why: '이번 일정에는 답을 아는 사람들이 유난히 많다. Newracom(ETRI 출신 창업), 스탠퍼드 연구원 네트워킹, SoCal 멘토링 만찬, UCLA 캠퍼스까지 — 사람에게 직접 물어서만 얻을 수 있는 자료가 이 일정의 진짜 자산이다. 문헌조사로는 절대 못 쓰는 보고서가 나온다.',
-    visits: ['newracom', 'socal', 'stanford', 'ucla'],
+    why: '이번 일정에는 답을 아는 사람들이 유난히 많다. 스탠퍼드 연구원 네트워킹(4개 분야 박사), SoCal 멘토링 만찬, UCLA 재학생 미팅까지 — 사람에게 직접 물어서만 얻을 수 있는 자료가 이 일정의 진짜 자산이다. 문헌조사로는 절대 못 쓰는 보고서가 나온다.',
+    visits: ['socal', 'stanford', 'ucla', 'hp'],
     method: [
       '경로를 4가지 유형으로 가설 설정 (유학→취업 / 국내취업→주재원 / 직접지원 / 창업)',
       '만나는 모든 분에게 동일한 질문 세트를 던져 경로를 수집',
@@ -1425,7 +1390,7 @@ Apple은 인텔 칩을 버리고 M시리즈로 갈아탔고, Google은 TPU를 10
     outline: [
       '왜 이 질문인가',
       '가설 — 네 갈래의 길',
-      '사례 1 · 창업으로 간 길 (Newracom)',
+      '사례 1 · 연구자로 간 길 (스탠퍼드 연구원)',
       '사례 2 · 유학으로 간 길 (Stanford·UCLA)',
       '사례 3 · 그 외의 길 (SoCal 멘토링)',
       '공통 조건은 무엇이었나',
@@ -1442,7 +1407,7 @@ Apple은 인텔 칩을 버리고 M시리즈로 갈아탔고, Google은 TPU를 10
 
 ## 주제 선정 이유
 이번 일정에는 이 질문의 답을 아는 사람들이 유난히 많다.
-Newracom(ETRI 출신 창업), 스탠퍼드 연구원 네트워킹, SoCal 멘토링 만찬, UCLA 캠퍼스.
+스탠퍼드 연구원 네트워킹(4개 분야 박사), SoCal 멘토링 만찬, UCLA 재학생 미팅.
 문헌조사로는 절대 쓸 수 없는 보고서를 사람에게 물어서 쓸 수 있다.
 
 ## 핵심 질문
@@ -1477,7 +1442,7 @@ Newracom(ETRI 출신 창업), 스탠퍼드 연구원 네트워킹, SoCal 멘토�
 5. 영어 실력은 어느 정도가 필요했나요?
 
 ## 사례 수집
-### 사례 A — Newracom (8/24)
+### 사례 A — 스탠퍼드 연구원 (8/19)
 - 경로:
 - 결정적 순간:
 - 조언:
@@ -1510,7 +1475,7 @@ Newracom(ETRI 출신 창업), 스탠퍼드 연구원 네트워킹, SoCal 멘토�
 - 학년별 준비 체크리스트`,
       roles: `| 이름 | 역할 | 담당 |
 |---|---|---|
-| 팀원 A (리더) | 질문 설계 · 인터뷰 · 발표 | Newracom, SoCal 만찬 |
+| 팀원 A (리더) | 질문 설계 · 인터뷰 · 발표 | 스탠퍼드 네트워킹, SoCal 만찬 |
 | 팀원 B | 기록 정리 · 사례집 | 스탠퍼드 네트워킹 |
 | 팀원 C | 제도 조사 · 경로 지도 | UCLA, 배경 자료 |
 
@@ -1519,86 +1484,97 @@ Newracom(ETRI 출신 창업), 스탠퍼드 연구원 네트워킹, SoCal 멘토�
   },
 
   {
-    id: 'autonomy', emoji: '🚗', color: '#ff9f0a',
-    title: '한국인이 실리콘밸리에서 만든 자율주행 소프트웨어',
-    tagline: 'PhantomAI 단일 사례 심층 분석 · 방문 확정 시 선택',
-    fit: '중간',
-    core: '딥러닝 모델이 실제 도로를 달리는 양산차 소프트웨어가 되기까지 무엇이 필요하며, 왜 그 일을 한국인 엔지니어들이 실리콘밸리에서 하고 있는가?',
-    why: '대부분의 팀이 대기업을 다룰 때 스타트업 하나를 깊게 파면 발표가 눈에 띈다. PhantomAI는 테슬라 출신 한국인들이 세운 회사라 기술과 커리어 두 축을 동시에 다룰 수 있다. 다만 8/18 오후 방문지는 Google 또는 PhantomAI로 협의 중이므로, PhantomAI 확정 공지를 확인한 뒤 선택할 것.',
-    visits: ['phantomai', 'google', 'newracom'],
+    id: 'history', emoji: '🏛️', color: '#ff9f0a',
+    title: '차고에서 AI PC까지 — 실리콘밸리 85년을 하루에 걷다',
+    tagline: '8/19 하루가 그대로 목차가 되는 구성',
+    fit: '높음',
+    core: '실리콘밸리는 어떻게 만들어졌고, 그 방식은 지금도 작동하는가? 대학·창업·반도체라는 세 요소는 85년 동안 어떻게 맞물려 왔는가?',
+    why: '8/19 하루가 놀랍도록 잘 짜여 있다. 오전 9시 인텔 뮤지엄(반도체의 탄생) → 11시 스탠퍼드(인재의 공급원) → 14시 연구원 네트워킹(지금의 연구) → 16시 HP(실리콘밸리 창업 1호). HP는 스탠퍼드 터먼 교수가 제자들의 창업을 독려해 나온 첫 결실이고, 그 차고는 "실리콘밸리의 발상지"로 지정되어 있다. 시간 순서대로 걸으면 그대로 서사가 된다.',
+    visits: ['intel', 'stanford', 'hp', 'apple', 'google'],
     method: [
-      '연구용 모델과 양산 소프트웨어의 차이를 현장 질문으로 확인',
-      '카메라 기반 인식과 라이다 방식의 노선 차이를 정리',
-      '엣지 케이스·안전 검증을 어떻게 다루는지 취재',
-      'Newracom과 묶어 "한국인 창업 팹리스 vs 한국인 창업 SW" 비교 축 만들기',
+      '8/19 방문 순서를 그대로 연표로 삼아 각 시점의 "결정적 장면"을 수집',
+      '각 방문지에서 "이 조직이 실리콘밸리에 남긴 것"을 공통 질문으로',
+      '대학 → 창업 → 산업으로 이어지는 순환 구조를 도식화',
+      '같은 구조를 한국(대학·연구소·기업)에 대입해 무엇이 다른지 비교',
     ],
-    outcome: ['연구 모델 → 양산 소프트웨어 파이프라인 도해', '자율주행 기술 노선 비교표', '한국 자동차 산업에 대한 시사점'],
+    outcome: ['실리콘밸리 85년 연표', '대학–창업–산업 순환 구조도', '한국에 대한 시사점'],
     outline: [
-      '자율주행은 어디까지 왔나',
-      '연구실의 모델과 도로 위의 소프트웨어',
-      'PhantomAI의 선택 — 완전자율 대신 ADAS',
-      '카메라냐 라이다냐',
-      '왜 실리콘밸리였나 — 창업 이야기',
-      '한국 자동차 산업에 주는 시사점',
+      '1939, 팔로알토의 차고',
+      '1968, 인텔과 반도체의 탄생',
+      '대학은 무엇을 공급했나 — 스탠퍼드',
+      '지금의 연구는 어디로 가는가',
+      '2020년대, AI PC로 돌아온 HP',
+      '이 구조는 복제 가능한가 — 한국에 주는 시사점',
     ],
     roles: [
-      'A (리더) — 기술 조사(컴퓨터 비전·ADAS), 발표',
-      'B — 창업·조직 스토리 정리, 도해 제작',
-      'C — 한국 완성차·부품사 현황 조사, 비교표 작성',
+      'A (리더) — 연표 설계, 인텔·HP 파트, 발표',
+      'B — 스탠퍼드 파트(대학의 역할), 구조도 제작',
+      'C — 한국 비교 조사(대학·연구소·창업 생태계)',
     ],
-    risk: '방문지가 협의 중이라 확정 전에는 이 주제를 확정하지 말 것. Google로 확정되면 3번 주제로 전환하는 편이 안전하다.',
+    risk: '자칫 "역사 소개"로 끝나기 쉽다. 반드시 마지막에 "한국에서는 왜 이 순환이 약한가"라는 질문으로 착지시킬 것.',
     seed: {
-      overview: `# 한국인이 실리콘밸리에서 만든 자율주행 소프트웨어
+      overview: `# 차고에서 AI PC까지 — 실리콘밸리 85년을 하루에 걷다
 
 ## 주제 선정 이유
-PhantomAI는 테슬라 오토파일럿 팀 출신 한국인들이 세운 자율주행 소프트웨어 회사다.
-기술(딥러닝의 양산화)과 커리어(한국인의 실리콘밸리 창업)를 한 번에 다룰 수 있다.
+8/19 하루의 동선이 그대로 실리콘밸리의 역사다.
+오전 9시 인텔 뮤지엄(반도체의 탄생) → 11시 스탠퍼드(인재의 공급원)
+→ 14시 연구원 네트워킹(지금의 연구) → 16시 HP(실리콘밸리 창업 1호).
+
+HP는 스탠퍼드 터먼 교수가 제자들의 창업을 독려해 나온 첫 결실이고,
+그 차고는 "실리콘밸리의 발상지"로 지정되어 있다.
 
 ## 핵심 질문
-> 딥러닝 모델이 실제 도로를 달리는 양산차 소프트웨어가 되기까지 무엇이 필요한가?
+> 실리콘밸리는 어떻게 만들어졌고, 그 방식은 지금도 작동하는가?
 
-## 전제 확인
-- 8/18 오후 방문지는 **Google 또는 PhantomAI로 협의 중**이다.
-- PhantomAI 확정 공지를 확인한 뒤 이 주제를 확정할 것.
+## 목표 및 기대효과
+1. 대학–창업–산업의 순환 구조를 실물로 확인한다.
+2. 그 구조가 85년간 어떻게 유지·변형되었는지 정리한다.
+3. 같은 구조를 한국에 대입해 무엇이 빠져 있는지 도출한다.
 
 ## 팀원 (3인)
-- 팀원 A (리더): 기술 조사 · 발표
-- 팀원 B: 창업 스토리 · 도해
-- 팀원 C: 한국 자동차 산업 조사`,
-      research: `## 기술
-- ADAS와 완전 자율주행(Level 2 vs Level 4)의 차이
-- 카메라 기반 인식 vs 라이다 방식
-- 양산 임베디드 하드웨어에서의 모델 최적화
-- 데이터 수집 · 라벨링 파이프라인
+- 팀원 A (리더): 연표 · 인텔/HP · 발표
+- 팀원 B: 스탠퍼드 파트 · 구조도
+- 팀원 C: 한국 비교 조사`,
+      research: `## 연표로 정리하기
+| 시기 | 사건 | 방문지 |
+|---|---|---|
+| 1939 | HP 창업 (팔로알토 차고) | HP |
+| 1950s | 스탠퍼드 산업단지 조성 | Stanford |
+| 1968 | 인텔 창업 | Intel Museum |
+| 1970s~ | 마이크로프로세서와 PC 시대 | Intel, HP |
+| 1998 | 구글 창업 (스탠퍼드 박사과정) | Google |
+| 2020s | AI PC · 자체 설계 칩 | HP, Apple |
 
-## 현장에서 확인할 것
-- 연구용 코드와 양산 소프트웨어의 결정적 차이는?
-- 엣지 케이스(폭우·역광·공사구간)는 어떻게 처리하나?
-- 성능이 몇 %면 도로에 내보낼 수 있다고 판단하나?
-- 왜 한국이 아니라 실리콘밸리에서 창업했나?
+## 공통 질문 (모든 방문지)
+1. 이 조직이 실리콘밸리에 남긴 가장 큰 유산은 무엇인가요?
+2. 창업 초기의 문화가 지금도 남아 있나요?
+3. 대학과의 관계는 지금 어떻게 이어지고 있나요?
 
-## 한국 측 조사
-- 현대차·모비스 등의 자율주행 개발 현황
-- 국내 자율주행 스타트업 생태계
+## 한국 비교 조사 (팀원 C)
+- 한국의 대학–창업 연계 현황 (KAIST·서울대 등)
+- 정부 주도 vs 민간 주도 생태계의 차이
+- 실패를 다루는 방식의 차이
 - 출처: `,
       slides: `> 성과공유회: 팀별 15분 이내 · PPT 또는 영상
 
 ## 발표 구성안
-1. 자율주행은 어디까지 왔나 (1분)
-2. 연구실의 모델과 도로 위의 소프트웨어 (3분)
-3. PhantomAI의 선택 — 완전자율 대신 ADAS (3분)
-4. 카메라냐 라이다냐 (2분)
-5. 왜 실리콘밸리였나 — 창업 이야기 (3분)
-6. 한국 자동차 산업에 주는 시사점 (3분)
+1. 1939, 팔로알토의 차고 (1.5분)
+2. 1968, 인텔과 반도체의 탄생 (2분)
+3. 대학은 무엇을 공급했나 — 스탠퍼드 (2.5분)
+4. 지금의 연구는 어디로 가는가 (2분)
+5. 2020년대, AI PC로 돌아온 HP (2분)
+6. 이 구조는 복제 가능한가 — 한국에 주는 시사점 (3분)
 
 ## 핵심 비주얼
-- 연구 모델 → 양산 소프트웨어 파이프라인 도해
-- 기술 노선 비교표`,
+- 실리콘밸리 85년 연표 (방문지 사진과 함께)
+- 대학 → 창업 → 산업 → 대학 순환 구조도`,
       roles: `| 이름 | 역할 | 담당 |
 |---|---|---|
-| 팀원 A (리더) | 기술 조사 · 발표 | PhantomAI Q&A |
-| 팀원 B | 창업 스토리 · 도해 | PhantomAI Q&A |
-| 팀원 C | 한국 산업 조사 · 비교표 | Newracom, 국내 자료 |`,
+| 팀원 A (리더) | 연표 · 발표 | Intel Museum, HP |
+| 팀원 B | 대학의 역할 · 구조도 | Stanford 투어·네트워킹 |
+| 팀원 C | 한국 비교 조사 | 국내 자료, Apple/Google |
+
+**규칙**: 8/19은 아침 8시 30분 출발이다. 셋 다 늦지 않게.`,
     },
   },
 
@@ -1608,8 +1584,8 @@ PhantomAI는 테슬라 오토파일럿 팀 출신 한국인들이 세운 자율�
     tagline: '전 방문지 100% 활용 · 소프트웨어학부다운 주제',
     fit: '높음',
     core: '반도체·배터리·바이오·푸드테크라는 전혀 다른 산업에서 소프트웨어 엔지니어는 각각 무엇을 하고 있으며, 그 역할에는 공통 패턴이 있는가?',
-    why: '이번 연수는 반도체(LAM·Intel·Newracom), AI·자율주행(Google 또는 PhantomAI), 바이오(Genentech), 푸드테크(MISTA·Plug and Play), 빅테크(Apple·Google)까지 산업이 골고루 섞여 있다. 다른 주제를 고르면 절반은 버려지지만, 이 주제는 모든 방문지가 데이터가 된다. 소프트웨어학부 학생이 쓰기에 가장 자연스러운 질문이기도 하다.',
-    visits: ['lam', 'phantomai', 'genentech', 'mista', 'google', 'newracom'],
+    why: '이번 연수는 반도체 장비(LAM), 제조(Intel), 완제품(HP), AI(Google), 바이오(Genentech), 푸드테크(MISTA·Plug and Play)까지 산업이 골고루 섞여 있다. 다른 주제를 고르면 절반은 버려지지만, 이 주제는 모든 방문지가 데이터가 된다. 소프트웨어학부 학생이 쓰기에 가장 자연스러운 질문이기도 하다.',
+    visits: ['lam', 'hp', 'genentech', 'mista', 'google', 'intel'],
     method: [
       '모든 방문지에서 "여기서 SW 엔지니어는 무슨 일을 하나요?"를 필수 질문으로',
       '답변을 제어·데이터분석·시뮬레이션·플랫폼 등 유형으로 분류',
@@ -1619,7 +1595,7 @@ PhantomAI는 테슬라 오토파일럿 팀 출신 한국인들이 세운 자율�
     outcome: ['산업 × SW 역할 매트릭스', '공통 패턴 3가지', '전공 과목 매핑표'],
     outline: [
       '질문 — 우리는 어디서 일하게 될까',
-      '반도체에서의 소프트웨어 (LAM·Newracom)',
+      '반도체에서의 소프트웨어 (LAM·Intel)',
       'AI·자율주행에서의 소프트웨어',
       '바이오에서의 소프트웨어 (Genentech)',
       '농업·푸드테크에서의 소프트웨어',
@@ -1663,8 +1639,7 @@ PhantomAI는 테슬라 오토파일럿 팀 출신 한국인들이 세운 자율�
 | 산업 | 방문지 | SW의 역할 | 기술 스택 |
 |---|---|---|---|
 | 반도체 장비 | LAM Research | 장비 제어, 공정 데이터 분석 |  |
-| 팹리스 | Newracom | 펌웨어, SDK, 툴체인 |  |
-| AI·자율주행 | PhantomAI | 인식 모델, 임베디드 최적화 |  |
+| 완제품 · AI PC | HP | 펌웨어, 드라이버, 온디바이스 AI |  |
 | 바이오 | Genentech | 유전체 분석, 신약 탐색 ML |  |
 | 푸드테크 | MISTA · PNP | IoT 제어, 비전, 수확량 예측 |  |
 | 빅테크 | Google | AI 인프라, 대규모 시스템 |  |
@@ -1694,7 +1669,7 @@ PhantomAI는 테슬라 오토파일럿 팀 출신 한국인들이 세운 자율�
       roles: `| 이름 | 역할 | 담당 방문지 |
 |---|---|---|
 | 팀원 A (리더) | 질문 통일 · 패턴 도출 · 발표 | 전 방문지 |
-| 팀원 B | 반도체·AI 파트 · 매트릭스 | LAM, Newracom, PhantomAI |
+| 팀원 B | 반도체·AI 파트 · 매트릭스 | LAM, Intel, HP |
 | 팀원 C | 바이오·푸드테크 파트 · 과목 매핑 | Genentech, MISTA |
 
 **규칙**: 어느 방문지에서든 필수 질문 3개는 반드시 던진다. 한 곳이라도 비면 매트릭스에 구멍이 생긴다.`,
@@ -1710,15 +1685,15 @@ const PROJECT_SECTIONS = [
   { id: 'minutes', title: '회의록', icon: 'users',
     placeholder: '## 회의 #1 (킥오프)\n**일시:** \n**참석:** 3명\n**안건:**\n- 주제 구체화\n- 역할 분담\n- 탐방 전 사전조사 범위\n\n**결정사항:**\n- \n\n**다음 할 일:**\n- [ ] ' },
   { id: 'ideas', title: '아이디어', icon: 'lightbulb',
-    placeholder: '- 미국은 설계(팹리스)·장비·EDA 강점, 한국은 메모리·제조 강점 → 상호보완 구조\n- LAM Research 매출의 상당 부분이 한국에서 발생한다는 점을 축으로 잡기\n- Newracom = 한국인 창업 팹리스 → "한국 인재 + 미국 생태계" 사례\n- ' },
+    placeholder: '- 미국은 설계(팹리스)·장비·EDA 강점, 한국은 메모리·제조 강점 → 상호보완 구조\n- LAM Research 매출의 상당 부분이 한국에서 발생한다는 점을 축으로 잡기\n- HP = 반도체를 쓰는 쪽 → AI PC 수요가 칩·메모리 수요로 거슬러 올라가는 구조\n- ' },
   { id: 'roles', title: '역할분담', icon: 'list-todo',
-    placeholder: '| 이름 | 역할 | 담당 기업 |\n|---|---|---|\n| 팀원 A (리더) | 총괄 · 발표 | LAM, Intel |\n| 팀원 B | 자료조사(미국) | Apple, Google |\n| 팀원 C | 자료조사(한국) · 자료제작 | Newracom, Genentech |' },
+    placeholder: '| 이름 | 역할 | 담당 기업 |\n|---|---|---|\n| 팀원 A (리더) | 총괄 · 발표 | LAM, Intel |\n| 팀원 B | 자료조사(미국) | Apple, Google |\n| 팀원 C | 자료조사(한국) · 자료제작 | HP, Genentech |' },
   { id: 'timeline', title: '일정', icon: 'calendar',
-    placeholder: '## 제출 마감\n- [ ] **8/13(목) 12:00** 팀별 미션수행 계획서 → 2307soul@naver.com\n- [ ] 팀 미팅 최소 1회 (전원 인증샷 → 오픈채팅방, 커피쿠폰 지원 · 팀당 2회)\n\n## 연수 중\n- [ ] 8/18 LAM Research 탐방 기록\n- [ ] 8/18 Google 또는 PhantomAI 탐방 기록\n- [ ] 8/19 Stanford 연구원 네트워킹 · Intel Museum 자료 수집\n- [ ] 8/20 Genentech · MISTA 특강 기록\n- [ ] 8/24 Newracom · SoCal 멘토링 기록\n\n## 귀국 후\n- [ ] 성과공유회 결과보고서 (단톡방 공유)\n- [ ] 팀별 발표 준비 — 15분 이내 · PPT 또는 영상' },
+    placeholder: '## 제출 마감\n- [ ] **8/14(금) 12:00** 팀별 미션수행 계획서 → 2307soul@naver.com\n- [ ] 팀 미팅 최소 1회 (전원 인증샷 → 오픈채팅방, 커피쿠폰 지원 · 팀당 2회)\n\n## 연수 중\n- [ ] 8/18 Apple · Google 탐방 기록\n- [ ] 8/19 Intel Museum · Stanford 네트워킹 · HP 탐방 기록\n- [ ] 8/20 Genentech · MISTA 특강 · LAM Research 기록\n- [ ] 8/24 SoCal 멘토링 만찬 기록\n\n## 귀국 후\n- [ ] 성과공유회 결과보고서 (단톡방 공유)\n- [ ] 팀별 발표 준비 — 15분 이내 · PPT 또는 영상' },
   { id: 'research', title: '자료조사', icon: 'search',
     placeholder: '## 미국 반도체 산업\n- CHIPS Act — 자국 내 생산시설 유치\n- 강점: 설계(엔비디아·애플·퀄컴), 장비(AMAT·LAM), EDA\n- 약점: 첨단 제조 역량의 해외 의존\n\n## 한국 반도체 산업\n- 강점: 메모리(삼성·SK하이닉스 세계 1·2위), 파운드리 2위\n- 약점: 팹리스 생태계, 소재·부품·장비 국산화율\n\n## 출처\n- ' },
   { id: 'companyResearch', title: '기업별 조사', icon: 'building',
-    placeholder: '## LAM Research — 반도체 장비 (8/18)\n- 사전조사: \n- 현장 확인: \n\n## Google 또는 PhantomAI — AI (8/18)\n- \n\n## Stanford 연구원 네트워킹 (8/19)\n- \n\n## Intel Museum (8/19)\n- \n\n## Genentech — 바이오 (8/20)\n- \n\n## MISTA · Plug and Play — 스마트팜 (8/20)\n- \n\n## Newracom — 반도체 (8/24)\n- \n\n## SoCal 멘토링 (8/24)\n- ' },
+    placeholder: '## Apple 비지터센터 (8/18)\n- \n\n## Google — AI (8/18)\n- 사전조사: \n- 현장 확인: \n\n## Intel Museum (8/19)\n- \n\n## Stanford 연구원 네트워킹 (8/19)\n- \n\n## HP — 반도체/AI (8/19)\n- \n\n## Genentech — 바이오 (8/20)\n- \n\n## MISTA · Plug and Play — 스마트팜 (8/20)\n- \n\n## LAM Research — 반도체 장비 (8/20)\n- \n\n## SoCal 멘토링 (8/24)\n- ' },
   { id: 'slides', title: '발표자료', icon: 'mic',
     placeholder: '> 성과공유회: 팀별 15분 이내 · PPT 발표 또는 영상 제작 · 전원 필참 · 1·2등 시상\n\n## 슬라이드 구성안\n1. 인트로 — 왜 이 주제인가\n2. 사전조사로 세운 가설\n3. 탐방에서 직접 확인한 것\n4. 분석\n5. 시사점 & 결론\n6. 팀원 소감' },
   { id: 'conclusion', title: '결론', icon: 'check-square',

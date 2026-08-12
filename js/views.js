@@ -160,7 +160,7 @@ Views.dashboard = {
           <div class="flex-1">
             <div class="card-title" style="font-size:14px">미션수행 계획서 제출 D-${days}</div>
             <p class="small muted mt-8" style="line-height:1.55">
-              8/13(목) 12:00까지 · ${esc(TRIP.missionEmail)}
+              ${esc(prettyDate(ymd(due)))} 12:00까지 · ${esc(TRIP.missionEmail)}
             </p>
           </div>
           ${icon('chevron-right')}

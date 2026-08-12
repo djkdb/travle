@@ -4,7 +4,7 @@
    ============================================================ */
 
 const STORAGE_KEY = 'sv-master-v1';
-const SCHEMA_VERSION = 4;
+const SCHEMA_VERSION = 5;
 
 /** 고유 ID 생성 */
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -69,6 +69,23 @@ function createInitialState() {
    시드 데이터가 바뀌어도 사용자가 체크해둔 기록은 유지한다.
    버전별 변환 함수를 순서대로 적용한다. */
 const MIGRATIONS = {
+  // v5: 8/12 변경 일정표 반영 — Newracom 제외, HP 추가, LAM 날짜 이동, 마감 연장
+  5: (s) => {
+    if (Array.isArray(s.travelCheck)) {
+      s.travelCheck = s.travelCheck.map((c) =>
+        (c.name.includes('8/13(목) 12:00까지 팀별 미션수행 계획서')
+          ? { ...c, name: '★ 8/14(금) 12:00까지 팀별 미션수행 계획서 제출 (2307soul@naver.com)' }
+          : c));
+    }
+    // 일정에서 빠진 방문지의 질문 기록 정리
+    if (s.questions) {
+      Object.keys(s.questions)
+        .filter((k) => k.startsWith('newracom:') || k.startsWith('phantomai:'))
+        .forEach((k) => delete s.questions[k]);
+    }
+    // 성립하지 않게 된 추천 주제를 골랐다면 해제
+    if (s.projectTopic === 'autonomy') s.projectTopic = '';
+  },
   // v4: OT 자료(2026.08.04) 반영 — 대행사 지급품 제외, 일정·기업 변경
   4: (s) => {
     // 대행사에서 배부하는 품목은 준비물에서 제거
