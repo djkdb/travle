@@ -111,6 +111,8 @@ Views.dashboard = {
         </div>
       </div>
 
+      ${this.renderMissionDue()}
+
       <!-- 이번주 할 일 -->
       <div class="section-label">${icon('list-todo')} 지금 해야 할 일</div>
       ${this.renderTodos()}
@@ -138,6 +140,32 @@ Views.dashboard = {
         </div>
       </div>
     `;
+  },
+
+  /** 미션수행 계획서 마감 알림 — 마감 전까지만 표시 */
+  renderMissionDue() {
+    const due = new Date(TRIP.missionDue);
+    const now = new Date();
+    if (now > due) return '';
+
+    const days = Math.ceil((due - now) / 86400000);
+    const urgent = days <= 3;
+    return `
+      <div class="card pressable" data-goto="project"
+           style="border-color:${urgent ? 'rgba(255,69,58,.45)' : 'rgba(255,159,10,.4)'};
+                  background:linear-gradient(135deg, ${urgent ? 'rgba(255,69,58,.16)' : 'rgba(255,159,10,.14)'}, transparent)">
+        <div class="flex items-center gap-12">
+          <div class="stat-icon" style="margin:0;background:${urgent ? 'rgba(255,69,58,.2)' : 'rgba(255,159,10,.2)'};
+               color:${urgent ? 'var(--red)' : 'var(--orange)'}">${icon('alert-triangle')}</div>
+          <div class="flex-1">
+            <div class="card-title" style="font-size:14px">미션수행 계획서 제출 D-${days}</div>
+            <p class="small muted mt-8" style="line-height:1.55">
+              8/13(목) 12:00까지 · ${esc(TRIP.missionEmail)}
+            </p>
+          </div>
+          ${icon('chevron-right')}
+        </div>
+      </div>`;
   },
 
   /** 지금 해야 할 일 — 미완료 항목에서 우선순위 높은 것들 추출 */
@@ -234,6 +262,10 @@ Views.schedule = {
       <div class="card mb-12" style="background:linear-gradient(135deg, rgba(10,132,255,.14), rgba(191,90,242,.10))">
         <div class="card-title">${esc(day.day)} · ${esc(prettyDate(day.date))}</div>
         <p class="small muted mt-8">${icon('map')} ${esc(day.city)}</p>
+        ${(() => {
+          const h = HOTELS.find((x) => x.id === day.hotel);
+          return h ? `<p class="small muted-3" style="margin-top:4px">${icon('bed')} ${esc(h.name)}</p>` : '';
+        })()}
       </div>
 
       <div class="timeline stagger">

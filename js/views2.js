@@ -555,6 +555,25 @@ Views.guide = {
           </div>` : ''}
         </div>`).join('')}
 
+      <div class="section-label">${icon('bed')} 숙소 연락처</div>
+      ${HOTELS.map((h) => `
+        <div class="card">
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex-1">
+              <div class="card-title" style="font-size:14px">${esc(h.name)}</div>
+              <p class="small muted-3" style="margin-top:2px">${esc(h.city)} · ${esc(h.nights)}</p>
+            </div>
+          </div>
+          <p class="small muted" style="line-height:1.6">${icon('map')} ${esc(h.addr)}</p>
+          <div class="flex gap-6 mt-8" style="flex-wrap:wrap">
+            ${h.amenities.map((a) => `<span class="badge p-low">${esc(a)}</span>`).join('')}
+          </div>
+          ${h.note ? `<p class="small muted-3 mt-8" style="line-height:1.55">${icon('info')} ${esc(h.note)}</p>` : ''}
+          <a class="btn ghost small block mt-12" href="tel:${esc(h.tel.replace(/[^+\d]/g, ''))}">
+            ${icon('phone')} ${esc(h.tel)}
+          </a>
+        </div>`).join('')}
+
       <div class="card mt-12" style="border-color:rgba(255,69,58,.35)">
         <div class="card-title" style="color:var(--red)">${icon('phone')} 긴급 상황 시</div>
         <div class="grid-2 mt-12">

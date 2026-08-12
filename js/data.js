@@ -4,117 +4,166 @@
    ※ 일정은 공식 일정안(0702) 기반 — 섭외/현지 사정으로 변동 가능
    ============================================================ */
 
-/* ---------- 여행 기본 정보 ---------- */
+/* ---------- 여행 기본 정보 (OT 자료 2026.08.04 기준) ---------- */
 const TRIP = {
   title: '실리콘밸리 마스터',
   program: '2026 충북 대학생 글로벌 기업탐방',
   team: '충북대학교 소프트웨어학부 · 팀 3인',
-  depart: '2026-08-17T18:00:00+09:00',   // ICN 출발 (집결 14:30)
+  depart: '2026-08-17T19:15:00+09:00',   // ICN 출발 (집결 15:30)
   arrive: '2026-08-26T15:50:00+09:00',   // ICN 도착
-  departAirport: '인천국제공항 (14:30 집결)',
+  departAirport: '인천공항 T1 3층 C카운터 (15:30 집결)',
   flightOut: 'YP111 (인천 → 샌프란시스코, 에어프레미아)',
   flightIn: 'YP102 (LA → 인천, 에어프레미아)',
   cities: '샌프란시스코 · 실리콘밸리 · 요세미티 · 로스앤젤레스',
   memberCount: 3,
+  groupSize: '대학생 20명 + 인솔자',
+  agency: '㈜블루여행클럽 · 충북인재평생교육진흥원',
+  missionDue: '2026-08-13T12:00:00+09:00',   // 팀별 미션수행 계획서 제출 마감
+  missionEmail: '2307soul@naver.com',
 };
+
+/* ---------- 숙소 (OT 자료 기준 · 동급 변동 가능) ---------- */
+const HOTELS = [
+  {
+    id: 'sv', city: '샌프란시스코 · 실리콘밸리', nights: '8/17 ~ 8/20 (4박)',
+    name: 'Crowne Plaza Silicon Valley N — Union City',
+    tel: '+1 510-489-2200',
+    addr: '32083 Alvarado-Niles Road, Union City, CA 94587',
+    amenities: ['무료 Wi-Fi', '피트니스센터', '야외수영장', '비즈니스센터', '웰컴 커피'],
+    note: '입국심사에서 체류 주소를 물으면 이 호텔 이름을 답한다. 명찰 뒷면에도 적혀 있다.',
+  },
+  {
+    id: 'visalia', city: '비살리아 (요세미티 경유)', nights: '8/21 (1박)',
+    name: 'Wyndham Visalia',
+    tel: '+1 559-931-2117',
+    addr: '9000 W Airport Dr, Visalia, CA 93277',
+    amenities: ['무료 Wi-Fi', '피트니스센터', '실내/야외수영장', '레스토랑', '비즈니스룸'],
+    note: '',
+  },
+  {
+    id: 'la', city: '로스앤젤레스', nights: '8/22 ~ 8/24 (3박)',
+    name: 'Holiday Inn La Mirada — Buena Park by IHG',
+    tel: '+1 714-739-8500',
+    addr: '14299 Firestone Blvd, La Mirada, CA 90638',
+    amenities: ['무료 Wi-Fi', '피트니스센터', '야외수영장', '레스토랑 · 로비카페', '비즈니스룸'],
+    note: '',
+  },
+];
 
 /* ---------- 일정표 (공식 일정안 0702 기반, 날짜별 → 시간별 카드) ---------- */
 /* type: flight | move | company | tour | meal | hotel | activity */
 const SCHEDULE = [
   {
     date: '2026-08-17', day: 'DAY 1', city: '인천 → 샌프란시스코',
+    hotel: 'sv',
     items: [
-      { id: 'd1-1', time: '14:30', type: 'flight', title: '인천국제공항 집결 · 탑승수속', place: 'ICN', desc: '여권·ESTA 확인 후 단체 수속. 보조배터리는 기내 가방에!' },
-      { id: 'd1-2', time: '18:00', type: 'flight', title: 'YP111 출발 (인천 → 샌프란시스코)', place: '에어프레미아', desc: '비행 약 11시간. 기내에서 입국심사 예상 질문 복습 ([영어] 탭).' },
-      { id: 'd1-3', time: '13:00', type: 'flight', title: '샌프란시스코 도착', place: 'SFO', desc: '시차 -16시간, 같은 날 오후에 도착. 낮잠 참고 밤까지 버티면 시차적응 성공!' },
-      { id: 'd1-4', time: '14:00', type: 'move', title: '입국 수속 및 가이드 미팅', place: 'SFO 입국장', desc: '입국심사: 방문 목적은 인솔자 안내대로 "Tour." 한 단어로만 답한다. 묻지 않은 말은 덧붙이지 않기.' },
-      { id: 'd1-5', time: '15:00', type: 'tour', title: '샌프란시스코 시내투어', place: '피어39 · 팰리스오브파인아트 · 금문교 중', desc: '금문교는 여름에도 강풍·안개. 바람막이 꺼내두기. 차량 내 소지품 두지 않기!' },
-      { id: 'd1-6', time: '19:00', type: 'meal', title: '석식 후 호텔 투숙', place: 'SF / 실리콘밸리', desc: '체크인 후 와이파이 연결, 가족에게 도착 연락.' },
+      { id: 'd1-1', time: '15:30', type: 'flight', title: '인천국제공항 집결 · 탑승수속', place: 'ICN 제1여객터미널 3층 C카운터', desc: '에어프레미아 카운터 앞 집결. 여권·ESTA 확인 후 단체 수속. 보조배터리는 반드시 기내 가방에!' },
+      { id: 'd1-2', time: '17:00', type: 'meal', title: '석식 (자유식)', place: '인천국제공항', desc: '자유식 — 현금이 지급됩니다. 출국 전 마지막 한식.' },
+      { id: 'd1-3', time: '19:15', type: 'flight', title: 'YP111 출발 (인천 → 샌프란시스코)', place: '에어프레미아', desc: '비행 약 10시간. 기내식 2회 제공(생수·커피 무료, 주류·스낵은 유상). 기내에서 입국심사 모범답안 복습 ([영어] 탭).' },
+      { id: 'd1-4', time: '14:15', type: 'flight', title: '샌프란시스코 국제공항 도착', place: 'SFO', desc: '같은 날 오후 도착(시차 -16시간). 좌석 앞주머니·머리 위 짐칸에 두고 내리는 물건 없는지 확인.' },
+      { id: 'd1-5', time: '15:00', type: 'move', title: '입국 수속 및 가이드 미팅', place: 'SFO 입국장', desc: '비거주자 줄에 도착순 정렬 → 모자 벗고 사진·지문 촬영. 방문 목적은 "Tour." 한 단어로. 가이드 피켓명 "2026 충북 대학생 글로벌 기업탐방 해외연수".' },
+      { id: 'd1-6', time: '16:00', type: 'tour', title: '샌프란시스코 시내투어', place: '케이블카 · 피어39 · 팰리스오브파인아트 · 금문교', desc: '금문교는 여름에도 강풍·안개. 바람막이 필수. 차 안에 소지품 두지 말 것!' },
+      { id: 'd1-7', time: '19:00', type: 'meal', title: "석식 — Nick's Light House", place: '샌프란시스코', desc: '깔라마리튀김(에피타이저) + 클램차우더 수프 + 새우크림파스타 + 샐러드 + 소다' },
+      { id: 'd1-8', time: '21:00', type: 'hotel', title: '호텔 투숙', place: 'Crowne Plaza Silicon Valley N — Union City', desc: '2인 1실. 와이파이 비밀번호·조식당 위치 공지 확인. 치약·칫솔은 미제공이니 개인 준비물 사용.' },
     ],
   },
   {
     date: '2026-08-18', day: 'DAY 2', city: '실리콘밸리',
+    hotel: 'sv',
     items: [
-      { id: 'd2-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔', desc: '' },
-      { id: 'd2-2', time: '10:00', type: 'company', title: '프로그램 1 · 반도체 — LAM Research', place: 'Fremont, CA', companyId: 'lam', desc: '세계 3대 반도체 장비사. 식각(Etch)·증착 기술 브리핑 & Q&A. 질문 리스트 미리 체크!' },
-      { id: 'd2-3', time: '12:00', type: 'meal', title: '중식', place: '실리콘밸리', desc: '' },
-      { id: 'd2-4', time: '14:00', type: 'company', title: '프로그램 2 · 전지 — Enovix', place: 'Fremont, CA', companyId: 'enovix', desc: '100% 실리콘 음극 배터리 스타트업. 3D 셀 아키텍처와 양산 스토리.' },
-      { id: 'd2-5', time: '16:00', type: 'company', title: 'Apple Park Visitor Center', place: 'Cupertino, CA', companyId: 'apple', desc: 'AR로 보는 애플파크, 애플실리콘 전시. 한정판 굿즈는 여기서만! ([쇼핑] 탭)' },
-      { id: 'd2-6', time: '18:00', type: 'meal', title: '석식 후 호텔 투숙', place: '실리콘밸리', desc: '오늘 탐방 메모 정리 — [기업탐방] 탭에 인상 깊었던 점 기록.' },
+      { id: 'd2-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
+      { id: 'd2-2', time: '10:30', type: 'company', title: '기업방문 1 · [반도체] LAM Research', place: 'Fremont, CA', companyId: 'lam', desc: '식각·증착·웨이퍼 세정 장비의 글로벌 강자. 현직자 간담회 포함. 단정한 복장 + 앞이 막힌 신발 필수!' },
+      { id: 'd2-3', time: '12:30', type: 'meal', title: '중식 — Chick-fil-A', place: '실리콘밸리', desc: '치킨샌드위치 + 웻지 감자 + 소다. 미국 국민 치킨 체인.' },
+      { id: 'd2-4', time: '14:30', type: 'company', title: '기업방문 2 · [AI] Google 또는 PhantomAI', place: '실리콘밸리 (협의 중)', companyId: 'phantomai', desc: '※ 방문 기업 협의 중 — 확정 시 공지. PhantomAI는 자율주행·ADAS 소프트웨어를 개발하는 한인 기업.' },
+      { id: 'd2-5', time: '16:00', type: 'company', title: 'Apple Park Visitor Center', place: 'Cupertino, CA', companyId: 'apple', desc: 'AR로 보는 애플파크, 애플실리콘 전시. 한정판 굿즈는 여기서만 판매 ([쇼핑] 탭).' },
+      { id: 'd2-6', time: '18:00', type: 'meal', title: '석식 — Newark Buffet', place: 'Newark, CA', desc: 'Seafood Buffet. 해산물 뷔페.' },
+      { id: 'd2-7', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'Crowne Plaza Silicon Valley N', desc: '오늘 탐방 메모 정리 — [기업탐방] 탭에 인상 깊었던 점 기록.' },
     ],
   },
   {
     date: '2026-08-19', day: 'DAY 3', city: '실리콘밸리 (스탠퍼드)',
+    hotel: 'sv',
     items: [
-      { id: 'd3-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔', desc: '' },
-      { id: 'd3-2', time: '09:30', type: 'activity', title: '특강 또는 문화탐방 (미정)', place: '실리콘밸리', desc: '현지 사정에 따라 확정 예정. 공지 확인.' },
-      { id: 'd3-3', time: '11:00', type: 'company', title: '스탠퍼드 캠퍼스 투어', place: 'Palo Alto, CA', companyId: 'stanford', desc: '실리콘밸리를 만든 대학. 메모리얼 처치·후버타워·서점(굿즈!) 코스.' },
-      { id: 'd3-4', time: '14:00', type: 'company', title: '스탠퍼드대 연구원과 네트워킹', place: 'Stanford University', companyId: 'stanford', desc: '연구 문화·유학 준비를 물어볼 기회. 질문 리스트 체크 + 네트워킹 영어 복습!' },
-      { id: 'd3-5', time: '16:00', type: 'company', title: 'Intel Museum', place: 'Santa Clara, CA', companyId: 'intel', desc: '무어의 법칙의 고향. 반도체 역사 전시 — 프로젝트 자료조사에 활용.' },
-      { id: 'd3-6', time: '18:00', type: 'meal', title: '석식 후 호텔 투숙', place: '실리콘밸리', desc: '' },
+      { id: 'd3-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
+      { id: 'd3-2', time: '09:30', type: 'activity', title: '프로그램 미정', place: '국립연구소 투어 · 특강 · 팔로알토 대학가 탐방 중', desc: '※ 세부 내용 협의 중 — 확정 시 오픈채팅방 공지.' },
+      { id: 'd3-3', time: '11:00', type: 'company', title: '프로그램 1 · 스탠퍼드 캠퍼스 투어', place: 'Stanford University', companyId: 'stanford', desc: '재학생이 직접 안내하는 캠퍼스 투어. 서점에서 굿즈 구매 가능.' },
+      { id: 'd3-4', time: '12:30', type: 'meal', title: '중식 (자유식)', place: 'Stanford University', desc: '자유식 — 현금이 지급됩니다. 캠퍼스 식당에서 학생들과 같은 공간에서 식사.' },
+      { id: 'd3-5', time: '14:00', type: 'company', title: '프로그램 2 · 스탠퍼드 연구원 네트워킹', place: 'Stanford University', companyId: 'stanford', desc: '4개 분야 박사 연구원과의 네트워킹. 이번 연수에서 가장 깊은 대화가 가능한 자리 — 질문 리스트 필수 점검!' },
+      { id: 'd3-6', time: '16:00', type: 'company', title: 'Intel Museum', place: 'Santa Clara, CA', companyId: 'intel', desc: '무어의 법칙의 고향. 반도체 역사 전시 — 팀프로젝트 자료조사의 보고.' },
+      { id: 'd3-7', time: '18:00', type: 'meal', title: '석식 — 시골집 (한식)', place: '실리콘밸리', desc: '김치찌개 + 된장찌개 + 제육볶음 + 고등어구이 + 계절반찬' },
     ],
   },
   {
     date: '2026-08-20', day: 'DAY 4', city: '사우스SF · 마운틴뷰',
+    hotel: 'sv',
     items: [
-      { id: 'd4-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔', desc: '' },
-      { id: 'd4-2', time: '10:00', type: 'company', title: '프로그램 3 · 바이오 — Genentech', place: 'South San Francisco, CA', companyId: 'genentech', desc: '바이오텍의 발상지. AI 신약개발과 SW 인력의 역할에 주목.' },
-      { id: 'd4-3', time: '12:00', type: 'meal', title: '중식', place: 'South SF', desc: '' },
-      { id: 'd4-4', time: '14:30', type: 'company', title: '프로그램 4 · 스마트팜 특강', place: '버클리 푸드연구소 (또는 푸드테크·에드테크 특강)', companyId: 'berkeley', desc: '푸드테크 × IT 융합 특강. 세부 내용 미정 — 변동 가능.' },
+      { id: 'd4-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
+      { id: 'd4-2', time: '10:00', type: 'company', title: '기업방문 3 · [바이오] Genentech', place: 'South San Francisco, CA', companyId: 'genentech', desc: '세계 최초의 생명공학 기업. 현직자 간담회 포함. AI 신약개발과 SW 인력의 역할에 주목.' },
+      { id: 'd4-3', time: '12:00', type: 'meal', title: '중식 — Dope Pho', place: 'South SF', desc: '쌀국수 + 스프링롤' },
+      { id: 'd4-4', time: '14:30', type: 'company', title: '프로그램 3 · [스마트팜] MISTA 전문가 특강 + PNP 투어', place: 'MISTA · Plug and Play', companyId: 'mista', desc: 'PhD. Kasturi Dasgupta (MISTA Resident Scientist) 특강 + Plug and Play 오픈이노베이션 플랫폼 투어.' },
       { id: 'd4-5', time: '16:30', type: 'company', title: 'Google Experience', place: 'Mountain View, CA', companyId: 'google', desc: '구글 방문자 체험관 & 캠퍼스. 안드로이드 조형물 정원에서 단체사진.' },
-      { id: 'd4-6', time: '18:00', type: 'meal', title: '석식 후 호텔 투숙', place: '실리콘밸리', desc: '실리콘밸리 일정 마무리 — 팀 회의하기 좋은 타이밍.' },
+      { id: 'd4-6', time: '18:00', type: 'meal', title: '석식 — Wagon Wheel BBQ', place: '실리콘밸리', desc: '4 Ribs + 2 Sides + 빵 + 소다. 정통 아메리칸 바비큐.' },
+      { id: 'd4-7', time: '20:00', type: 'hotel', title: '호텔 투숙 (실리콘밸리 마지막 밤)', place: 'Crowne Plaza Silicon Valley N', desc: '내일 요세미티로 이동 — 짐 정리하고 운동화·물·모자 미리 챙겨두기.' },
     ],
   },
   {
     date: '2026-08-21', day: 'DAY 5', city: '요세미티 → 비살리아',
+    hotel: 'visalia',
     items: [
-      { id: 'd5-1', time: '07:30', type: 'move', title: '조식 후 요세미티 이동', place: '약 3~4시간', desc: '이동 중 버스에서 팀프로젝트 자료 정리 추천.' },
-      { id: 'd5-2', time: '10:00', type: 'tour', title: '요세미티 국립공원', place: 'Yosemite National Park', desc: '엘 캐피탄·하프돔·터널뷰. 운동화 필수, 물·간식 챙기기. 야생동물 먹이 주기 금지.' },
-      { id: 'd5-3', time: '18:00', type: 'hotel', title: '석식 후 호텔 투숙', place: '비살리아(Visalia)', desc: '중부 농업도시 경유 1박.' },
+      { id: 'd5-1', time: '07:30', type: 'move', title: '조식 후 요세미티 이동', place: '약 3~4시간', desc: '이동 중 버스에서 팀프로젝트 자료 정리 추천. 멀미약은 개별 지참 (인솔자 미제공).' },
+      { id: 'd5-2', time: '10:00', type: 'tour', title: '요세미티 국립공원', place: 'Yosemite National Park', desc: '2026년부터 외국인 PASS 확인제도 시행 — 입장 시 순차 확인으로 시간이 걸립니다. 트래킹 구간은 돌·흙길이라 운동화 필수 (구두·샌들·조리 금지).' },
+      { id: 'd5-3', time: '12:30', type: 'meal', title: '중식 — 요세미티 내 랏지', place: 'Yosemite Lodge', desc: '수제햄버거 + 감자튀김 + 소다' },
+      { id: 'd5-4', time: '18:00', type: 'meal', title: '석식 — International Buffet', place: '비살리아(Visalia)', desc: '' },
+      { id: 'd5-5', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'Wyndham Visalia', desc: '중부 농업도시 경유 1박. 하루만 묵으니 캐리어를 다 풀지 말 것.' },
     ],
   },
   {
     date: '2026-08-22', day: 'DAY 6', city: '비살리아 → LA',
+    hotel: 'la',
     items: [
       { id: 'd6-1', time: '09:00', type: 'move', title: '조식 후 LA로 이동', place: '약 3시간', desc: '' },
-      { id: 'd6-2', time: '12:00', type: 'tour', title: '유니버설 스튜디오 할리우드', place: 'Universal City', desc: '해리포터·슈퍼닌텐도월드. 공식 앱으로 대기시간 확인. 기념품은 [쇼핑] 탭 체크!' },
-      { id: 'd6-3', time: '18:00', type: 'meal', title: '석식 후 호텔 투숙', place: 'LA', desc: '' },
+      { id: 'd6-2', time: '12:00', type: 'tour', title: '유니버설 스튜디오 할리우드', place: 'Universal City', desc: '중식은 자유식(현금 지급). 물에 젖는 어트랙션이 많으니 우비·여벌 옷 준비. 앞이 막힌 신발 규정. 공식 앱으로 대기시간 확인!' },
+      { id: 'd6-3', time: '18:00', type: 'meal', title: '석식 — 버드나무', place: 'LA', desc: '무제한 코리안 고기 BBQ' },
+      { id: 'd6-4', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'Holiday Inn La Mirada — Buena Park', desc: '' },
     ],
   },
   {
     date: '2026-08-23', day: 'DAY 7', city: 'LA',
+    hotel: 'la',
     items: [
-      { id: 'd7-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔', desc: '' },
+      { id: 'd7-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
       { id: 'd7-2', time: '10:00', type: 'tour', title: 'The Getty (게티 센터)', place: 'Brentwood, LA', desc: '입장 무료. 건축과 정원, LA 전망 명소. 반 고흐 <아이리스> 소장.' },
-      { id: 'd7-3', time: '12:00', type: 'meal', title: '중식', place: 'LA', desc: '' },
+      { id: 'd7-3', time: '12:00', type: 'meal', title: '중식 — In-N-Out', place: 'LA', desc: '수제햄버거 + 감자튀김 + 소다. 캘리포니아 명물! 굿즈도 판매 ([쇼핑] 탭).' },
       { id: 'd7-4', time: '13:00', type: 'tour', title: '산타모니카 비치', place: 'Santa Monica', desc: '루트66 종점 표지판에서 인증샷. 피어·3rd Street 산책.' },
-      { id: 'd7-5', time: '16:00', type: 'company', title: 'UCLA 캠퍼스 투어', place: 'Westwood, LA', companyId: 'ucla', desc: '인터넷이 태어난 곳. UCLA Store에서 굿즈 쇼핑 가능.' },
-      { id: 'd7-6', time: '18:00', type: 'meal', title: '석식 후 호텔 투숙', place: 'LA', desc: '' },
+      { id: 'd7-5', time: '16:00', type: 'company', title: '프로그램 4 · UCLA 캠퍼스 투어', place: 'Westwood, LA', companyId: 'ucla', desc: '재학생 캠퍼스 투어. 인터넷이 태어난 곳. UCLA Store에서 굿즈 구매 가능.' },
+      { id: 'd7-6', time: '18:00', type: 'meal', title: '석식 — 소나무', place: 'LA', desc: '보쌈정식' },
     ],
   },
   {
     date: '2026-08-24', day: 'DAY 8', city: 'LA · 어바인',
+    hotel: 'la',
     items: [
-      { id: 'd8-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔', desc: '' },
-      { id: 'd8-2', time: '10:00', type: 'company', title: '프로그램 5 · 반도체 — Newracom', place: 'Irvine, CA', companyId: 'newracom', desc: '한국계 Wi-Fi HaLow 팹리스. 한국인 창업 스토리 — 질문 리스트 필수 점검!' },
-      { id: 'd8-3', time: '12:00', type: 'meal', title: '중식 & 자유탐방', place: '파머스마켓 · 더그로브 · 할리우드 거리 중', desc: '기념품 쇼핑 마지막 기회. 캐리어 무게 감안해서 구매!' },
-      { id: 'd8-4', time: '17:30', type: 'company', title: '프로그램 6 · SoCal 멘토링 네트워킹 만찬', place: 'LA', companyId: 'socal', desc: '남캘리포니아 한인 전문가 멘토링. 명함/링크드인 QR 준비, 네트워킹 영어 복습!' },
-      { id: 'd8-5', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'LA', desc: '캐리어 정리 — 액체류는 위탁으로, 보조배터리는 기내로.' },
+      { id: 'd8-1', time: '09:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '' },
+      { id: 'd8-2', time: '10:00', type: 'company', title: '기업방문 4 · [반도체] Newracom', place: 'Irvine, CA', companyId: 'newracom', desc: 'IoT용 저전력 장거리 Wi-Fi 칩셋 팹리스. 현직자 간담회 — 한국인 창업 스토리를 들을 수 있는 자리!' },
+      { id: 'd8-3', time: '12:00', type: 'meal', title: '중식 — 북창동순두부', place: 'LA', desc: '해산물 순두부정식' },
+      { id: 'd8-4', time: '13:30', type: 'tour', title: '파머스마켓 · 더 그로브 · 할리우드 거리', place: 'LA', desc: '기념품 쇼핑 마지막 기회. 캐리어 무게 감안해서 구매!' },
+      { id: 'd8-5', time: '17:30', type: 'company', title: '프로그램 5 · So-Cal 멘토링 네트워킹 만찬', place: 'LA', companyId: 'socal', desc: '캘리포니아 지역 글로벌 테크 재직자·과학자·스타트업 전문가와의 네트워킹 석식. 자기소개 30초와 질문 3개는 꼭 준비!' },
+      { id: 'd8-6', time: '20:00', type: 'hotel', title: '호텔 투숙', place: 'Holiday Inn La Mirada', desc: '캐리어 정리 — 액체류는 위탁으로, 보조배터리는 기내로. 위탁 23kg 초과 주의!' },
     ],
   },
   {
     date: '2026-08-25', day: 'DAY 9', city: 'LA → 인천',
     items: [
-      { id: 'd9-1', time: '07:00', type: 'meal', title: '조식 후 출발', place: '호텔', desc: '객실 잊은 물건 최종 확인 (충전기!).' },
-      { id: 'd9-2', time: '08:00', type: 'flight', title: 'LA 공항 도착 · 탑승수속', place: 'LAX', desc: '위탁 수하물 무게 확인. 면세 한도 $800/인.' },
-      { id: 'd9-3', time: '10:50', type: 'flight', title: 'YP102 출발 (LA → 인천)', place: '에어프레미아', desc: '비행 약 13시간. 날짜변경선 통과로 다음날 도착.' },
+      { id: 'd9-1', time: '07:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '객실 잊은 물건 최종 확인 (충전기·보조배터리!).' },
+      { id: 'd9-2', time: '08:00', type: 'flight', title: '공항 도착 · 탑승 수속', place: 'LAX', desc: '위탁 1개 23kg / 삼면합 158cm. 면세 한도 1인 $800.' },
+      { id: 'd9-3', time: '10:50', type: 'flight', title: 'YP102 출발 (LA → 인천)', place: '에어프레미아', desc: '비행 약 13시간. 날짜변경선을 넘어 다음날 도착.' },
     ],
   },
   {
     date: '2026-08-26', day: 'DAY 10', city: '인천 도착',
     items: [
-      { id: 'd10-1', time: '15:50', type: 'flight', title: '인천 도착', place: 'ICN', desc: '' },
-      { id: 'd10-2', time: '17:00', type: 'activity', title: '수속 후 해산', place: 'ICN', desc: '수고했습니다! 미션수행 결과보고서 제출 잊지 말기.' },
+      { id: 'd10-1', time: '15:50', type: 'flight', title: '인천국제공항 도착', place: 'ICN', desc: 'Q-CODE(검역정보 사전입력)를 미리 발급해두면 빠르게 통과. 면세 한도 초과 시에만 세관신고.' },
+      { id: 'd10-2', time: '17:00', type: 'activity', title: '수속 후 해산', place: 'ICN', desc: '수고했습니다! 성과공유회 결과보고서 준비를 잊지 마세요.' },
     ],
   },
 ];
@@ -160,17 +209,17 @@ const COMPANIES = [
     purpose: '반도체 전공정 장비 산업의 실체를 보고, 한국 소자기업과 미국 장비기업의 공생 구조를 이해한다. SW 전공자로서 장비 제어·데이터 분석 소프트웨어 커리어 가능성을 탐색한다.',
   },
   {
-    id: 'enovix', name: 'Enovix', ko: '에노빅스', emoji: '🔋', color: '#ff9f0a',
-    logo: { mark: 'ENOVIX', color: '#ff9f0a' },
-    location: 'Fremont, CA (본사)', founded: '2007', field: '차세대 배터리 (실리콘 음극)',
-    visit: 'DAY 2 · 8/18 14:00 — 프로그램 2',
-    tags: ['배터리', '실리콘 음극', '스타트업', '나스닥'],
-    intro: '100% 실리콘 음극(anode) 리튬이온 배터리를 상용화한 기업. 독자적인 3D 셀 아키텍처와 스택 공법으로 같은 부피에 더 많은 에너지를 담는다. 실리콘밸리 하드테크 스타트업의 전형적인 성장 스토리를 보여준다.',
-    tech: ['100% 활성 실리콘 음극', '3D 셀 아키텍처 (레이저 패터닝 + 스태킹)', 'BrakeFlow — 열폭주 억제 기술', '고에너지밀도 셀 설계', '반도체식 정밀 제조 공정 적용'],
-    products: ['스마트폰용 고밀도 셀', '웨어러블·XR 기기용 초소형 셀', 'EV·드론용 셀 (개발 단계)'],
-    issues: ['말레이시아 공장 대량양산 램프업', '스마트폰 OEM 공급 계약 확대', 'AI 스마트폰의 전력 수요 증가로 고밀도 배터리 주목', '한국 배터리 대기업들과의 경쟁·협력 구도'],
-    korea: '한국 배터리 3사(LG에너지솔루션·삼성SDI·SK온)와 기술 경쟁 관계이면서, 장비·소재 일부는 한국 협력사에서 조달한다. 한국 스마트폰 제조사가 잠재 고객이다.',
-    purpose: '대기업이 아닌 하드테크 스타트업이 R&D에서 양산까지 가는 여정을 본다. 배터리도 반도체식 정밀공정으로 만든다는 발상의 전환과, 상장 스타트업의 조직문화를 관찰한다.',
+    id: 'phantomai', name: 'PhantomAI', ko: '팬텀AI', emoji: '🚗', color: '#5e5ce6',
+    logo: { mark: 'PhantomAI', color: '#5e5ce6' },
+    location: 'Burlingame, CA (본사)', founded: '2016', field: '자율주행 · ADAS 소프트웨어',
+    visit: 'DAY 2 · 8/18 14:30 — 기업방문 2 (협의 중)',
+    tags: ['자율주행', 'ADAS', '한인 창업', '컴퓨터 비전'],
+    intro: '테슬라 오토파일럿 팀 출신 한국인 엔지니어들이 실리콘밸리에서 창업한 자율주행 소프트웨어 회사. 완전 자율주행보다 지금 당장 양산차에 들어갈 수 있는 ADAS(첨단운전자보조시스템)에 집중해, 자동차 부품사·완성차에 소프트웨어를 공급하는 전략을 택했다. ※ 8/18 오후 방문 기업은 Google 또는 PhantomAI로 협의 중이다.',
+    tech: ['카메라 기반 인식 (Vision-first ADAS)', '차선 유지 · 어댑티브 크루즈 컨트롤', '딥러닝 객체 인식 모델', '양산차용 임베디드 최적화', '데이터 수집·라벨링 파이프라인'],
+    products: ['PhantomVision (인식 소프트웨어)', 'ADAS 풀스택 솔루션', '완성차·부품사 대상 양산 프로젝트'],
+    issues: ['ADAS 의무 장착 규제 확대로 시장 성장', '카메라 기반 vs 라이다 방식의 노선 경쟁', '완성차의 자체 개발과 외부 조달 사이 줄다리기', '한국 완성차·부품사와의 협력 확대'],
+    korea: '창업진과 엔지니어 다수가 한국 출신이며, 한국 완성차·부품사가 주요 고객이자 파트너다. 한국 자동차 산업과 실리콘밸리 소프트웨어 역량을 잇는 통로 역할을 한다.',
+    purpose: '한국인이 실리콘밸리에서 창업해 양산 소프트웨어를 만들어내는 과정을 직접 듣는다. 소프트웨어 전공자가 자동차 산업에서 어떤 일을 하는지, 딥러닝 모델이 실제 도로 위 제품이 되기까지 무엇이 필요한지 확인한다.',
   },
   {
     id: 'apple', name: 'Apple Park', ko: '애플', emoji: '🍎', color: '#8e8e93',
@@ -225,16 +274,18 @@ const COMPANIES = [
     purpose: '반도체가 아닌 바이오 산업에서도 SW·AI 인력이 어떻게 활약하는지 확인한다. "IT × 바이오" 융합 커리어의 가능성과 실리콘밸리 산업의 다양성을 체험한다.',
   },
   {
-    id: 'berkeley', name: '스마트팜 · 푸드테크 특강', ko: '버클리 푸드연구소 (미정)', emoji: '🌱', color: '#30d158',
-    location: 'Berkeley / SF Bay Area', founded: '—', field: '푸드테크 · 애그테크 · 에드테크',
-    visit: 'DAY 4 · 8/20 14:30 — 프로그램 4 (변동 가능)',
-    tags: ['스마트팜', '푸드테크', '애그테크', '특강'],
-    intro: '캘리포니아는 미국 최대의 농업 주(州)이면서 동시에 테크의 중심지다. 그 교차점에서 스마트팜·푸드테크 산업이 자랐다. UC버클리 푸드 이노베이션 연구소를 비롯해 베이 지역에는 대체육·수직농장·농업 로보틱스 스타트업이 밀집해 있다. ※ 세부 프로그램은 현지 사정에 따라 푸드테크 또는 에드테크 특강으로 변경될 수 있다.',
-    tech: ['수직농장 · 실내재배 제어 시스템', '농업 IoT 센서 네트워크 (토양·수분·광량)', '컴퓨터 비전 기반 작물 모니터링·수확 로봇', '정밀농업 데이터 분석 및 수확량 예측', '대체 단백질 · 세포배양 기술'],
-    products: ['수직농장 운영 플랫폼', '농업용 자율주행 로봇', '대체육·배양육 제품', '식품 공급망 추적 시스템'],
-    issues: ['캘리포니아 가뭄과 물 부족 → 정밀 관개 기술 수요 급증', '농업 인력 부족을 로보틱스·자동화로 대체', 'AI 기반 수확량 예측과 기후변화 대응', '푸드테크 스타트업 투자 사이클 변화'],
-    korea: '한국도 스마트팜 수출과 농업 ICT를 국가 전략으로 육성 중이다. 한국의 시설원예 기술은 세계적 수준이며, 미국의 데이터·AI 역량과 결합할 여지가 크다.',
-    purpose: 'IT가 반도체·플랫폼을 넘어 1차 산업까지 확장되는 현장을 본다. 센서·데이터·AI가 실제 농업에 어떻게 쓰이는지 확인하고, SW 전공자의 영역이 얼마나 넓은지 체감한다.',
+    id: 'mista', name: 'MISTA · Plug and Play', ko: '미스타 · 플러그앤플레이', emoji: '🌱', color: '#30d158',
+    logo: { mark: 'MISTA', color: '#30d158' },
+    location: 'San Francisco Bay Area', founded: '—', field: '푸드테크 · 오픈이노베이션',
+    visit: 'DAY 4 · 8/20 14:30 — 프로그램 3',
+    tags: ['푸드테크', '스마트팜', '오픈이노베이션', '액셀러레이터'],
+    intro: 'MISTA는 대기업·스타트업·연구자가 한 공간에서 식품 혁신을 실험하는 푸드테크 협업 플랫폼이다. Plug and Play(PNP)는 실리콘밸리의 스타트업과 대기업·투자자·기관을 연결하는 세계 최대급 오픈이노베이션 플랫폼으로, 수많은 유니콘을 초기에 발굴한 곳이다. 이날은 MISTA의 Resident Scientist인 Kasturi Dasgupta 박사의 특강과 PNP 투어가 함께 진행된다.',
+    tech: ['대체 단백질 · 발효 기반 식품 기술', '식품 공정 데이터 분석', '농업 IoT · 정밀농업', '스타트업-대기업 매칭 프로그램', '액셀러레이터 배치 운영'],
+    products: ['MISTA 공동 R&D · 파일럿 시설', 'Plug and Play 액셀러레이터 프로그램', '기업 대상 오픈이노베이션 컨설팅'],
+    issues: ['기후변화 대응 식품 기술에 투자 집중', '대체 단백질 시장의 성장통과 재편', '대기업이 자체 R&D 대신 스타트업 협업으로 선회', '푸드테크 투자 사이클 변동'],
+    korea: '한국도 스마트팜 수출과 푸드테크를 국가 전략으로 육성 중이다. Plug and Play는 한국 지사를 두고 국내 대기업·스타트업과 협업하고 있어, 우리에게 가장 현실적인 접점이 있는 기관이다.',
+    purpose: '기술이 어떻게 사업이 되는지, 그 중간 다리를 보는 자리다. 실리콘밸리가 왜 아이디어를 빠르게 제품으로 바꾸는지 — 액셀러레이터라는 장치를 직접 확인한다. IT 전공자가 푸드테크·애그테크에서 할 수 있는 일도 함께 묻는다.',
+    speaker: 'PhD. Kasturi Dasgupta — MISTA Resident Scientist · 생명과학/푸드테크 전문가',
   },
   {
     id: 'google', name: 'Google', ko: '구글', emoji: '🌈', color: '#64d2ff',
@@ -315,28 +366,28 @@ const QUESTIONS = {
     '외국인(한국인) 엔지니어 채용 시 비자 스폰서십은 어떻게 지원되나요?',
     '램리서치가 그리는 2030년 반도체 제조의 모습이 궁금합니다.',
   ],
-  enovix: [
-    '100% 실리콘 음극을 상용화할 수 있었던 결정적 비결은 무엇인가요?',
-    '실리콘 음극의 팽창 문제를 3D 아키텍처로 어떻게 해결했나요?',
-    'BrakeFlow 기술은 배터리 화재를 어떻게 막나요?',
-    '기존 흑연 음극 배터리 대비 에너지 밀도는 얼마나 높은가요?',
-    '반도체식 정밀 제조공정을 배터리에 적용한 이유가 궁금합니다.',
-    '스마트폰 제조사들과의 공급 협상은 어떻게 진행되고 있나요?',
-    'AI 스마트폰 시대에 배터리 기술이 더 중요해지는 이유는 무엇인가요?',
-    '해외 공장에서 대량양산을 시작할 때 가장 어려웠던 점은 무엇인가요?',
-    'EV(전기차)용 셀 개발은 어느 단계까지 왔나요?',
-    '한국 배터리 3사와 비교했을 때 에노빅스의 강점은 무엇인가요?',
-    '한국 장비·소재 기업과 협력하는 부분이 있나요?',
-    '스타트업이 하드웨어 양산까지 가는 데 자금 조달은 어떻게 했나요?',
-    '상장이 회사 성장에 어떤 영향을 주었나요?',
-    '배터리 회사에서 소프트웨어 엔지니어는 어떤 일을 하나요? (BMS, 공정 데이터 등)',
-    '제조 데이터 분석·머신러닝이 수율 향상에 어떻게 쓰이나요?',
-    '실리콘밸리 하드테크 스타트업의 조직문화는 어떤가요?',
-    '창업 초기 멤버들은 어떤 배경을 가진 사람들이었나요?',
-    '대학생이 배터리·에너지 분야로 진출하려면 무엇을 공부해야 하나요?',
-    '전고체 등 차세대 배터리 기술에 대한 에노빅스의 견해가 궁금합니다.',
-    '10년 뒤 모바일 기기의 배터리는 어떤 모습일까요?',
-    '하드웨어 스타트업에서 실패를 다루는 방식이 궁금합니다.',
+  phantomai: [
+    '테슬라 오토파일럿 팀에서 나와 창업하게 된 계기는 무엇이었나요?',
+    '완전 자율주행이 아니라 ADAS에 집중하기로 한 이유가 궁금합니다.',
+    '카메라 기반 인식과 라이다 방식, 어느 쪽이 결국 이길까요?',
+    '양산차에 들어가는 소프트웨어는 연구용 코드와 무엇이 다른가요?',
+    '제한된 임베디드 하드웨어에서 딥러닝 모델을 어떻게 최적화하나요?',
+    '자율주행 데이터는 어떻게 수집하고 라벨링하나요?',
+    '엣지 케이스(폭우·역광·공사구간)는 어떻게 처리하나요?',
+    '모델 성능이 몇 %면 실제 도로에 내보낼 수 있다고 판단하나요?',
+    '사고가 났을 때 소프트웨어 회사의 책임은 어디까지인가요?',
+    '완성차·부품사와의 협업은 실제로 어떻게 진행되나요?',
+    '한국 자동차 기업과는 어떤 관계인가요?',
+    '한국이 아니라 실리콘밸리에서 창업한 이유는 무엇인가요?',
+    '초기 자금 조달과 첫 고객 확보는 어떻게 하셨나요?',
+    '소프트웨어 엔지니어는 이 회사에서 구체적으로 어떤 일을 하나요?',
+    '자율주행 분야로 가려면 학부에서 무엇을 공부해야 하나요?',
+    '컴퓨터 비전 포트폴리오는 어떻게 준비하는 게 좋을까요?',
+    '한국인 엔지니어로서 미국에서 일하며 겪은 어려움이 있나요?',
+    '스타트업과 빅테크, 신입에게는 어디가 더 좋을까요?',
+    '자율주행 상용화는 앞으로 몇 년쯤 걸릴 것 같나요?',
+    'AI 코딩 도구가 늘어나면 주니어 개발자의 역할은 어떻게 바뀔까요?',
+    '창업을 꿈꾸는 한국 학생에게 조언 한마디 부탁드립니다.',
   ],
   apple: [
     '인텔 칩에서 Apple Silicon으로 전환을 결정한 배경은 무엇이었나요?',
@@ -428,27 +479,28 @@ const QUESTIONS = {
     '20년 뒤 의약품 개발은 어떤 모습일 것 같나요?',
     '학생 인턴십이나 코업(co-op) 프로그램이 있나요?',
   ],
-  berkeley: [
+  mista: [
+    'MISTA는 어떤 문제를 풀기 위해 만들어진 공간인가요?',
+    '대기업과 스타트업이 한 공간에서 협업하면 실제로 무엇이 달라지나요?',
+    'Resident Scientist는 구체적으로 어떤 일을 하시나요?',
+    '푸드테크에서 지금 가장 뜨거운 기술 분야는 무엇인가요?',
+    '대체 단백질 시장은 초기 기대만큼 성장하고 있나요?',
+    '식품 개발에도 AI나 데이터 분석이 실제로 쓰이나요?',
     '스마트팜에서 IT 기술이 가장 큰 변화를 만든 영역은 어디인가요?',
-    '농업 IoT 센서는 실제 농장에서 어떤 데이터를 수집하나요?',
-    '수직농장은 경제성이 확보되었나요? 전력 비용 문제는 어떻게 푸나요?',
-    '컴퓨터 비전으로 작물의 병해충을 판별하는 정확도는 어느 정도인가요?',
-    '수확 로봇 상용화의 가장 큰 기술적 난제는 무엇인가요?',
-    'AI 수확량 예측 모델은 어떤 데이터로 학습시키나요?',
+    '농업 IoT 센서는 실제 농장에서 어떤 데이터를 모으나요?',
+    '컴퓨터 비전으로 작물 상태를 판별하는 정확도는 어느 정도인가요?',
     '캘리포니아의 물 부족 문제를 기술로 어떻게 해결하고 있나요?',
-    '기후변화가 농업 기술 연구 방향을 어떻게 바꾸고 있나요?',
-    '대체육·배양육 기술은 현재 어느 단계까지 왔나요?',
-    '푸드테크 스타트업의 투자 환경은 요즘 어떤가요?',
-    '소프트웨어 전공자가 애그테크 분야에 기여할 수 있는 부분은 무엇인가요?',
-    '농업 데이터의 표준화와 공유는 어떻게 이뤄지나요?',
-    '드론·위성 영상은 정밀농업에 어떻게 활용되나요?',
-    '식품 공급망 추적에 블록체인 같은 기술이 실제로 쓰이나요?',
-    '한국의 스마트팜 기술 수준을 어떻게 평가하시나요?',
-    '대학 연구소와 스타트업의 협력은 어떤 형태로 이루어지나요?',
-    '이 분야로 진출하려면 어떤 전공·역량 조합이 유리한가요?',
-    '연구 성과가 실제 농장에 적용되기까지 얼마나 걸리나요?',
-    '에드테크 분야에서 AI가 만든 가장 큰 변화는 무엇인가요?',
-    '10년 뒤 농업과 식품 산업은 어떤 모습일까요?',
+    '기후변화가 식품·농업 연구 방향을 어떻게 바꾸고 있나요?',
+    'Plug and Play는 스타트업을 어떤 기준으로 선발하나요?',
+    '액셀러레이터를 거친 팀과 그렇지 않은 팀은 무엇이 다른가요?',
+    '투자자와 대기업을 연결할 때 가장 중요한 것은 무엇인가요?',
+    '실리콘밸리가 아이디어를 빠르게 제품으로 바꾸는 비결이 무엇이라고 보시나요?',
+    '소프트웨어 전공자가 푸드테크·애그테크에 기여할 수 있는 부분은 무엇인가요?',
+    '한국의 스마트팜·푸드테크 수준을 어떻게 평가하시나요?',
+    '한국 스타트업이 Plug and Play를 통해 진출한 사례가 있나요?',
+    '이 분야로 가려면 어떤 전공·역량 조합이 유리한가요?',
+    '연구 성과가 실제 제품이 되기까지 보통 얼마나 걸리나요?',
+    '10년 뒤 우리가 먹는 음식은 어떻게 달라져 있을까요?',
   ],
   google: [
     'TPU를 자체 설계하게 된 배경과 GPU 대비 장점은 무엇인가요?',
@@ -545,18 +597,18 @@ const QUESTIONS = {
 /* ---------- 준비물 시드 ---------- */
 const PACKING_SEED = [
   // 여권/서류
-  { cat: '여권/서류', name: '여권 (유효기간 6개월+)', price: 0, priority: 'high', note: '사본 2부 + 휴대폰 촬영본' },
-  { cat: '여권/서류', name: 'ESTA 승인서 출력본', price: 21000, priority: 'high', note: '출발 72시간 전까지 승인 필수' },
-  { cat: '여권/서류', name: '항공권 e-티켓 (YP111/YP102)', price: 0, priority: 'high' },
+  // ※ 명찰 · 소책자 · ESTA · 호텔용 슬리퍼 · 배기지택 · 110V 플러그 · 항공 E-Ticket은
+  //   인천공항 미팅 때 대행사에서 배부하므로 준비물에서 제외했다.
+  { cat: '여권/서류', name: '여권 (유효기간 6개월+)', price: 0, priority: 'high', note: '사본 2부 + 휴대폰 촬영본. 항상 개인 소지' },
   { cat: '여권/서류', name: '여행자보험 증서', price: 35000, priority: 'high', note: '학교 단체보험 여부 확인' },
+  { cat: '여권/서류', name: '영문 진단서 · 처방전', price: 0, priority: 'mid', note: '전문의약품 소지 시 필수. 여권과 동일한 영문 성명 · 질환명 · 복용 사유 포함' },
   { cat: '여권/서류', name: '국제학생증 (ISIC)', price: 17000, priority: 'mid', note: '박물관 할인' },
-  { cat: '여권/서류', name: '호텔 바우처 · 일정표 출력본', price: 0, priority: 'mid' },
-  { cat: '여권/서류', name: '증명사진 2매', price: 5000, priority: 'low', note: '여권 분실 대비' },
+  { cat: '여권/서류', name: '여권용 증명사진 2매 (예비)', price: 5000, priority: 'mid', note: '여권 분실 시 재발급용' },
   // 전자기기
-  { cat: '전자기기', name: '보조배터리 (100Wh 이하)', price: 30000, priority: 'high', note: '기내 반입만 가능! 위탁 금지' },
-  { cat: '전자기기', name: '멀티탭 (USB 포트형)', price: 15000, priority: 'mid', note: '어댑터는 대행사 제공 — 멀티탭 하나면 여러 기기 동시 충전' },
+  { cat: '전자기기', name: '보조배터리 (160Wh 이하)', price: 30000, priority: 'high', note: '반드시 기내 휴대! 위탁 금지 · 기내 충전 금지' },
+  { cat: '전자기기', name: '멀티탭 (USB 포트형)', price: 15000, priority: 'mid', note: '110V 플러그는 대행사 제공 — 멀티탭 하나면 여러 기기 동시 충전' },
   { cat: '전자기기', name: 'USB-C 케이블 x2', price: 10000, priority: 'mid' },
-  { cat: '전자기기', name: '유심 / eSIM (미국 10일)', price: 25000, priority: 'high', note: '출국 전 QR 미리 발급' },
+  { cat: '전자기기', name: '유심 / eSIM / 로밍', price: 25000, priority: 'high', note: '오픈채팅방으로 실시간 공지 — 도착 즉시 통신되도록 미리 준비' },
   { cat: '전자기기', name: '이어폰 / 에어팟', price: 0, priority: 'mid', note: '11시간 비행 + 장거리 버스' },
   { cat: '전자기기', name: '카메라 (선택)', price: 0, priority: 'low', note: '요세미티·금문교용' },
   // 의류
@@ -564,30 +616,33 @@ const PACKING_SEED = [
   { cat: '의류', name: '긴팔 / 가디건 2장', price: 0, priority: 'high', note: 'SF 아침저녁 12~15도, 필수!' },
   { cat: '의류', name: '바람막이 / 경량패딩', price: 0, priority: 'high', note: '금문교·요세미티 대비' },
   { cat: '의류', name: '긴바지 3벌', price: 0, priority: 'high' },
-  { cat: '의류', name: '비즈니스 캐주얼 1벌', price: 0, priority: 'high', note: '기업탐방 + SoCal 멘토링 만찬용' },
-  { cat: '의류', name: '편한 운동화', price: 0, priority: 'high', note: '요세미티 트레킹·캠퍼스 투어' },
+  { cat: '의류', name: '비즈니스 캐주얼 1벌', price: 0, priority: 'high', note: '기업방문 4회 + SoCal 만찬. 반바지 제한 기업 있음 — 긴바지 필수' },
+  { cat: '의류', name: '앞이 막힌 편한 운동화', price: 0, priority: 'high', note: '기업방문·요세미티·유니버설 모두 규정. 구두·샌들·조리 금지' },
+  { cat: '의류', name: '우비 / 여벌 옷', price: 8000, priority: 'high', note: '유니버설 스튜디오 — 물에 젖는 어트랙션 다수' },
   { cat: '의류', name: '속옷 · 양말 세트', price: 0, priority: 'high', note: '9박 10일 — 넉넉하게' },
   { cat: '의류', name: '잠옷', price: 0, priority: 'mid' },
   { cat: '의류', name: '모자 · 선글라스', price: 0, priority: 'mid', note: '캘리포니아 햇빛 매우 강함' },
   // 세면도구
   { cat: '세면도구', name: '치약 · 칫솔', price: 5000, priority: 'high', note: '미국 호텔은 미제공' },
-  { cat: '세면도구', name: '샴푸·바디워시 (100ml 이하)', price: 8000, priority: 'mid', note: '기내 반입 시 지퍼백' },
+  { cat: '세면도구', name: '샴푸·바디워시 (100ml 이하)', price: 8000, priority: 'low', note: '호텔에서 바디워시·샴푸는 제공됨. 본인 제품 쓸 경우만' },
   { cat: '세면도구', name: '스킨케어 · 선크림 SPF50+', price: 15000, priority: 'high' },
   { cat: '세면도구', name: '면도기', price: 0, priority: 'mid' },
   { cat: '세면도구', name: '수건 1장', price: 0, priority: 'low', note: '호텔 제공되나 예비용' },
   // 상비약
   { cat: '상비약', name: '소화제 · 지사제', price: 8000, priority: 'high', note: '기름진 음식 대비' },
   { cat: '상비약', name: '감기약 · 해열제', price: 8000, priority: 'high' },
-  { cat: '상비약', name: '멀미약', price: 5000, priority: 'mid', note: '요세미티·LA 장거리 버스' },
+  { cat: '상비약', name: '멀미약', price: 5000, priority: 'high', note: '★ 인솔자가 제공하지 않습니다. 요세미티(3~4h)·LA(3h) 장거리 버스 대비 개별 지참' },
   { cat: '상비약', name: '밴드 · 연고', price: 5000, priority: 'mid' },
   { cat: '상비약', name: '개인 처방약', price: 0, priority: 'high', note: '영문 처방전 지참 권장' },
   { cat: '상비약', name: '수면 안대 · 귀마개', price: 7000, priority: 'mid', note: '기내 숙면' },
+  { cat: '상비약', name: '마스크 · 자가진단키트', price: 8000, priority: 'mid', note: '혼잡한 실내 착용 권장. 증상 시 검사 후 운영진 보고' },
   // 충전기 (110V 어댑터는 대행사에서 제공)
   { cat: '충전기', name: '휴대폰 고속충전기', price: 0, priority: 'high', note: '프리볼트(100~240V)인지 확인' },
   { cat: '충전기', name: '스마트워치 충전기', price: 0, priority: 'low' },
   // 여행용품
-  { cat: '여행용품', name: '캐리어 (위탁용)', price: 0, priority: 'high', note: '항공사 규정 무게 확인' },
-  { cat: '여행용품', name: '기내용 백팩', price: 0, priority: 'high', note: '노트북·보조배터리 수납' },
+  { cat: '여행용품', name: '캐리어 (위탁용)', price: 0, priority: 'high', note: '위탁 1개 · 최대 23kg · 삼면합 158cm (손잡이·바퀴 포함)' },
+  { cat: '여행용품', name: '기내용 가방', price: 0, priority: 'high', note: '1개 · 최대 10kg · 55×40×20cm. 앞으로 매는 가방 권장(소매치기 대비)' },
+  { cat: '여행용품', name: '휴대용 우산 / 양산', price: 10000, priority: 'mid', note: '소나기와 강한 햇볕 대비' },
   { cat: '여행용품', name: '목베개', price: 15000, priority: 'mid', note: '11~13시간 비행' },
   { cat: '여행용품', name: '캐리어 자물쇠 (TSA 인증)', price: 10000, priority: 'mid', note: 'TSA 아니면 절단됨' },
   { cat: '여행용품', name: '지퍼백 · 압축팩', price: 8000, priority: 'mid' },
@@ -599,15 +654,23 @@ const PACKING_SEED = [
   { cat: '기타', name: '트래블카드 (트래블월렛 등)', price: 0, priority: 'high', note: '개인 쇼핑·카페용. 출국 전 달러 충전' },
   { cat: '기타', name: '명함 (네트워킹용)', price: 15000, priority: 'high', note: 'SoCal 만찬 대비! 영문 명함 or 링크드인 QR' },
   { cat: '기타', name: '작은 한국 기념품', price: 20000, priority: 'mid', note: '기업 담당자·멘토 선물용' },
-  { cat: '기타', name: '수첩 · 펜', price: 5000, priority: 'mid', note: '탐방 메모용' },
+  { cat: '기타', name: '수첩 · 필기도구', price: 5000, priority: 'mid', note: '기업방문 메모용' },
+  { cat: '기타', name: '자기소개 30초 스크립트', price: 0, priority: 'high', note: '이름 · 관심분야 — 기업방문마다 요구됨. 영문으로 준비' },
   { cat: '기타', name: '컵라면 · 햇반 (소량)', price: 15000, priority: 'low', note: '육류·과일 반입 금지 주의' },
 ];
 
 /* ---------- 여행 체크리스트 시드 (단계별 자동 분류) ---------- */
 const TRAVEL_CHECK_SEED = [
   // 출국 전
-  { phase: '출국 전', name: 'ESTA 신청 및 승인 확인 (출발 72시간 전 필수)' },
+  { phase: '출국 전', name: '★ 8/13(목) 12:00까지 팀별 미션수행 계획서 제출 (2307soul@naver.com)' },
+  { phase: '출국 전', name: '팀 미팅 최소 1회 진행 (전원 인증샷 → 오픈채팅방, 커피쿠폰 지원)' },
+  { phase: '출국 전', name: '오픈채팅방 참여 확인 (실시간 공지 채널)' },
   { phase: '출국 전', name: '여권 유효기간 6개월 이상 확인' },
+  { phase: '출국 전', name: '에어프레미아 홈페이지 회원가입 + 예약 조회' },
+  { phase: '출국 전', name: '온라인 체크인 (출발 48시간 ~ 1시간 전)' },
+  { phase: '출국 전', name: '스마트패스 앱 설치 · 여권/얼굴 등록' },
+  { phase: '출국 전', name: '해외안전여행 앱 설치 (외교부)' },
+  { phase: '출국 전', name: '특별 기내식 필요 시 신청 (출발 48시간 전 · 1800-2626)' },
   { phase: '출국 전', name: '여행자보험 가입 확인' },
   { phase: '출국 전', name: '유심 / eSIM 구매 및 QR 저장' },
   { phase: '출국 전', name: '트래블카드 달러 충전 (개인 쇼핑용)' },
@@ -615,17 +678,19 @@ const TRAVEL_CHECK_SEED = [
   { phase: '출국 전', name: '카드사에 해외사용 알림 등록' },
   { phase: '출국 전', name: '구글맵 오프라인 지도 다운로드 (SF · LA · 요세미티)' },
   { phase: '출국 전', name: '기업탐방 질문 리스트 최종 정리' },
-  { phase: '출국 전', name: '팀프로젝트 미션수행 계획서 제출' },
-  { phase: '출국 전', name: '영문 자기소개 30초 버전 준비 (네트워킹용)' },
+  { phase: '출국 전', name: '영문 자기소개 30초 준비 (이름 · 관심분야 — 기업방문마다 필요)' },
   { phase: '출국 전', name: '명함 / 링크드인 QR 준비' },
-  { phase: '출국 전', name: '캐리어 무게 측정' },
+  { phase: '출국 전', name: '캐리어 무게 측정 (위탁 23kg · 삼면합 158cm 이내)' },
+  { phase: '출국 전', name: '기내 가방 확인 (10kg · 55×40×20cm · 액체 100ml 지퍼백)' },
+  { phase: '출국 전', name: '전문의약품 있으면 영문 진단서 준비' },
   // 공항
-  { phase: '공항', name: '14:30 인천공항 집결 (여유있게 도착!)' },
-  { phase: '공항', name: '여권 · ESTA · e티켓 소지 확인' },
-  { phase: '공항', name: '위탁수하물 부치기 (보조배터리 빼기!)' },
+  { phase: '공항', name: '15:30 인천공항 T1 3층 C카운터 집결 (에어프레미아)' },
+  { phase: '공항', name: '지급물품 수령 (명찰 · 소책자 · ESTA · 슬리퍼 · 배기지택 · 110V 플러그 · E-Ticket)' },
+  { phase: '공항', name: '명찰 뒷면 호텔명·연락처 확인 (입국심사·비상시 사용)' },
+  { phase: '공항', name: '위탁수하물 부치기 (보조배터리 · 라이터 · 전자담배는 빼서 휴대!)' },
   { phase: '공항', name: '보안검색 · 출국심사' },
   { phase: '공항', name: '로밍 / 유심 최종 확인' },
-  { phase: '공항', name: '탑승구 위치·시간 확인 (YP111)' },
+  { phase: '공항', name: '탑승게이트 집결 (탑승 시작 20분 전까지)' },
   { phase: '공항', name: '물 구매 (보안검색 후)' },
   // 비행기
   { phase: '비행기', name: '기내 입국서류 · 세관신고서 작성' },
@@ -635,27 +700,33 @@ const TRAVEL_CHECK_SEED = [
   { phase: '비행기', name: '도착 시간 기준으로 수면 계획 세우기' },
   // 입국
   { phase: '입국', name: '입국심사: 방문목적은 "Tour." 한 단어로 (인솔자 안내)' },
-  { phase: '입국', name: '지문 · 사진 촬영' },
-  { phase: '입국', name: '수하물 수취 (Baggage Claim 번호 확인)' },
+  { phase: '입국', name: '비거주자(Non-resident) 줄에 도착순으로 서기' },
+  { phase: '입국', name: '모자 벗고 사진 · 양손 지문 촬영' },
+  { phase: '입국', name: '모니터에서 수하물 LANE 번호 확인 후 수취' },
   { phase: '입국', name: '세관 신고 (과일 · 육류 반입 금지)' },
+  { phase: '입국', name: '수하물 찾는 곳에서 인원 체크 후 함께 이동' },
+  { phase: '입국', name: '가이드 피켓 확인 — "2026 충북 대학생 글로벌 기업탐방 해외연수"' },
   { phase: '입국', name: '유심 활성화 & 가족에게 도착 연락' },
-  { phase: '입국', name: '가이드 미팅 장소 확인' },
   // 호텔
   { phase: '호텔', name: '체크인 & 여권 제시' },
   { phase: '호텔', name: '와이파이 연결 확인' },
   { phase: '호텔', name: '귀중품 금고 보관' },
   { phase: '호텔', name: '비상구 위치 확인' },
   { phase: '호텔', name: '모닝콜 / 알람 설정 (시차 주의)' },
+  { phase: '호텔', name: '취침 시 이중 잠금 (자동 문 잠김 · 도난 주의)' },
+  { phase: '호텔', name: '건식 화장실 — 샤워 시 커튼을 욕조 안으로' },
   { phase: '호텔', name: '체크아웃 시 침대 위 $1 놓기 (하우스키핑 팁)' },
   { phase: '호텔', name: '매일 밤 [일기] 탭 작성하기' },
   // 귀국
   { phase: '귀국', name: '객실 잊은 물건 최종 확인 (충전기!)' },
   { phase: '귀국', name: '캐리어 무게 확인 (쇼핑 후 초과 주의)' },
   { phase: '귀국', name: '보조배터리 기내 가방으로 이동' },
-  { phase: '귀국', name: '면세 한도 확인 ($800 / 1인)' },
+  { phase: '귀국', name: '면세 한도 확인 (1인 $800 · 주류 2L 2병 · 담배 1보루 · 향수 100ml)' },
   { phase: '귀국', name: '액체류(와인 · 화장품)는 위탁수하물로' },
+  { phase: '귀국', name: 'Q-CODE 검역정보 사전입력 후 캡처 보관' },
+  { phase: '귀국', name: '면세 한도 초과 시 관세청 QR로 세관신고' },
   { phase: '귀국', name: '데이터 백업 (설정 탭 → JSON Export)' },
-  { phase: '귀국', name: '귀국 후: 미션수행 결과보고서 제출' },
+  { phase: '귀국', name: '성과공유회 결과보고서 작성 (팀별 15분 발표 · PPT 또는 영상)' },
 ];
 
 /* ---------- 영어 회화 ---------- */
@@ -674,14 +745,17 @@ const ENGLISH = [
   },
   {
     cat: '입국심사', icon: 'shield-check', phrases: [
-      { en: 'Tour.', ko: '관광이요.', tip: '★ 인솔자 안내 — 방문 목적은 이 한 단어로만. 길게 설명할수록 질문이 늘어납니다' },
-      { en: 'Nine days.', ko: '9일이요.', tip: '체류 기간도 숫자만 짧게' },
-      { en: 'With my school group.', ko: '학교 단체와 함께요.', tip: '누구와 왔는지 물을 때' },
-      { en: 'A hotel in Silicon Valley.', ko: '실리콘밸리의 호텔이요.', tip: '숙소를 물을 때. 모르면 인솔자를 가리키면 됩니다' },
-      { en: 'Yes, August 25th.', ko: '네, 8월 25일이요.', tip: '귀국 항공권이 있냐고 물을 때' },
-      { en: "Sorry, could you say that again?", ko: '죄송합니다, 다시 말씀해 주시겠어요?', tip: '못 알아들었을 때. 당황하지 말고 이 문장을' },
-      { en: 'I have nothing to declare.', ko: '신고할 물품이 없습니다.', tip: '세관 통과 시' },
-      { en: "I'm a university student from South Korea.", ko: '한국에서 온 대학생입니다.', tip: '더 물어볼 때만 쓰는 예비 문장' },
+      { en: 'Tour.', ko: '관광이요.', tip: '★ 방문 목적 — 이 한 단어로만. 기업방문·교육·대학·연수·프로그램은 절대 금지어입니다' },
+      { en: 'Golden Gate Bridge and Universal Studios.', ko: '금문교와 유니버설 스튜디오요.', tip: '★ 여행 계획지 — University·Corporate·Company는 금지어' },
+      { en: 'Eight days.', ko: '8일이요.', tip: '체류 기간' },
+      { en: 'Crowne Plaza Silicon Valley North, Union City.', ko: '크라운플라자 실리콘밸리 노스, 유니언시티요.', tip: '체류 주소 — 명찰 뒷면에 적혀 있습니다' },
+      { en: 'Student.', ko: '학생이요.', tip: '직업' },
+      { en: 'ESTA.', ko: 'ESTA요.', tip: '비자 종류' },
+      { en: 'Los Angeles.', ko: '로스앤젤레스요.', tip: '다른 방문 도시' },
+      { en: 'Yes, I have a return ticket.', ko: '네, 귀국 항공권 있습니다.', tip: '출력한 E-Ticket을 제시하면 됩니다' },
+      { en: 'Less than one thousand dollars.', ko: '1,000달러 미만이요.', tip: '보유 현금 — $1,000 이내로 답변' },
+      { en: 'No.', ko: '아니요.', tip: '세관 신고할 물건이 있냐고 물을 때' },
+      { en: 'Sorry, could you say that again?', ko: '죄송합니다, 다시 말씀해 주시겠어요?', tip: '못 알아들었을 때. 당황하지 말고 이 문장을' },
     ],
   },
   {
@@ -838,6 +912,71 @@ const ENGLISH = [
 /* ---------- 캘리포니아 가이드 ---------- */
 const GUIDE = [
   {
+    id: 'immigration', title: '입국심사 모범답안', icon: 'shield-check', color: '#ff453a',
+    rows: [
+      ['★ 원칙', '최대한 짧고! 간결하고! 명확하게! 묻지 않은 말은 절대 덧붙이지 않는다'],
+      ['★ 금지 키워드 ①', '방문 목적에 "기업방문 · 교육 · 대학 · 연수 · 프로그램" 언급 금지'],
+      ['★ 금지 키워드 ②', '여행지 답변에 "University · Corporate · Company" 언급 금지'],
+      ['미국에 온 목적', 'Tour. / Sightseeing.'],
+      ['여행 계획지', 'Golden Gate Bridge, Universal Studios'],
+      ['체류 기간', '8 days'],
+      ['체류 주소', 'Crowne Plaza Silicon Valley North – Union City (명찰 뒷면 참고)'],
+      ['보유 현금', '$1,000 이내'],
+      ['비자 종류', 'ESTA'],
+      ['다른 방문 도시', 'LA'],
+      ['귀국 항공권', 'OK — 출력한 E-Ticket 제시'],
+      ['직업', 'Student'],
+      ['세관 신고', 'NO'],
+      ['절차', '비거주자 줄 → 모자 벗고 사진 → 양손 지문 → 질문에 성실히 답변(장난 금지)'],
+    ],
+  },
+  {
+    id: 'baggage', title: '수하물 규정', icon: 'briefcase', color: '#5e5ce6',
+    rows: [
+      ['무료 위탁', '1개 · 최대 23kg · 삼면합 158cm (손잡이·바퀴 포함)'],
+      ['기내 휴대', '1개 · 최대 10kg · 55×40×20cm (삼면합 115cm 이하)'],
+      ['액체류', '100ml 이하 용기만 · 1인당 총 1L · 투명 지퍼백 1개'],
+      ['반드시 휴대 (위탁 금지)', '보조배터리 · 라이터 · 전자담배 · 노트북 등 회로 있는 기기'],
+      ['반드시 위탁 (휴대 금지)', '물·화장품·세면세제 등 액체/겔, 생수, 스프레이'],
+      ['둘 다 금지', '인화성 물질 · 고압가스 · 에어로졸(살충제) · 락스 · 파마약'],
+      ['둘 다 금지 (칼류)', '맥가이버칼 · 바늘 · 과도 · 칼 달린 손톱깎이'],
+      ['둘 다 금지 (배터리)', '160Wh 초과 리튬배터리, 배터리 분리 불가한 무선 고데기'],
+      ['기내 충전', '보조배터리로 기내 충전 금지. 단자 단락 조치 후 좌석 앞주머니 보관'],
+      ['면세품', '도착지 세관 통과 전까지 개봉 금지. 액체 면세품은 귀국 시 위탁'],
+      ['전문의약품', '영문 소견서 또는 처방전 제시'],
+    ],
+  },
+  {
+    id: 'hotel', title: '숙소 정보', icon: 'bed', color: '#bf5af2',
+    rows: [
+      ['8/17~8/20 · 실리콘밸리', 'Crowne Plaza Silicon Valley N — Union City / +1 510-489-2200'],
+      ['주소', '32083 Alvarado-Niles Road, Union City, CA 94587'],
+      ['8/21 · 비살리아', 'Wyndham Visalia / +1 559-931-2117'],
+      ['주소 ', '9000 W Airport Dr, Visalia, CA 93277'],
+      ['8/22~8/24 · LA', 'Holiday Inn La Mirada — Buena Park by IHG / +1 714-739-8500'],
+      ['주소  ', '14299 Firestone Blvd, La Mirada, CA 90638'],
+      ['객실', '트윈룸 2인 1실. 배정된 방 임의 변경 불가(변경 시 운영진 공유)'],
+      ['제공', '바디워시·샴푸 등 어메니티 · 무료 Wi-Fi. 치약·칫솔은 미제공'],
+      ['매너팁', '아침 외출 시 베개 위에 1인당 $1'],
+      ['주의', '룸 슬리퍼로 외출 금지 · 복도·객실 고성 금지 · 취침 시 이중 잠금'],
+      ['화장실', '건식 — 샤워 시 커튼을 반드시 욕조 안으로'],
+      ['개별 계산', '객실 내 음료 · 국제 통화료는 본인 부담'],
+    ],
+  },
+  {
+    id: 'apps', title: '필수 앱 & 사전 준비', icon: 'phone', color: '#64d2ff',
+    rows: [
+      ['스마트패스', '여권·얼굴·탑승권 사전 등록 → 출국장·게이트를 얼굴인증으로 통과'],
+      ['해외안전여행', '외교부 제공. 안전정보 알림 · 재외공관 연락처 · 위기대처 매뉴얼'],
+      ['오픈채팅방', '연수 기간 실시간 공지 채널. 도착 즉시 통신 가능하도록 설정'],
+      ['온라인 체크인', '출발 48시간 ~ 1시간 전. 모바일 탑승권으로 BAG DROP 직행'],
+      ['사전 좌석 지정', '출발 3시간 전까지 온라인 구매 가능(안 해도 자동 배정)'],
+      ['BAG DROP', '출발 3시간 전부터 가능'],
+      ['특별 기내식', '채식·당뇨식 등 출발 48시간 전까지 예약센터(1800-2626) 신청'],
+      ['Q-CODE', '귀국 시 검역정보 사전입력 후 캡처 보관'],
+    ],
+  },
+  {
     id: 'weather', title: '날씨 & 복장', icon: 'cloud-sun', color: '#0a84ff',
     rows: [
       ['8월 중순 SF · 실리콘밸리', '낮 22~26°C, 아침저녁 12~15°C. 일교차 큼!'],
@@ -871,7 +1010,11 @@ const GUIDE = [
       ['호칭', '기업 방문 시 이름(First name)으로 불러도 OK. 직급 문화 약함'],
       ['금기', '나이·연봉·정치·종교 질문은 피하기'],
       ['Excuse me', '지나갈 때, 부딪혔을 때, 주의를 끌 때 만능 표현'],
-      ['사진', '사람·기업 내부 촬영 전에는 반드시 물어보기'],
+      ['사진', '사람·기업 내부 촬영 전에는 반드시 물어보기. 무허가 촬영 금지'],
+      ['기업 방문 복장', '단정한 복장 · 앞이 막힌 신발 · 긴바지/치마 (반바지 제한 기업 있음)'],
+      ['기업 방문 태도', '질문시간 외 질문·사적 대화 자제. 개인 행동 금지'],
+      ['Sorry', '외국인과 부딪히면 먼저 "Sorry"로 미안함을 표하기'],
+      ['차별 발언', '인종·문화에 대한 차별적 언행 절대 금지'],
     ],
   },
   {
@@ -881,7 +1024,12 @@ const GUIDE = [
       ['SF 주의 지역', '텐더로인·시빅센터 인근 야간 도보 피하기'],
       ['LA 주의 지역', '다운타운 스키드로 인근. 야간 단독 행동 금지'],
       ['소매치기', '관광지(피어39·할리우드)에서 가방은 앞으로 매기'],
+      ['★ 보행 중 휴대폰', '횡단보도에서 휴대폰 보며 걷다 적발되면 벌금! 통화만 허용'],
       ['무단횡단', 'Jaywalking 단속 지역 있음. 신호 지키기'],
+      ['총기', '총기 소지가 허용되는 나라. 단독행동·시비 절대 금지'],
+      ['야간', '호텔 밖 야간 외출 삼가. 인적 드물거나 어두운 거리 보행 금지'],
+      ['단독행동', '혼자 다니지 말고 여럿이 이동. 이동 전 가이드·인솔자에게 보고'],
+      ['가방', '앞으로 매는 가방 권장(백팩 지양). 타인에게 짐 맡기거나 맡아주지 않기'],
       ['음주', '만 21세 미만 음주 불법. 신분증(여권) 확인 필수'],
       ['대마초', '캘리포니아는 합법이지만 한국인은 속인주의로 처벌 대상! 절대 금지'],
       ['요세미티', '야생동물 먹이 주기 금지, 지정 트레일 이탈 금지, 물 충분히'],
@@ -896,7 +1044,9 @@ const GUIDE = [
       ['BART', 'SF 공항↔시내 전철. 컨택리스 카드 탭 가능'],
       ['LA 메트로', '노선 제한적. 관광은 우버가 현실적'],
       ['도보', '실리콘밸리는 블록이 커서 도보 이동 거의 불가'],
-      ['장거리 구간', '요세미티(3~4h) · LA(3h) 이동 — 멀미약·목베개 준비'],
+      ['장거리 구간', '요세미티(3~4h) · LA(3h) 이동 — 멀미약은 개별 지참(미제공)'],
+      ['★ 시간 엄수', '법적으로 버스 운행시간이 정해져 있어 출발시간 지연이 불가합니다'],
+      ['화장실', '이동 중 화장실 갈 때는 반드시 운영진에게 보고'],
     ],
   },
   {
@@ -933,7 +1083,10 @@ const GUIDE = [
       ['약국', 'CVS·Walgreens 어디에나 있음. 감기약 등 OTC 구매 가능'],
       ['여권 분실', '총영사관에서 단수여권 발급 (증명사진 + 여권사본 필요)'],
       ['카드 분실', '카드사 앱에서 즉시 정지 → 재발급'],
-      ['인솔자 연락처', '출국 전 반드시 저장해둘 것 (설정 탭 메모 활용)'],
+      ['명찰 뒷면', '호텔명 · 가이드/인솔자 연락처가 적혀 있습니다. 항상 소지'],
+      ['질병 징후', '먼저 인솔자·총책임자에게 보고 → 필요시 병원 진료 요청'],
+      ['보험 서류', '해외 진료 시 진단서 · 진료비 내역서 · 약제비 영수증 반드시 챙기기'],
+      ['인솔자 상비약', '기본 상비약은 응급 상황에서만 제한적 제공. 개인 약은 개인 준비'],
     ],
   },
 ];
@@ -1366,94 +1519,86 @@ Newracom(ETRI 출신 창업), 스탠퍼드 연구원 네트워킹, SoCal 멘토�
   },
 
   {
-    id: 'deathvalley', emoji: '🔋', color: '#ff9f0a',
-    title: '데스밸리를 건너는 법 — 하드테크 스타트업의 양산 여정',
-    tagline: 'Enovix 단일 사례 심층 분석',
+    id: 'autonomy', emoji: '🚗', color: '#ff9f0a',
+    title: '한국인이 실리콘밸리에서 만든 자율주행 소프트웨어',
+    tagline: 'PhantomAI 단일 사례 심층 분석 · 방문 확정 시 선택',
     fit: '중간',
-    core: '실험실에서 되는 기술이 공장에서도 되게 만들려면 무엇이 필요한가? Enovix는 그 구간을 어떻게 건넜는가?',
-    why: '대부분의 팀이 대기업을 다룰 때 스타트업 하나를 깊게 파면 발표가 눈에 띈다. Enovix는 "실리콘 음극"이라는 오래된 난제를 상용화한 회사라 기술적으로도 이야깃거리가 많다. LAM에서 본 반도체 정밀공정과 연결하면 축이 하나 더 생긴다.',
-    visits: ['enovix', 'lam'],
+    core: '딥러닝 모델이 실제 도로를 달리는 양산차 소프트웨어가 되기까지 무엇이 필요하며, 왜 그 일을 한국인 엔지니어들이 실리콘밸리에서 하고 있는가?',
+    why: '대부분의 팀이 대기업을 다룰 때 스타트업 하나를 깊게 파면 발표가 눈에 띈다. PhantomAI는 테슬라 출신 한국인들이 세운 회사라 기술과 커리어 두 축을 동시에 다룰 수 있다. 다만 8/18 오후 방문지는 Google 또는 PhantomAI로 협의 중이므로, PhantomAI 확정 공지를 확인한 뒤 선택할 것.',
+    visits: ['phantomai', 'google', 'newracom'],
     method: [
-      '실리콘 음극의 기술적 난제(팽창)와 Enovix의 해법을 정리',
-      'R&D → 파일럿 → 양산 각 단계에서 무엇이 병목이었는지 질문',
-      '반도체식 정밀공정을 배터리에 적용한 발상을 LAM 방문 내용과 연결',
-      '한국 배터리 3사와의 기술·전략 비교',
+      '연구용 모델과 양산 소프트웨어의 차이를 현장 질문으로 확인',
+      '카메라 기반 인식과 라이다 방식의 노선 차이를 정리',
+      '엣지 케이스·안전 검증을 어떻게 다루는지 취재',
+      'Newracom과 묶어 "한국인 창업 팹리스 vs 한국인 창업 SW" 비교 축 만들기',
     ],
-    outcome: ['실리콘 음극 기술 설명 자료', '양산까지의 타임라인', '한국 배터리 산업에 대한 시사점'],
+    outcome: ['연구 모델 → 양산 소프트웨어 파이프라인 도해', '자율주행 기술 노선 비교표', '한국 자동차 산업에 대한 시사점'],
     outline: [
-      '데스밸리란 무엇인가',
-      '실리콘 음극 — 오래된 난제',
-      'Enovix의 해법: 3D 구조',
-      '실험실에서 공장까지의 구간',
-      '반도체 공정과의 만남',
-      '한국 배터리 산업에 주는 시사점',
+      '자율주행은 어디까지 왔나',
+      '연구실의 모델과 도로 위의 소프트웨어',
+      'PhantomAI의 선택 — 완전자율 대신 ADAS',
+      '카메라냐 라이다냐',
+      '왜 실리콘밸리였나 — 창업 이야기',
+      '한국 자동차 산업에 주는 시사점',
     ],
     roles: [
-      'A (리더) — 기술 원리 조사(실리콘 음극·3D 구조), 발표',
-      'B — 양산 과정·자금조달 타임라인 정리',
-      'C — 한국 배터리 3사 비교, LAM 방문 내용과의 연결',
+      'A (리더) — 기술 조사(컴퓨터 비전·ADAS), 발표',
+      'B — 창업·조직 스토리 정리, 도해 제작',
+      'C — 한국 완성차·부품사 현황 조사, 비교표 작성',
     ],
-    risk: '단일 기업 사례라 자료가 부족할 수 있다. 현장 Q&A에서 최대한 많이 확보하고, 못 들으면 공개 자료로 보완할 계획을 미리 세울 것.',
+    risk: '방문지가 협의 중이라 확정 전에는 이 주제를 확정하지 말 것. Google로 확정되면 3번 주제로 전환하는 편이 안전하다.',
     seed: {
-      overview: `# 데스밸리를 건너는 법 — Enovix로 본 하드테크 스타트업의 양산 여정
+      overview: `# 한국인이 실리콘밸리에서 만든 자율주행 소프트웨어
 
 ## 주제 선정 이유
-실험실에서 되는 기술이 공장에서도 되게 만드는 구간을 "데스밸리"라 부른다.
-Enovix는 실리콘 음극이라는 오래된 난제를 들고 그 구간을 건넌 회사다.
-대부분의 팀이 대기업을 다룰 때, 스타트업 하나를 깊게 파면 발표가 눈에 띈다.
+PhantomAI는 테슬라 오토파일럿 팀 출신 한국인들이 세운 자율주행 소프트웨어 회사다.
+기술(딥러닝의 양산화)과 커리어(한국인의 실리콘밸리 창업)를 한 번에 다룰 수 있다.
 
 ## 핵심 질문
-> 실험실에서 되는 기술을 공장에서도 되게 하려면 무엇이 필요한가?
+> 딥러닝 모델이 실제 도로를 달리는 양산차 소프트웨어가 되기까지 무엇이 필요한가?
 
-## 목표 및 기대효과
-1. 실리콘 음극의 기술적 난제와 해법을 이해한다.
-2. R&D → 파일럿 → 양산 각 단계의 병목을 파악한다.
-3. 한국 배터리 산업에 주는 시사점을 도출한다.
+## 전제 확인
+- 8/18 오후 방문지는 **Google 또는 PhantomAI로 협의 중**이다.
+- PhantomAI 확정 공지를 확인한 뒤 이 주제를 확정할 것.
 
 ## 팀원 (3인)
-- 팀원 A (리더): 기술 원리 · 발표
-- 팀원 B: 양산 타임라인 · 자금조달
-- 팀원 C: 한국 배터리 3사 비교`,
-      research: `## 기술 — 실리콘 음극의 난제
-- 흑연 대비 이론 용량이 크지만 충방전 시 부피 팽창이 심하다
-- 팽창 → 균열 → 수명 저하라는 악순환
-- Enovix의 해법: 3D 셀 아키텍처로 팽창을 구조적으로 구속
+- 팀원 A (리더): 기술 조사 · 발표
+- 팀원 B: 창업 스토리 · 도해
+- 팀원 C: 한국 자동차 산업 조사`,
+      research: `## 기술
+- ADAS와 완전 자율주행(Level 2 vs Level 4)의 차이
+- 카메라 기반 인식 vs 라이다 방식
+- 양산 임베디드 하드웨어에서의 모델 최적화
+- 데이터 수집 · 라벨링 파이프라인
 
-## 양산 여정 (현장에서 확인할 것)
-- R&D 단계에서 가장 오래 걸린 문제는?
-- 파일럿 라인과 양산 라인의 결정적 차이는?
-- 수율은 어떻게 끌어올렸는가?
-- 자금은 어떤 단계에서 어떻게 조달했는가?
+## 현장에서 확인할 것
+- 연구용 코드와 양산 소프트웨어의 결정적 차이는?
+- 엣지 케이스(폭우·역광·공사구간)는 어떻게 처리하나?
+- 성능이 몇 %면 도로에 내보낼 수 있다고 판단하나?
+- 왜 한국이 아니라 실리콘밸리에서 창업했나?
 
-## 반도체 공정과의 연결 (LAM 방문과 묶기)
-- 레이저 패터닝·스태킹은 반도체 정밀공정의 발상
-- 8/18 오전 LAM → 오후 Enovix 순서를 그대로 활용
+## 한국 측 조사
+- 현대차·모비스 등의 자율주행 개발 현황
+- 국내 자율주행 스타트업 생태계
+- 출처: `,
+      slides: `> 성과공유회: 팀별 15분 이내 · PPT 또는 영상
 
-## 한국 배터리 3사 비교
-| 항목 | Enovix | LG엔솔 / 삼성SDI / SK온 |
-|---|---|---|
-| 음극 소재 | 100% 실리콘 | 흑연 + 실리콘 일부 |
-| 규모 | 스타트업 | 대기업 |
-| 전략 |  |  |
-
-## 출처
-- `,
-      slides: `## 발표 구성안 (12분 기준)
-1. 데스밸리란 무엇인가 (1분)
-2. 실리콘 음극 — 오래된 난제 (2분)
-3. Enovix의 해법: 3D 구조 (2분)
-4. 실험실에서 공장까지 — 타임라인 (3분)
-5. 반도체 공정과의 만남 (2분)
-6. 한국 배터리 산업에 주는 시사점 (2분)
+## 발표 구성안
+1. 자율주행은 어디까지 왔나 (1분)
+2. 연구실의 모델과 도로 위의 소프트웨어 (3분)
+3. PhantomAI의 선택 — 완전자율 대신 ADAS (3분)
+4. 카메라냐 라이다냐 (2분)
+5. 왜 실리콘밸리였나 — 창업 이야기 (3분)
+6. 한국 자동차 산업에 주는 시사점 (3분)
 
 ## 핵심 비주얼
-- 실리콘 음극 팽창 문제 도해
-- R&D → 파일럿 → 양산 타임라인`,
+- 연구 모델 → 양산 소프트웨어 파이프라인 도해
+- 기술 노선 비교표`,
       roles: `| 이름 | 역할 | 담당 |
 |---|---|---|
-| 팀원 A (리더) | 기술 원리 · 발표 | Enovix Q&A |
-| 팀원 B | 양산 타임라인 · 자금 | Enovix Q&A |
-| 팀원 C | 한국 3사 비교 · 공정 연결 | LAM, 국내 자료 |`,
+| 팀원 A (리더) | 기술 조사 · 발표 | PhantomAI Q&A |
+| 팀원 B | 창업 스토리 · 도해 | PhantomAI Q&A |
+| 팀원 C | 한국 산업 조사 · 비교표 | Newracom, 국내 자료 |`,
     },
   },
 
@@ -1463,8 +1608,8 @@ Enovix는 실리콘 음극이라는 오래된 난제를 들고 그 구간을 건
     tagline: '전 방문지 100% 활용 · 소프트웨어학부다운 주제',
     fit: '높음',
     core: '반도체·배터리·바이오·푸드테크라는 전혀 다른 산업에서 소프트웨어 엔지니어는 각각 무엇을 하고 있으며, 그 역할에는 공통 패턴이 있는가?',
-    why: '이번 연수는 반도체(LAM·Intel·Newracom), 배터리(Enovix), 바이오(Genentech), 푸드테크(스마트팜 특강), 빅테크(Apple·Google)까지 산업이 골고루 섞여 있다. 다른 주제를 고르면 절반은 버려지지만, 이 주제는 모든 방문지가 데이터가 된다. 소프트웨어학부 학생이 쓰기에 가장 자연스러운 질문이기도 하다.',
-    visits: ['lam', 'enovix', 'genentech', 'berkeley', 'google', 'newracom'],
+    why: '이번 연수는 반도체(LAM·Intel·Newracom), AI·자율주행(Google 또는 PhantomAI), 바이오(Genentech), 푸드테크(MISTA·Plug and Play), 빅테크(Apple·Google)까지 산업이 골고루 섞여 있다. 다른 주제를 고르면 절반은 버려지지만, 이 주제는 모든 방문지가 데이터가 된다. 소프트웨어학부 학생이 쓰기에 가장 자연스러운 질문이기도 하다.',
+    visits: ['lam', 'phantomai', 'genentech', 'mista', 'google', 'newracom'],
     method: [
       '모든 방문지에서 "여기서 SW 엔지니어는 무슨 일을 하나요?"를 필수 질문으로',
       '답변을 제어·데이터분석·시뮬레이션·플랫폼 등 유형으로 분류',
@@ -1475,7 +1620,7 @@ Enovix는 실리콘 음극이라는 오래된 난제를 들고 그 구간을 건
     outline: [
       '질문 — 우리는 어디서 일하게 될까',
       '반도체에서의 소프트웨어 (LAM·Newracom)',
-      '배터리에서의 소프트웨어 (Enovix)',
+      'AI·자율주행에서의 소프트웨어',
       '바이오에서의 소프트웨어 (Genentech)',
       '농업·푸드테크에서의 소프트웨어',
       '반복되는 패턴 3가지',
@@ -1483,7 +1628,7 @@ Enovix는 실리콘 음극이라는 오래된 난제를 들고 그 구간을 건
     ],
     roles: [
       'A (리더) — 질문 통일·수집 총괄, 패턴 도출, 발표',
-      'B — 반도체·배터리 파트 정리, 매트릭스 제작',
+      'B — 반도체·AI 파트 정리, 매트릭스 제작',
       'C — 바이오·푸드테크 파트 정리, 전공 과목 매핑',
     ],
     risk: '"어디나 SW가 중요하다"는 뻔한 결론으로 끝나기 쉽다. 반드시 산업별 차이를 먼저 보여준 뒤 공통점을 뽑아야 설득력이 생긴다.',
@@ -1491,7 +1636,7 @@ Enovix는 실리콘 음극이라는 오래된 난제를 들고 그 구간을 건
       overview: `# 모든 산업은 소프트웨어로 수렴하는가
 
 ## 주제 선정 이유
-이번 연수는 반도체·배터리·바이오·푸드테크·빅테크까지 산업이 골고루 섞여 있다.
+이번 연수는 반도체·AI·바이오·푸드테크·빅테크까지 산업이 골고루 섞여 있다.
 다른 주제를 고르면 방문지의 절반은 발표에 쓰이지 못하지만,
 이 주제는 모든 방문지가 그대로 데이터가 된다.
 소프트웨어학부 학생이 던지기에 가장 자연스러운 질문이기도 하다.
@@ -1519,9 +1664,9 @@ Enovix는 실리콘 음극이라는 오래된 난제를 들고 그 구간을 건
 |---|---|---|---|
 | 반도체 장비 | LAM Research | 장비 제어, 공정 데이터 분석 |  |
 | 팹리스 | Newracom | 펌웨어, SDK, 툴체인 |  |
-| 배터리 | Enovix | BMS, 제조 데이터 |  |
+| AI·자율주행 | PhantomAI | 인식 모델, 임베디드 최적화 |  |
 | 바이오 | Genentech | 유전체 분석, 신약 탐색 ML |  |
-| 푸드테크 | 스마트팜 특강 | IoT 제어, 비전, 수확량 예측 |  |
+| 푸드테크 | MISTA · PNP | IoT 제어, 비전, 수확량 예측 |  |
 | 빅테크 | Google | AI 인프라, 대규모 시스템 |  |
 
 ## 패턴 가설
@@ -1536,7 +1681,7 @@ Enovix는 실리콘 음극이라는 오래된 난제를 들고 그 구간을 건
       slides: `## 발표 구성안 (12분 기준)
 1. 질문 — 우리는 어디서 일하게 될까 (1분)
 2. 반도체에서의 소프트웨어 (2분)
-3. 배터리에서의 소프트웨어 (1.5분)
+3. AI·자율주행에서의 소프트웨어 (1.5분)
 4. 바이오에서의 소프트웨어 (1.5분)
 5. 농업·푸드테크에서의 소프트웨어 (1.5분)
 6. 매트릭스로 한눈에 보기 (1.5분)
@@ -1549,8 +1694,8 @@ Enovix는 실리콘 음극이라는 오래된 난제를 들고 그 구간을 건
       roles: `| 이름 | 역할 | 담당 방문지 |
 |---|---|---|
 | 팀원 A (리더) | 질문 통일 · 패턴 도출 · 발표 | 전 방문지 |
-| 팀원 B | 반도체·배터리 파트 · 매트릭스 | LAM, Newracom, Enovix |
-| 팀원 C | 바이오·푸드테크 파트 · 과목 매핑 | Genentech, 스마트팜 특강 |
+| 팀원 B | 반도체·AI 파트 · 매트릭스 | LAM, Newracom, PhantomAI |
+| 팀원 C | 바이오·푸드테크 파트 · 과목 매핑 | Genentech, MISTA |
 
 **규칙**: 어느 방문지에서든 필수 질문 3개는 반드시 던진다. 한 곳이라도 비면 매트릭스에 구멍이 생긴다.`,
     },
@@ -1567,15 +1712,15 @@ const PROJECT_SECTIONS = [
   { id: 'ideas', title: '아이디어', icon: 'lightbulb',
     placeholder: '- 미국은 설계(팹리스)·장비·EDA 강점, 한국은 메모리·제조 강점 → 상호보완 구조\n- LAM Research 매출의 상당 부분이 한국에서 발생한다는 점을 축으로 잡기\n- Newracom = 한국인 창업 팹리스 → "한국 인재 + 미국 생태계" 사례\n- ' },
   { id: 'roles', title: '역할분담', icon: 'list-todo',
-    placeholder: '| 이름 | 역할 | 담당 기업 |\n|---|---|---|\n| 팀원 A (리더) | 총괄 · 발표 | LAM, Intel |\n| 팀원 B | 자료조사(미국) | Apple, Google |\n| 팀원 C | 자료조사(한국) · 자료제작 | Newracom, Enovix |' },
+    placeholder: '| 이름 | 역할 | 담당 기업 |\n|---|---|---|\n| 팀원 A (리더) | 총괄 · 발표 | LAM, Intel |\n| 팀원 B | 자료조사(미국) | Apple, Google |\n| 팀원 C | 자료조사(한국) · 자료제작 | Newracom, Genentech |' },
   { id: 'timeline', title: '일정', icon: 'calendar',
-    placeholder: '- [ ] 킥오프 회의 (미실시)\n- [ ] 사전조사 분담 및 자료 취합\n- [ ] 미션수행 계획서 제출\n- [ ] 8/18 LAM·Enovix 탐방 기록\n- [ ] 8/19 Intel Museum 자료 수집\n- [ ] 8/24 Newracom 탐방 기록\n- [ ] 귀국 후 결과보고서 작성' },
+    placeholder: '## 제출 마감\n- [ ] **8/13(목) 12:00** 팀별 미션수행 계획서 → 2307soul@naver.com\n- [ ] 팀 미팅 최소 1회 (전원 인증샷 → 오픈채팅방, 커피쿠폰 지원 · 팀당 2회)\n\n## 연수 중\n- [ ] 8/18 LAM Research 탐방 기록\n- [ ] 8/18 Google 또는 PhantomAI 탐방 기록\n- [ ] 8/19 Stanford 연구원 네트워킹 · Intel Museum 자료 수집\n- [ ] 8/20 Genentech · MISTA 특강 기록\n- [ ] 8/24 Newracom · SoCal 멘토링 기록\n\n## 귀국 후\n- [ ] 성과공유회 결과보고서 (단톡방 공유)\n- [ ] 팀별 발표 준비 — 15분 이내 · PPT 또는 영상' },
   { id: 'research', title: '자료조사', icon: 'search',
     placeholder: '## 미국 반도체 산업\n- CHIPS Act — 자국 내 생산시설 유치\n- 강점: 설계(엔비디아·애플·퀄컴), 장비(AMAT·LAM), EDA\n- 약점: 첨단 제조 역량의 해외 의존\n\n## 한국 반도체 산업\n- 강점: 메모리(삼성·SK하이닉스 세계 1·2위), 파운드리 2위\n- 약점: 팹리스 생태계, 소재·부품·장비 국산화율\n\n## 출처\n- ' },
   { id: 'companyResearch', title: '기업별 조사', icon: 'building',
-    placeholder: '## LAM Research (8/18)\n- 사전조사: \n- 현장 확인: \n\n## Enovix (8/18)\n- \n\n## Intel Museum (8/19)\n- \n\n## Newracom (8/24)\n- ' },
+    placeholder: '## LAM Research — 반도체 장비 (8/18)\n- 사전조사: \n- 현장 확인: \n\n## Google 또는 PhantomAI — AI (8/18)\n- \n\n## Stanford 연구원 네트워킹 (8/19)\n- \n\n## Intel Museum (8/19)\n- \n\n## Genentech — 바이오 (8/20)\n- \n\n## MISTA · Plug and Play — 스마트팜 (8/20)\n- \n\n## Newracom — 반도체 (8/24)\n- \n\n## SoCal 멘토링 (8/24)\n- ' },
   { id: 'slides', title: '발표자료', icon: 'mic',
-    placeholder: '## 슬라이드 구성안\n1. 인트로 — 왜 반도체인가\n2. 미국 산업 구조 (설계·장비 중심)\n3. 한국 산업 구조 (메모리·제조 중심)\n4. 탐방에서 직접 확인한 것\n5. 비교 분석\n6. 시사점 & 결론' },
+    placeholder: '> 성과공유회: 팀별 15분 이내 · PPT 발표 또는 영상 제작 · 전원 필참 · 1·2등 시상\n\n## 슬라이드 구성안\n1. 인트로 — 왜 이 주제인가\n2. 사전조사로 세운 가설\n3. 탐방에서 직접 확인한 것\n4. 분석\n5. 시사점 & 결론\n6. 팀원 소감' },
   { id: 'conclusion', title: '결론', icon: 'check-square',
     placeholder: '## 핵심 결론\n1. \n\n## 시사점\n- \n\n## 우리 팀의 제언\n- ' },
   { id: 'draft', title: '보고서 초안', icon: 'file-text',

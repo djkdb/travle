@@ -4,7 +4,7 @@
    ============================================================ */
 
 const STORAGE_KEY = 'sv-master-v1';
-const SCHEMA_VERSION = 3;
+const SCHEMA_VERSION = 4;
 
 /** 고유 ID 생성 */
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -69,6 +69,34 @@ function createInitialState() {
    시드 데이터가 바뀌어도 사용자가 체크해둔 기록은 유지한다.
    버전별 변환 함수를 순서대로 적용한다. */
 const MIGRATIONS = {
+  // v4: OT 자료(2026.08.04) 반영 — 대행사 지급품 제외, 일정·기업 변경
+  4: (s) => {
+    // 대행사에서 배부하는 품목은 준비물에서 제거
+    const agencyProvided = [
+      'ESTA 승인서 출력본',
+      '항공권 e-티켓 (YP111/YP102)',
+      '호텔 바우처 · 일정표 출력본',
+    ];
+    if (Array.isArray(s.packing)) {
+      s.packing = s.packing.filter((p) => !agencyProvided.includes(p.name));
+    }
+    if (Array.isArray(s.travelCheck)) {
+      const renamed = {
+        '14:30 인천공항 집결 (여유있게 도착!)': '15:30 인천공항 T1 3층 C카운터 집결 (에어프레미아)',
+        '여권 · ESTA · e티켓 소지 확인': '지급물품 수령 (명찰 · 소책자 · ESTA · 슬리퍼 · 배기지택 · 110V 플러그 · E-Ticket)',
+      };
+      s.travelCheck = s.travelCheck.map((c) =>
+        (renamed[c.name] ? { ...c, name: renamed[c.name] } : c));
+    }
+    // 일정에서 사라진 기업의 기록은 남겨두되, 참조가 끊긴 질문 기록만 정리
+    if (s.questions) {
+      Object.keys(s.questions)
+        .filter((k) => k.startsWith('enovix:') || k.startsWith('berkeley:'))
+        .forEach((k) => delete s.questions[k]);
+    }
+    // 사라진 추천 주제를 고른 상태였다면 해제
+    if (s.projectTopic === 'deathvalley') s.projectTopic = '';
+  },
   // v3: 입국심사 답변을 인솔자 안내대로 "Tour." 한 단어로 통일
   3: (s) => {
     if (!Array.isArray(s.travelCheck)) return;
