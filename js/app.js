@@ -184,6 +184,75 @@ function showInstallGuide() {
   $('[data-ig-ok]').onclick = closeModal;
 }
 
+/* ============================================================
+   업데이트 자동 감지
+   일정·식단이 자주 바뀌므로, 앱을 켜둔 채로도 새 버전이 올라오면 알려준다.
+   화면이 다시 보일 때마다 version.json을 확인해
+   실행 시점의 빌드와 다르면 새로고침 안내를 띄운다.
+   ============================================================ */
+
+let bootBuild = null;      // 앱을 실행할 때 서버에 있던 빌드
+let updateShown = false;
+let lastCheck = 0;
+
+/** 서버의 현재 빌드 번호를 가져온다 (오프라인이면 null) */
+async function fetchBuild() {
+  try {
+    const res = await fetch(`version.json?t=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.build || null;
+  } catch {
+    return null;   // 오프라인 — 조용히 넘어간다
+  }
+}
+
+/** 새 버전이 올라왔는지 확인 */
+async function checkForUpdate() {
+  if (updateShown) return;
+  // 너무 잦은 호출 방지 (30초)
+  if (Date.now() - lastCheck < 30000) return;
+  lastCheck = Date.now();
+
+  const build = await fetchBuild();
+  if (!build) return;
+
+  if (bootBuild === null) { bootBuild = build; return; }
+  if (build !== bootBuild) showUpdateBar();
+}
+
+function showUpdateBar() {
+  if (updateShown) return;
+  updateShown = true;
+
+  const el = document.createElement('div');
+  el.id = 'updateBar';
+  el.className = 'update-bar glass-strong';
+  el.innerHTML = `
+    <div class="ub-icon">${icon('sparkles')}</div>
+    <div class="ub-text">
+      <b>업데이트가 있어요</b>
+      <span>일정이나 내용이 바뀌었습니다</span>
+    </div>
+    <button class="btn small" id="ubReload">새로고침</button>
+    <button class="icon-btn" id="ubClose" aria-label="나중에">${icon('x')}</button>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  haptic(12);
+
+  $('#ubReload').onclick = () => {
+    save(true);                 // 기록을 먼저 저장하고 새로고침
+    location.reload();
+  };
+  $('#ubClose').onclick = () => {
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 300);
+    // 닫아도 다음에 화면을 다시 켜면 또 안내한다
+    updateShown = false;
+    lastCheck = Date.now();
+  };
+}
+
 /* ---------- 테마 ---------- */
 function applyTheme() {
   document.documentElement.dataset.theme = state.theme;
@@ -413,9 +482,17 @@ function init() {
     }
   });
 
-  // 페이지를 떠나기 전 즉시 저장
+  // 페이지를 떠나기 전 즉시 저장 / 다시 볼 때 업데이트 확인
   window.addEventListener('pagehide', () => save(true));
-  document.addEventListener('visibilitychange', () => { if (document.hidden) save(true); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) save(true);
+    else checkForUpdate();
+  });
+  window.addEventListener('focus', checkForUpdate);
+
+  // 실행 시점의 빌드를 기록하고, 이후 주기적으로도 확인
+  fetchBuild().then((b) => { bootBuild = b; });
+  setInterval(checkForUpdate, 5 * 60 * 1000);
 
   render();
   renderInstallBanner();
