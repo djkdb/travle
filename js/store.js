@@ -231,6 +231,31 @@ function diaryEntry(date) {
   return state.diary[date];
 }
 
+/* ---------- 방문 정보 ----------
+   기업 카드의 방문 일시는 일정표(SCHEDULE)에서 직접 계산한다.
+   기업 쪽에 날짜를 따로 적어두면 일정이 바뀔 때 표기가 어긋나므로,
+   출처를 일정표 하나로 고정한다. */
+
+/** 해당 기업이 등장하는 모든 일정 항목 */
+function companySchedule(id) {
+  const out = [];
+  SCHEDULE.forEach((d) => d.items.forEach((it) => {
+    if (it.companyId === id) out.push({ ...it, day: d.day, date: d.date });
+  }));
+  return out;
+}
+
+/** "DAY 4 · 8/20 16:30 — 기업방문 4" 형태의 방문 표기 */
+function companyVisitLabel(id) {
+  const items = companySchedule(id);
+  if (!items.length) return '일정 미정';
+  const [y, m, d] = items[0].date.split('-').map(Number);
+  const times = items.map((i) => i.time).join(' / ');
+  // 제목 앞머리의 "기업방문 3 ·" / "프로그램 1 ·" 같은 표기를 뽑아 붙인다
+  const tag = (items[0].title.match(/^(기업방문\s*\d+|프로그램\s*\d+)/) || [])[1];
+  return `${items[0].day} · ${m}/${d} ${times}${tag ? ` — ${tag}` : ''}`;
+}
+
 /* ---------- 통계 / 진행률 ---------- */
 
 const pct = (done, total) => (total === 0 ? 0 : Math.round((done / total) * 100));

@@ -42,7 +42,7 @@ Views.companies = {
               ${e.rating ? `<span class="badge p-mid">${icon('star')}${e.rating}</span>` : ''}
             </div>
             <p class="small muted">${esc(c.ko)} · ${esc(c.field)}</p>
-            <p class="small muted-3" style="margin-top:3px">${icon('calendar')} ${esc(c.visit)}</p>
+            <p class="small muted-3" style="margin-top:3px">${icon('calendar')} ${esc(companyVisitLabel(c.id))}</p>
             <div class="co-tags">
               ${c.tags.map((t) => `<span class="badge p-low">${esc(t)}</span>`).join('')}
               ${hasNote ? `<span class="badge t-tour">${icon('pencil')}기록됨</span>` : ''}
@@ -81,7 +81,7 @@ Views.companies = {
         </div>
         <p class="small muted-3 mt-8">${icon('camera')} 로고를 탭하면 실제 로고 이미지로 바꿀 수 있습니다</p>
         <div class="mt-12">
-          <div class="kv"><b>방문</b><span>${esc(c.visit)}</span></div>
+          <div class="kv"><b>방문</b><span>${esc(companyVisitLabel(c.id))}</span></div>
           <div class="kv"><b>위치</b><span>${esc(c.location)}</span></div>
           <div class="kv"><b>설립</b><span>${esc(c.founded)}</span></div>
           <div class="kv"><b>분야</b><span>${esc(c.field)}</span></div>
@@ -273,7 +273,7 @@ Views.questions = {
           ${companyLogo(co)}
           <div class="flex-1">
             <div class="card-title">${esc(co.name)}</div>
-            <p class="small muted">${esc(co.visit)}</p>
+            <p class="small muted">${esc(companyVisitLabel(co.id))}</p>
           </div>
           <b class="tabular">${done}/${all.length}</b>
         </div>
