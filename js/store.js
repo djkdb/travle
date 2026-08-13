@@ -4,7 +4,7 @@
    ============================================================ */
 
 const STORAGE_KEY = 'sv-master-v1';
-const SCHEMA_VERSION = 6;
+const SCHEMA_VERSION = 7;
 
 /** 고유 ID 생성 */
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -69,6 +69,29 @@ function createInitialState() {
    시드 데이터가 바뀌어도 사용자가 체크해둔 기록은 유지한다.
    버전별 변환 함수를 순서대로 적용한다. */
 const MIGRATIONS = {
+  // v7: 준비물·체크리스트를 OT 자료 원문 기준으로 전면 교체.
+  //     이전 목록에는 공식 자료에 없는 항목(명함·기념품·국제학생증 등)이 섞여 있었다.
+  //     체크 상태는 이름이 같은 항목에 한해 이어받는다.
+  7: (s) => {
+    const carry = (oldArr, seed, doneKey) => {
+      const done = new Map((oldArr || []).map((x) => [x.name, x]));
+      return seed.map((item) => {
+        const prev = done.get(item.name);
+        const row = { id: uid(), ...item, note: item.note || '' };
+        if (doneKey === 'checked') {
+          row.checked = prev ? !!prev.checked : false;
+          row.bought = prev ? !!prev.bought : false;
+          row.link = prev ? (prev.link || '') : '';
+          if (prev && prev.price) row.price = prev.price;
+        } else {
+          row.done = prev ? !!prev.done : false;
+        }
+        return row;
+      });
+    };
+    s.packing = carry(s.packing, PACKING_SEED, 'checked');
+    s.travelCheck = carry(s.travelCheck, TRAVEL_CHECK_SEED, 'done');
+  },
   // v6: 확인되지 않은 여행자보험 항목 제거 (단체보험 포함 여부 미확인)
   6: (s) => {
     if (Array.isArray(s.packing)) {

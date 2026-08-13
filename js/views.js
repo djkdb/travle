@@ -409,8 +409,12 @@ Views.packing = {
         ${progressBar(s.done, s.total)}
         <div class="flex justify-between mt-8">
           <span class="small muted-3">${s.done} / ${s.total} 완료</span>
-          <span class="small muted-3">미구매 예상 ${won(totalCost)}</span>
+          <span class="small muted-3">${totalCost ? '미구매 예상 ' + won(totalCost) : ''}</span>
         </div>
+        <p class="small muted-3 mt-8" style="line-height:1.5">
+          ${icon('info')} OT 자료 18p '준비물 리스트' 그대로입니다.
+          가격은 비어 있으니 필요하면 직접 입력하세요.
+        </p>
       </div>
 
       <div class="searchbar">

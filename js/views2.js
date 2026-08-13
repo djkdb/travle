@@ -531,10 +531,11 @@ Views.guide = {
   render() {
     return `
       <div class="card mb-12" style="background:linear-gradient(135deg, rgba(255,159,10,.18), rgba(255,214,10,.10))">
-        <div class="card-title">${icon('map')} 캘리포니아 생존 가이드</div>
+        <div class="card-title">${icon('map')} 현지 가이드</div>
         <p class="small muted mt-8" style="line-height:1.65">
-          8월 중순 미국 서부는 낮엔 덥고 아침저녁엔 서늘합니다.<br>
-          <b>레이어링 · 선크림 · 팁 문화</b> 세 가지만 기억하세요.
+          내용은 <b>OT 자료와 운영진 공지</b>에서 그대로 옮긴 것입니다.<br>
+          각 항목 아래에 출처를 적어두었으니, 공식 자료가 아닌 것은
+          <b>참고용</b>으로만 봐주세요.
         </p>
       </div>
 
@@ -544,7 +545,7 @@ Views.guide = {
             <div class="stat-icon" style="background:${g.color}22;color:${g.color};margin:0">${icon(g.icon)}</div>
             <div class="flex-1">
               <div class="card-title" style="font-size:14.5px">${esc(g.title)}</div>
-              <p class="small muted-3">${g.rows.length}개 항목</p>
+              <p class="small muted-3">${g.rows.length}개 항목 · ${esc(g.source || '')}</p>
             </div>
             <span style="transition:transform .25s;display:inline-flex;${vs.guideOpen === g.id ? 'transform:rotate(90deg)' : ''}">
               ${icon('chevron-right')}
@@ -648,6 +649,14 @@ Views.shopping = {
       <button class="btn ghost block mt-16" data-shopadd>${icon('plus')} 쇼핑 항목 추가</button>
 
       <div class="card mt-16">
+        <div class="card-title">${icon('alert-triangle')} 참고</div>
+        <p class="small muted mt-8" style="line-height:1.7">
+          이 목록과 가격은 <b>공식 자료에 없는 참고용 추천</b>입니다.
+          실제 판매 여부와 가격은 현지에서 확인하세요.
+        </p>
+      </div>
+
+      <div class="card">
         <div class="card-title">${icon('info')} 쇼핑 팁</div>
         <p class="small muted mt-8" style="line-height:1.75">
           · 미국은 <b>가격표에 세금이 없습니다</b>. 계산 시 약 9~10%가 더 붙습니다.<br>
@@ -1358,8 +1367,8 @@ Views.settings = {
       <div class="section-label">${icon('users')} 내 정보</div>
       <div class="card">
         <div class="field">
-          <label class="field-label">이름 (영문 자기소개용)</label>
-          <input class="input" id="setName" placeholder="예: Junho Kim" value="${esc(state.settings.name || '')}">
+          <label class="field-label">이름</label>
+          <input class="input" id="setName" placeholder="예: 홍길동" value="${esc(state.settings.name || '')}">
         </div>
         <div class="field">
           <label class="field-label">개인 메모 (인솔자 연락처 등)</label>

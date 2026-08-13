@@ -10,7 +10,7 @@
      이 파일 내용이 바뀌어야 브라우저가 업데이트를 감지한다.
    ============================================================ */
 
-const VERSION = '2026-08-12e';
+const VERSION = '2026-08-12f';
 const CACHE = `sv-master-${VERSION}`;
 
 const ASSETS = [
