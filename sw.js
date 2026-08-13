@@ -10,7 +10,7 @@
      이 파일 내용이 바뀌어야 브라우저가 업데이트를 감지한다.
    ============================================================ */
 
-const VERSION = '2026-08-12b';
+const VERSION = '2026-08-12c';
 const CACHE = `sv-master-${VERSION}`;
 
 const ASSETS = [
@@ -65,13 +65,26 @@ self.addEventListener('fetch', (e) => {
 
   e.respondWith(
     fetch(fresh)
-      .then((res) => {
+      .then(async (res) => {
+        // 리다이렉트를 거친 응답은 그대로 돌려줄 수 없다.
+        // 브라우저가 "Response served by service worker has redirections" 오류를 내고
+        // 페이지 진입 자체가 실패한다 (호스팅이 /index.html → / 로 보내는 경우 등).
+        // 최종 내용만 담은 새 응답으로 바꿔서 전달한다.
+        let out = res;
+        if (res.redirected) {
+          const body = await res.clone().arrayBuffer();
+          out = new Response(body, {
+            status: res.status,
+            statusText: res.statusText,
+            headers: res.headers,
+          });
+        }
         // 최신 응답을 캐시에 갱신해 다음 오프라인 실행에 대비
-        if (res && res.ok) {
-          const copy = res.clone();
+        if (out.ok) {
+          const copy = out.clone();
           caches.open(CACHE).then((c) => c.put(req, copy));
         }
-        return res;
+        return out;
       })
       .catch(() =>
         // 오프라인: 캐시 → 없으면 앱 셸

@@ -2,7 +2,7 @@
   "name": "실리콘밸리 마스터 · 2026 충북 글로벌 기업탐방",
   "short_name": "SV Master",
   "description": "2026 충북 대학생 글로벌 기업탐방(미국 서부 실리콘밸리) 올인원 컴패니언 앱",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
