@@ -108,37 +108,118 @@ const MIGRATIONS = {
       "팀프로젝트 미션수행 계획서 제출", "팁: 침대 위 $1~2 (하우스키핑)"
     ];
 
-    // 새 시드로 갱신하되, 이름이 같으면 사용자가 남긴 값을 이어받는다
-    const byName = new Map((s.packing || []).map((p) => [p.name, p]));
-    const packing = PACKING_SEED.map((item) => {
-      const prev = byName.get(item.name);
-      if (prev) byName.delete(item.name);
-      return {
-        id: prev?.id || uid(),
-        ...item,
-        checked: prev ? !!prev.checked : false,
-        bought: prev ? !!prev.bought : false,
-        link: prev?.link || '',
-        price: prev && prev.price ? prev.price : item.price,
-        note: (prev && prev.note) ? prev.note : (item.note || ''),
-      };
-    });
-    // 남은 것 중 과거 시드는 버리고, 직접 추가한 항목은 살린다
-    const customPack = [...byName.values()]
-      .filter((p) => !OLD_PACK.includes(p.name))
-      .map((p) => ({ ...p, cat: PACK_CATS.includes(p.cat) ? p.cat : '생필품' }));
-    s.packing = [...packing, ...customPack];
+    // 이름이 바뀐 항목은 체크 상태를 이어받도록 연결한다 (1:N 허용)
+    const RENAMED_PACK = {
+      '여권 (유효기간 6개월+)': '여권 / 신분증',
+      '여권용 증명사진 2매 (예비)': '여권사진 2매 (예비)',
+      '증명사진 2매': '여권사진 2매 (예비)',
+      '유심 / eSIM / 로밍': '통신 (유심 / 포켓)',
+      '유심 / eSIM (미국 10일)': '통신 (유심 / 포켓)',
+      '$1 지폐 10~15장 (호텔 팁용)': '현지화폐 (달러)',
+      '달러 현금 ($300~500)': '현지화폐 (달러)',
+      '보조배터리 (160Wh 이하)': '보조배터리',
+      '보조배터리 (100Wh 이하)': '보조배터리',
+      '휴대폰 고속충전기': '충전기',
+      '이어폰 / 에어팟': '이어폰',
+      '카메라 (선택)': '카메라',
+      '목베개': '목 베개',
+      '모자 · 선글라스': '모자 / 선글라스',
+      '앞이 막힌 편한 운동화': '운동화 / 로퍼',
+      '편한 운동화': '운동화 / 로퍼',
+      '긴팔 / 가디건 2장': '얇은 외투',
+      '바람막이 / 경량패딩': '외투',
+      '반팔 티셔츠 5장': '상 / 하의',
+      '긴바지 3벌': '상 / 하의',
+      '잠옷': '속옷 / 잠옷',
+      '속옷 · 양말 세트': ['속옷 / 잠옷', '양말'],
+      '속옷·양말 6세트': ['속옷 / 잠옷', '양말'],
+      '기타 여벌 옷 / 신발': '기타 여벌 옷 / 신발',
+      '우비 / 여벌 옷': '기타 여벌 옷 / 신발',
+      '치약 · 칫솔': ['치약', '칫솔'],
+      '샴푸·바디워시 (100ml 이하)': '샴푸 / 린스 / 바디',
+      '스킨케어 · 선크림 SPF50+': '선크림',
+      '개인 처방약': '개인 상비약 (진단서)',
+      '소화제 · 지사제': '소화제',
+      '감기약 · 해열제': '종합감기약',
+      '밴드 · 연고': '밴드',
+      '휴대용 우산 / 양산': '휴대용 우산',
+      '접이식 에코백': '접이식 간이가방',
+      '수첩 · 필기도구': ['수첩', '필기도구'],
+      '수첩 · 펜': ['수첩', '필기도구'],
+    };
+    const RENAMED_CHECK = {
+      '유심 / eSIM 구매 및 QR 저장': '통신 준비 — 로밍 · 유심 · 이심 중 선택하여 사전 가입',
+      '에어프레미아 홈페이지 회원가입 + 예약 조회': '에어프레미아 홈페이지 회원가입 · 예약 조회 (예약번호 + 영문명)',
+      '스마트패스 앱 설치 · 여권/얼굴 등록': '스마트패스 앱 설치 · 여권/얼굴/탑승권 등록',
+      '오픈채팅방 참여 확인 (실시간 공지 채널)': '오픈채팅방 참여 확인 (연수 중 실시간 공지 채널)',
+      '팀 미팅 최소 1회 진행 (전원 인증샷 → 오픈채팅방, 커피쿠폰 지원)':
+        '팀 미팅 최소 1회 진행 (전원 인증샷 → 오픈채팅방, 커피쿠폰 지원 · 팀당 2회)',
+      '기업탐방 질문 리스트 최종 정리': '기업방문 전 간략한 자기소개(이름, 관심분야) 및 질문 사전 준비',
+      '영문 자기소개 30초 준비 (이름 · 관심분야 — 기업방문마다 필요)':
+        '기업방문 전 간략한 자기소개(이름, 관심분야) 및 질문 사전 준비',
+      '캐리어 무게 측정 (위탁 23kg · 삼면합 158cm 이내)': '위탁수하물 확인 (1개 · 23kg · 삼면합 158cm)',
+      '기내 가방 확인 (10kg · 55×40×20cm · 액체 100ml 지퍼백)':
+        '기내 수하물 확인 (1개 · 10kg · 55×40×20cm · 액체 100ml 지퍼백 1개)',
+      '15:30 인천공항 T1 3층 C카운터 집결 (에어프레미아)':
+        '15:30 인천국제공항 제1터미널 3층 C카운터 집결 (에어프레미아)',
+      '지급물품 수령 (명찰 · 소책자 · ESTA · 슬리퍼 · 배기지택 · 110V 플러그 · E-Ticket)':
+        '지급물품 수령 (명찰 · 소책자 · ESTA · 호텔용 슬리퍼 · 배기지택 · 110V 플러그 · 항공 E-Ticket)',
+      '명찰 뒷면 호텔명·연락처 확인 (입국심사·비상시 사용)': '명찰 뒷면의 호텔명 · 가이드/인솔자 연락처 확인',
+      '위탁수하물 부치기 (보조배터리 · 라이터 · 전자담배는 빼서 휴대!)':
+        '위탁수하물 부치기 — 보조배터리 · 라이터 · 전자담배는 빼서 휴대',
+      '입국심사 예상 질문 복습 ([영어] 탭)': '입국심사 모범답안 복습 ([영어] 탭)',
+      '입국심사: 방문목적은 "Tour." 한 단어로 (인솔자 안내)':
+        '방문 목적은 "Tour" — 기업방문·교육·대학·연수·프로그램 언급 금지',
+      '비거주자(Non-resident) 줄에 도착순으로 서기': '입국심사장 비거주자 줄에 도착순으로 서기',
+      '모자 벗고 사진 · 양손 지문 촬영': '모자 벗고 사진 촬영 · 양손 지문 촬영',
+      '와이파이 연결 확인': '와이파이 비밀번호 · 조식당 위치 확인',
+      '체크아웃 시 침대 위 $1 놓기 (하우스키핑 팁)': '아침 외출 시 베개 위에 1인당 $1 매너팁',
+      '캐리어 무게 확인 (쇼핑 후 초과 주의)': '캐리어 무게 확인 (쇼핑 후 23kg 초과 주의)',
+      '보조배터리 기내 가방으로 이동': '보조배터리 · 라이터 · 전자담배를 기내 가방으로 이동',
+      '액체류(와인 · 화장품)는 위탁수하물로': '출국 시 산 면세품 중 액체는 캐리어에 넣어 위탁',
+      '데이터 백업 (설정 탭 → JSON Export)': '데이터 백업 (설정 탭 → JSON 내보내기)',
+      '성과공유회 결과보고서 작성 (팀별 15분 발표 · PPT 또는 영상)':
+        '성과공유회 결과보고서 작성 (팀별 15분 이내 · PPT 또는 영상)',
+      '귀국 후: 미션수행 결과보고서 제출': '성과공유회 결과보고서 작성 (팀별 15분 이내 · PPT 또는 영상)',
+    };
 
-    const byCheck = new Map((s.travelCheck || []).map((c) => [c.name, c]));
-    const checks = TRAVEL_CHECK_SEED.map((item) => {
-      const prev = byCheck.get(item.name);
-      if (prev) byCheck.delete(item.name);
-      return { id: prev?.id || uid(), ...item, done: prev ? !!prev.done : false };
-    });
-    const customCheck = [...byCheck.values()]
-      .filter((c) => !OLD_CHECK.includes(c.name))
-      .map((c) => ({ ...c, phase: CHECK_PHASES.includes(c.phase) ? c.phase : '출국 전' }));
-    s.travelCheck = [...checks, ...customCheck];
+    /** 옛 목록을 새 시드에 이어붙인다. 이름이 같거나 RENAMED로 연결되면 상태를 물려받고,
+     *  과거 시드에 없던 항목(= 사용자가 직접 추가)은 그대로 남긴다. */
+    const merge = (oldArr, seed, renameMap, oldNames, kind) => {
+      const items = Array.isArray(oldArr) ? oldArr : [];
+      const exact = new Map(items.map((x) => [x.name, x]));
+      const viaRename = new Map();
+      items.forEach((x) => {
+        const t = renameMap[x.name];
+        if (!t) return;
+        (Array.isArray(t) ? t : [t]).forEach((n) => { if (!viaRename.has(n)) viaRename.set(n, x); });
+      });
+      const consumed = new Set();
+      const merged = seed.map((item) => {
+        const prev = exact.get(item.name) || viaRename.get(item.name);
+        if (prev) consumed.add(prev);
+        if (kind === 'pack') {
+          return {
+            id: prev?.id || uid(), ...item,
+            checked: prev ? !!prev.checked : false,
+            bought: prev ? !!prev.bought : false,
+            link: prev?.link || '',
+            price: prev && prev.price ? prev.price : item.price,
+            note: (prev && prev.note) ? prev.note : (item.note || ''),
+          };
+        }
+        return { id: prev?.id || uid(), ...item, done: prev ? !!prev.done : false };
+      });
+      const custom = items
+        .filter((x) => !consumed.has(x) && !oldNames.includes(x.name))
+        .map((x) => (kind === 'pack'
+          ? { ...x, cat: PACK_CATS.includes(x.cat) ? x.cat : '생필품' }
+          : { ...x, phase: CHECK_PHASES.includes(x.phase) ? x.phase : '출국 전' }));
+      return [...merged, ...custom];
+    };
+
+    s.packing = merge(s.packing, PACKING_SEED, RENAMED_PACK, OLD_PACK, 'pack');
+    s.travelCheck = merge(s.travelCheck, TRAVEL_CHECK_SEED, RENAMED_CHECK, OLD_CHECK, 'check');
   },
   // v6: 확인되지 않은 여행자보험 항목 제거 (단체보험 포함 여부 미확인)
   6: (s) => {
