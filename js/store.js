@@ -4,7 +4,7 @@
    ============================================================ */
 
 const STORAGE_KEY = 'sv-master-v1';
-const SCHEMA_VERSION = 5;
+const SCHEMA_VERSION = 6;
 
 /** 고유 ID 생성 */
 const uid = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -69,6 +69,15 @@ function createInitialState() {
    시드 데이터가 바뀌어도 사용자가 체크해둔 기록은 유지한다.
    버전별 변환 함수를 순서대로 적용한다. */
 const MIGRATIONS = {
+  // v6: 확인되지 않은 여행자보험 항목 제거 (단체보험 포함 여부 미확인)
+  6: (s) => {
+    if (Array.isArray(s.packing)) {
+      s.packing = s.packing.filter((p) => p.name !== '여행자보험 증서');
+    }
+    if (Array.isArray(s.travelCheck)) {
+      s.travelCheck = s.travelCheck.filter((c) => c.name !== '여행자보험 가입 확인');
+    }
+  },
   // v5: 8/12 변경 일정표 반영 — Newracom 제외, HP 추가, LAM 날짜 이동, 마감 연장
   5: (s) => {
     if (Array.isArray(s.travelCheck)) {
