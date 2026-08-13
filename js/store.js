@@ -69,28 +69,76 @@ function createInitialState() {
    시드 데이터가 바뀌어도 사용자가 체크해둔 기록은 유지한다.
    버전별 변환 함수를 순서대로 적용한다. */
 const MIGRATIONS = {
-  // v7: 준비물·체크리스트를 OT 자료 원문 기준으로 전면 교체.
-  //     이전 목록에는 공식 자료에 없는 항목(명함·기념품·국제학생증 등)이 섞여 있었다.
-  //     체크 상태는 이름이 같은 항목에 한해 이어받는다.
+  // v7: 준비물·체크리스트를 OT 자료 원문 기준으로 교체.
+  //     ※ 사용자가 직접 추가한 항목과 직접 쓴 메모는 그대로 보존한다.
+  //        아래 목록은 과거 버전의 시드 항목이며, 이것만 정리 대상이다.
   7: (s) => {
-    const carry = (oldArr, seed, doneKey) => {
-      const done = new Map((oldArr || []).map((x) => [x.name, x]));
-      return seed.map((item) => {
-        const prev = done.get(item.name);
-        const row = { id: uid(), ...item, note: item.note || '' };
-        if (doneKey === 'checked') {
-          row.checked = prev ? !!prev.checked : false;
-          row.bought = prev ? !!prev.bought : false;
-          row.link = prev ? (prev.link || '') : '';
-          if (prev && prev.price) row.price = prev.price;
-        } else {
-          row.done = prev ? !!prev.done : false;
-        }
-        return row;
-      });
-    };
-    s.packing = carry(s.packing, PACKING_SEED, 'checked');
-    s.travelCheck = carry(s.travelCheck, TRAVEL_CHECK_SEED, 'done');
+    const OLD_PACK = [
+      "$1 지폐 10~15장 (호텔 팁용)", "110V 돼지코 어댑터 x2", "ESTA 승인서 출력본", "USB-C 케이블 x2", "감기약 · 해열제", "개인 처방약",
+      "국제학생증 (ISIC)", "기내용 가방", "기내용 백팩", "긴바지 3벌", "긴팔 / 가디건 2장", "노트북 + 충전기", "노트북 충전기 (프리볼트 확인)",
+      "달러 현금 ($300~500)", "멀티탭 (USB 포트형)", "면도기", "명함 (네트워킹용)", "모자 · 선글라스", "목베개", "바람막이 / 경량패딩",
+      "반팔 티셔츠 5장", "밴드 · 연고", "보조배터리 (100Wh 이하)", "보조배터리 (160Wh 이하)", "비즈니스 캐주얼 1벌", "샴푸·바디워시 (100ml 이하)",
+      "소화제 · 지사제", "속옷 · 양말 세트", "속옷·양말 6세트", "수건 1장", "수면 안대 · 귀마개", "수첩 · 펜", "수첩 · 필기도구", "스마트워치 충전기",
+      "스킨케어 · 선크림 SPF50+", "앞이 막힌 편한 운동화", "여권 (유효기간 6개월+)", "여권용 증명사진 2매 (예비)", "여행자보험 증서",
+      "영문 진단서 · 처방전", "우비 / 여벌 옷", "유심 / eSIM (미국 10일)", "유심 / eSIM / 로밍", "이어폰 / 에어팟", "자기소개 30초 스크립트",
+      "작은 한국 기념품", "잠옷", "접이식 에코백", "증명사진 2매", "지퍼백 · 압축팩", "치약 · 칫솔", "카메라 (선택)", "캐리어 (위탁용)",
+      "캐리어 자물쇠 (TSA 인증)", "컵라면 · 햇반 (소량)", "텀블러 / 물병", "트래블카드 (트래블월렛 등)", "편한 운동화",
+      "항공권 e-티켓 (YP111/YP102)", "호텔 바우처 · 일정표 출력본", "휴대용 우산 / 양산", "휴대용 저울", "휴대폰 고속충전기"
+    ];
+    const OLD_CHECK = [
+      "$1 지폐 10~15장 환전 (호텔 팁용)", "14:30 인천공항 집결 (여유있게 도착!)", "15:30 인천공항 T1 3층 C카운터 집결 (에어프레미아)",
+      "ESTA 신청 및 승인 확인 (출발 72시간 전 필수)", "가이드 미팅 장소 확인", "객실 잊은 물건 최종 확인 (충전기!)",
+      "구글맵 오프라인 지도 다운로드 (SF · LA · 요세미티)", "귀국 후: 미션수행 결과보고서 제출", "귀중품 금고 보관",
+      "기내 가방 확인 (10kg · 55×40×20cm · 액체 100ml 지퍼백)", "기내 입국서류 · 세관신고서 작성", "기업탐방 질문 리스트 최종 정리",
+      "달러 현금 환전 (소액권 포함)", "데이터 백업 (설정 탭 → JSON Export)", "도착 시간 기준으로 수면 계획 세우기", "로밍 / 유심 최종 확인",
+      "면세 한도 확인 ($800 / 1인)", "명찰 뒷면 호텔명·연락처 확인 (입국심사·비상시 사용)", "명함 / 링크드인 QR 준비", "모닝콜 / 알람 설정 (시차 주의)",
+      "모자 벗고 사진 · 양손 지문 촬영", "물 구매 (보안검색 후)", "보안검색 · 출국심사", "보조배터리 기내 가방으로 이동",
+      "비거주자(Non-resident) 줄에 도착순으로 서기", "비상구 위치 확인", "성과공유회 결과보고서 작성 (팀별 15분 발표 · PPT 또는 영상)",
+      "세관 신고 (과일 · 육류 반입 금지)", "수분 섭취 & 스트레칭", "수하물 수취 (Baggage Claim 번호 확인)", "스마트패스 앱 설치 · 여권/얼굴 등록",
+      "시차 적응: 현지 시간으로 시계 변경 (-16시간)", "액체류(와인 · 화장품)는 위탁수하물로", "에어프레미아 홈페이지 회원가입 + 예약 조회",
+      "여권 · ESTA · e티켓 소지 확인", "여권 유효기간 6개월 이상 확인", "여행자보험 가입 확인", "영문 자기소개 30초 버전 준비 (네트워킹용)",
+      "영문 자기소개 30초 준비 (이름 · 관심분야 — 기업방문마다 필요)", "오픈채팅방 참여 확인 (실시간 공지 채널)", "와이파이 연결 확인",
+      "위탁수하물 부치기 (보조배터리 · 라이터 · 전자담배는 빼서 휴대!)", "위탁수하물 부치기 (보조배터리 빼기!)", "유심 / eSIM 구매 및 QR 저장",
+      "유심 활성화 & 가족에게 도착 연락", "입국심사 예상 질문 복습 ([영어] 탭)", "입국심사: 방문목적 \"University business tour\" 답변 준비",
+      "입국심사: 방문목적은 \"Tour.\" 한 단어로 (인솔자 안내)",
+      "지급물품 수령 (명찰 · 소책자 · ESTA · 슬리퍼 · 배기지택 · 110V 플러그 · E-Ticket)", "지문 · 사진 촬영",
+      "체크아웃 시 침대 위 $1 놓기 (하우스키핑 팁)", "체크인 & 여권 제시", "카드사에 해외사용 알림 등록", "캐리어 무게 측정",
+      "캐리어 무게 측정 (위탁 23kg · 삼면합 158cm 이내)", "캐리어 무게 확인 (쇼핑 후 초과 주의)", "탑승구 위치·시간 확인 (YP111)",
+      "트래블카드 달러 충전", "트래블카드 달러 충전 (개인 쇼핑용)", "팀 미팅 최소 1회 진행 (전원 인증샷 → 오픈채팅방, 커피쿠폰 지원)",
+      "팀프로젝트 미션수행 계획서 제출", "팁: 침대 위 $1~2 (하우스키핑)"
+    ];
+
+    // 새 시드로 갱신하되, 이름이 같으면 사용자가 남긴 값을 이어받는다
+    const byName = new Map((s.packing || []).map((p) => [p.name, p]));
+    const packing = PACKING_SEED.map((item) => {
+      const prev = byName.get(item.name);
+      if (prev) byName.delete(item.name);
+      return {
+        id: prev?.id || uid(),
+        ...item,
+        checked: prev ? !!prev.checked : false,
+        bought: prev ? !!prev.bought : false,
+        link: prev?.link || '',
+        price: prev && prev.price ? prev.price : item.price,
+        note: (prev && prev.note) ? prev.note : (item.note || ''),
+      };
+    });
+    // 남은 것 중 과거 시드는 버리고, 직접 추가한 항목은 살린다
+    const customPack = [...byName.values()]
+      .filter((p) => !OLD_PACK.includes(p.name))
+      .map((p) => ({ ...p, cat: PACK_CATS.includes(p.cat) ? p.cat : '생필품' }));
+    s.packing = [...packing, ...customPack];
+
+    const byCheck = new Map((s.travelCheck || []).map((c) => [c.name, c]));
+    const checks = TRAVEL_CHECK_SEED.map((item) => {
+      const prev = byCheck.get(item.name);
+      if (prev) byCheck.delete(item.name);
+      return { id: prev?.id || uid(), ...item, done: prev ? !!prev.done : false };
+    });
+    const customCheck = [...byCheck.values()]
+      .filter((c) => !OLD_CHECK.includes(c.name))
+      .map((c) => ({ ...c, phase: CHECK_PHASES.includes(c.phase) ? c.phase : '출국 전' }));
+    s.travelCheck = [...checks, ...customCheck];
   },
   // v6: 확인되지 않은 여행자보험 항목 제거 (단체보험 포함 여부 미확인)
   6: (s) => {
