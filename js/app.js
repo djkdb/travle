@@ -14,6 +14,7 @@ const TABS = [
   { id: 'questions',  label: '질문',     icon: 'help-circle',  color: 'var(--purple)' },
   { id: 'english',    label: '영어',     icon: 'languages',    color: 'var(--teal)' },
   { id: 'guide',      label: '가이드',   icon: 'map',          color: 'var(--orange)' },
+  { id: 'meals',      label: '식단',     icon: 'utensils',     color: 'var(--green)' },
   { id: 'shopping',   label: '쇼핑',     icon: 'tag',          color: 'var(--pink)' },
   { id: 'budget',     label: '경비',     icon: 'wallet',       color: 'var(--green)' },
   { id: 'diary',      label: '일기',     icon: 'book-open',    color: 'var(--purple)' },
@@ -329,6 +330,13 @@ function buildSearchIndex() {
     action: () => { vs.guideOpen = g.id; switchTab('guide'); },
   })));
 
+  MEALS.forEach((d) => d.rows.forEach((r) => idx.push({
+    type: '식단', icon: 'utensils', tab: 'meals',
+    title: `${r.place}`, sub: `${d.day}일차 ${r.kind} · ${r.menu}`,
+    text: `${r.place} ${r.kind} ${r.menu} ${d.date}`,
+    action: () => switchTab('meals'),
+  })));
+
   state.shopping.forEach((s) => idx.push({
     type: '쇼핑', icon: 'tag', tab: 'shopping',
     title: s.name, sub: `${s.place}${s.note ? ' · ' + s.note : ''}`, text: `${s.name} ${s.place} ${s.note || ''}`,
@@ -538,6 +546,7 @@ function showIntro() {
           ${[
             ['cpu', '프로젝트', '추천 주제 6개 + 초안'],
             ['languages', '영어', '회화 · 발음 · 퀴즈'],
+            ['utensils', '식단', '8일치 식당 · 메뉴'],
             ['map', '가이드', '팁 · 치안 · 비상연락'],
             ['wallet', '경비', '지출 · 환율 계산기'],
             ['book-open', '일기', '하루 기록 · 사진'],

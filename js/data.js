@@ -852,6 +852,82 @@ const ENGLISH = [
   },
 ];
 
+/* ---------- 식단표 (2026.08.12 변동본) ----------
+   ※ 식당 및 메뉴는 현지 사정에 의하여 변동될 수 있습니다.
+   free: 자유식(현금 지급) / provided: 기업탐방 현장 제공 */
+const MEALS = [
+  {
+    date: '2026-08-17', day: 1,
+    rows: [
+      { kind: '석식', place: '인천국제공항', menu: '자유식 — 현금 지급', free: true },
+      { kind: '석식', place: "Nick's Light House", menu: '깔라마리튀김(에피타이저) + 클램차우더 CUP + 새우크림파스타 + 샐러드 + 소다' },
+    ],
+  },
+  {
+    date: '2026-08-18', day: 2,
+    rows: [
+      { kind: '조식', place: '호텔 내', menu: '호텔뷔페' },
+      { kind: '중식', place: 'Chick-fil-A', menu: '수제햄버거 + 감자튀김 + 소다' },
+      { kind: '석식', place: 'Wagon Wheel BBQ', menu: '4 Ribs + 2 Sides + 빵 + 소다' },
+    ],
+  },
+  {
+    date: '2026-08-19', day: 3,
+    rows: [
+      { kind: '조식', place: '호텔 내', menu: '호텔뷔페' },
+      { kind: '중식', place: '스탠포드 내', menu: '자유식 — 현금 지급', free: true },
+      { kind: '석식', place: '시골집', menu: '김치찌개 + 된장찌개 + 제육볶음 + 고등어구이 + 각종 밑반찬' },
+    ],
+  },
+  {
+    date: '2026-08-20', day: 4,
+    rows: [
+      { kind: '조식', place: '호텔 내', menu: '호텔뷔페' },
+      { kind: '중식', place: 'Dope Pho', menu: '쌀국수 + 스프링롤' },
+      { kind: '석식', place: 'Lam Research', menu: '기업탐방 시 석식 제공', provided: true },
+    ],
+  },
+  {
+    date: '2026-08-21', day: 5,
+    rows: [
+      { kind: '조식', place: '호텔 내', menu: '호텔뷔페' },
+      { kind: '중식', place: '요세미티 내 랏지', menu: '수제햄버거 + 감자튀김 + 소다' },
+      { kind: '석식', place: '골든하버', menu: '차이나뷔페' },
+    ],
+  },
+  {
+    date: '2026-08-22', day: 6,
+    rows: [
+      { kind: '조식', place: '호텔 내', menu: '호텔뷔페' },
+      { kind: '중식', place: '유니버셜 내', menu: '자유식 — 현금 지급', free: true },
+      { kind: '석식', place: '버드나무', menu: '무제한 코리안 고기 BBQ' },
+    ],
+  },
+  {
+    date: '2026-08-23', day: 7,
+    rows: [
+      { kind: '조식', place: '호텔 내', menu: '호텔뷔페' },
+      { kind: '중식', place: "Raising Cane's", menu: '3 치킨텐더 + 감자튀김 + 토스트 + 콜슬로 + 소다' },
+      { kind: '석식', place: '소나무', menu: '보쌈정식' },
+    ],
+  },
+  {
+    date: '2026-08-24', day: 8,
+    rows: [
+      { kind: '조식', place: '호텔 내', menu: '호텔뷔페' },
+      { kind: '중식', place: '인앤아웃', menu: '수제햄버거 + 감자튀김 + 소다' },
+      { kind: '석식', place: '신북경', menu: '중국식 코스요리' },
+    ],
+  },
+];
+
+/* 식사 구분 메타 */
+const MEAL_KINDS = {
+  조식: { icon: 'sunrise', color: '#ff9f0a' },
+  중식: { icon: 'utensils', color: '#30d158' },
+  석식: { icon: 'moon', color: '#bf5af2' },
+};
+
 /* ---------- 캘리포니아 가이드 ----------
    각 섹션의 source에 출처를 밝힌다.
    'OT 자료' = 배부받은 공식 자료 / '운영진 공지' = 단톡방 안내

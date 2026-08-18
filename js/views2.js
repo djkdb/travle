@@ -1499,3 +1499,73 @@ Views.settings = {
     };
   },
 };
+
+/* ============================================================
+   16. 식단
+   ============================================================ */
+Views.meals = {
+  title: '식단',
+  sub: '8일치 식사 · 식당과 메뉴',
+
+  render() {
+    const today = ymd();
+    const freeCount = MEALS.flatMap((d) => d.rows).filter((r) => r.free).length;
+
+    return `
+      <div class="card mb-12" style="background:linear-gradient(135deg, rgba(48,209,88,.18), rgba(255,159,10,.12))">
+        <div class="card-title">${icon('utensils')} 식단표</div>
+        <p class="small muted mt-8" style="line-height:1.6">
+          조식은 호텔 뷔페로 제공되고, <b>자유식 ${freeCount}회</b>는 현금이 지급됩니다.
+        </p>
+        <p class="small muted-3 mt-8" style="line-height:1.5">
+          ${icon('info')} 기본 제공 식단 외 추가주문·커피·음료는 개인 부담입니다.
+          알레르기가 있으면 반드시 사전에 운영진에게 공유하세요.
+        </p>
+      </div>
+
+      <div class="stagger">
+        ${MEALS.map((d) => this.dayCard(d, d.date === today)).join('')}
+      </div>
+
+      <div class="card mt-16">
+        <div class="card-title">${icon('alert-triangle')} 참고</div>
+        <p class="small muted mt-8" style="line-height:1.7">
+          · 식당과 메뉴는 <b>현지 사정에 따라 변동</b>될 수 있습니다.<br>
+          · 미국 음식은 한국인 입맛에 조금 달고 짠 편입니다.<br>
+          · 8/25 귀국일 조식은 호텔에서 제공됩니다.
+        </p>
+        <p class="small muted-3 mt-8">출처: 식단표 (2026.08.12 변동본)</p>
+      </div>`;
+  },
+
+  dayCard(d, isToday) {
+    return `
+      <div class="card ${isToday ? 'meal-today' : ''}">
+        <div class="flex items-center justify-between mb-12">
+          <div class="card-title" style="font-size:14.5px">
+            ${icon('calendar')} ${d.day}일차 · ${esc(prettyDate(d.date))}
+          </div>
+          ${isToday ? '<span class="badge t-tour">오늘</span>' : ''}
+        </div>
+        ${d.rows.map((r) => {
+          const k = MEAL_KINDS[r.kind] || MEAL_KINDS.중식;
+          return `
+            <div class="meal-row">
+              <span class="meal-kind" style="background:${k.color}1f;color:${k.color}">
+                ${icon(k.icon)}${esc(r.kind)}
+              </span>
+              <div class="flex-1" style="min-width:0">
+                <div class="meal-place">
+                  ${esc(r.place)}
+                  ${r.free ? '<span class="badge p-mid">자유식</span>' : ''}
+                  ${r.provided ? '<span class="badge t-company">현장 제공</span>' : ''}
+                </div>
+                <div class="meal-menu">${esc(r.menu)}</div>
+              </div>
+            </div>`;
+        }).join('')}
+      </div>`;
+  },
+
+  mount() {},
+};

@@ -687,6 +687,26 @@ svg { width: 18px; height: 18px; flex: none; }
 }
 .intro-dots span.on { width: 18px; background: var(--blue); }
 
+/* ---------- 식단 ---------- */
+.meal-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid var(--stroke);
+}
+.meal-row:last-child { border-bottom: none; padding-bottom: 0; }
+.meal-kind {
+  flex: none; display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 9px; border-radius: 8px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: -0.01em;
+  min-width: 56px; justify-content: center;
+}
+.meal-kind svg { width: 12px; height: 12px; }
+.meal-place {
+  font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+}
+.meal-menu { font-size: 12.5px; color: var(--text-2); line-height: 1.5; margin-top: 2px; }
+.meal-today { border-color: rgba(48, 209, 88, 0.5); background: rgba(48, 209, 88, 0.07); }
+
 /* ---------- 업데이트 안내 바 ---------- */
 .update-bar {
   position: fixed; z-index: 55;
