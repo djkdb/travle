@@ -84,7 +84,7 @@ const SCHEDULE = [
     date: '2026-08-19', day: 'DAY 3', city: '실리콘밸리 (스탠퍼드)',
     hotel: 'sv',
     items: [
-      { id: 'd3-1', time: '08:30', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '오늘은 8시 30분 출발 — 다른 날보다 30분 빠릅니다!' },
+      { id: 'd3-1', time: '08:00', type: 'meal', title: '조식 후 출발', place: '호텔 뷔페', desc: '★ 오늘은 8시 출발 — 연수 중 가장 이릅니다. 조식 시간을 넉넉히 잡으세요. (운영진 공지 · 일정표상 8:30에서 앞당겨짐)' },
       { id: 'd3-2', time: '09:00', type: 'company', title: '인텔 뮤지엄', place: 'Santa Clara, CA', companyId: 'intel', desc: '무어의 법칙의 고향. 반도체 역사 전시 — 팀프로젝트 자료조사의 보고.' },
       { id: 'd3-3', time: '11:00', type: 'company', title: '프로그램 1 · 스탠퍼드 캠퍼스 투어', place: 'Stanford University', companyId: 'stanford', desc: '재학생이 직접 안내하는 캠퍼스 투어. 서점에서 굿즈 구매 가능.' },
       { id: 'd3-4', time: '12:00', type: 'meal', title: '중식 (자유식)', place: 'Stanford University', desc: '자유식 — 현금이 지급됩니다. 캠퍼스 식당에서 학생들과 같은 공간에서 식사.' },
@@ -1631,7 +1631,7 @@ HP는 스탠퍼드 터먼 교수가 제자들의 창업을 독려해 나온 첫 
 | 팀원 B | 대학의 역할 · 구조도 | Stanford 투어·네트워킹 |
 | 팀원 C | 한국 비교 조사 | 국내 자료, Apple/Google |
 
-**규칙**: 8/19은 아침 8시 30분 출발이다. 셋 다 늦지 않게.`,
+**규칙**: 8/19은 아침 8시 출발이다. 연수 중 가장 이르니 셋 다 늦지 않게.`,
     },
   },
 
